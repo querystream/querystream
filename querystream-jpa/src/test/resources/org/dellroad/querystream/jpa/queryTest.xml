@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="
+   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- DataSource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"
+        p:driverClass="org.h2.Driver" p:url="jdbc:h2:mem:test"/>
+
+    <!-- JPA EntityManager -->
+    <bean id="entityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+      p:dataSource-ref="dataSource" p:persistenceUnitName="test">
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+    </bean>
+
+    <!-- TransactionManager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+      p:entityManagerFactory-ref="entityManager"/>
+
+    <!-- Activate Spring annotation support -->
+    <context:annotation-config/>
+
+    <!-- Activate @Transactional annotations -->
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
+
+</beans>

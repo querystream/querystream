@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.dellroad</groupId>
+        <artifactId>querystream</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>querystream-test</artifactId>
+    <name>Test model classes for QueryStream</name>
+    <description>Test model classes for QueryStream</description>
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}-site</id>
+            <url>file://${project.basedir}/../site/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    <dependencies>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+
+            <!-- Generate DDL for test model classes -->
+            <plugin>
+                <groupId>de.jpdigital</groupId>
+                <artifactId>hibernate52-ddl-maven-plugin</artifactId>
+                <version>2.1.0</version>
+                <configuration>
+                    <dialects>
+                        <param>h2</param>
+                    </dialects>
+                    <packages>
+                        <param>org.dellroad.querystream.jpa.model</param>
+                    </packages>
+                    <outputDirectory>${project.build.outputDirectory}/META-INF/${project.artifactId}</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>gen-ddl</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

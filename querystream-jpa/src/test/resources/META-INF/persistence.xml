@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- $Id: persistence.xml 5792 2017-03-10 18:07:13Z archie $ -->
+<persistence version="2.1"
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="test">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>org.dellroad.querystream.jpa.test.Employee</class>
+        <class>org.dellroad.querystream.jpa.test.Department</class>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+        <validation-mode>AUTO</validation-mode>
+        <properties>
+
+            <!-- Hibernate properties -->
+            <property name="hibernate.connection.release_mode" value="on_close"/>
+            <property name="hibernate.default_batch_fetch_size" value="16"/>
+            <property name="hibernate.default_entity_mode" value="pojo"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.max_fetch_depth" value="2"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- Hibernate JDBC and connection properties -->
+            <property name="hibernate.jdbc.batch_size" value="15"/>
+            <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
+            <property name="hibernate.query.jpaql_strict_compliance" value="false"/>
+        </properties>
+    </persistence-unit>
+</persistence>
