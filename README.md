@@ -211,4 +211,4 @@ QueryStream is available from [Maven Central](http://search.maven.org/#search|ga
 
 ### API Javadocs
 
-Located [here](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.html)
+Located [here](https://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.Builder.html)
