@@ -85,15 +85,15 @@ With QueryStream, your code becomes more visually intuitive:
 
 Bulk deletes and updates are also supported.
 
-The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream) interface has three subinterfaces for searches, bulk deletes, and bulk updates; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream), and [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream).
+The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.html) interface has three subinterfaces for searches, bulk deletes, and bulk updates; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream), and [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream).
 
- * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html) instance
- * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaDelete.html) instance
- * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
+ * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream.html) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html) instance
+ * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream.html) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaDelete.html) instance
+ * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream.html) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
 
 ## Single Values
 
-Some queries are known to return a single value. The [SearchValue](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchValue) and its subinterfaces have a `value()` method, which executes the query and returns the value:
+Some queries are known to return a single value. The [SearchValue](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchValue.html) and its subinterfaces have a `value()` method, which executes the query and returns the value:
 
 ```java
     public double getAverageSalary(Employee manager) {
@@ -108,7 +108,7 @@ Some queries are known to return a single value. The [SearchValue](http://querys
 
 ## References
 
-[Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`'ing the reference at an earlier step.
+[Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref.html) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`'ing the reference at an earlier step.
 
 References also help code clarity, because they provide a way to give meaningful names to important expressions.
 
