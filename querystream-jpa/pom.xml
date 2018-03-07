@@ -12,7 +12,7 @@
     </parent>
     <artifactId>querystream-jpa</artifactId>
     <name>QueryStream</name>
-    <description>A simpler way to build JPA Criteria queries, using a Stream-like API</description>
+    <description>Build JPA Criteria queries using a Stream-like API</description>
     <distributionManagement>
         <site>
             <id>${project.artifactId}-site</id>
