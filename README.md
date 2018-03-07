@@ -1,4 +1,4 @@
-### QueryStream: Build JPA Criteria queries using a Stream-like API
+### QueryStream
 
 QueryStream allows you to perform JPA queries using a `Stream`-like API.
 
