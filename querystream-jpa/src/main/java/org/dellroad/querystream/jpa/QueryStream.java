@@ -104,6 +104,9 @@ public interface QueryStream<X,
 
     /**
      * Builder for {@link QueryStream} and related classes.
+     *
+     * <p>
+     * Instances are created via {@link QueryStream#newBuilder QueryStream.newBuilder()}.
      */
     final class Builder {
 
