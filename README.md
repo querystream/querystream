@@ -8,7 +8,7 @@ Each step in a `QueryStream` pipeline modifies an internal [JPA Criteria query](
 
 When you're ready to execute the pipeline:
 
-  * Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html); or
+  * Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html); or
   * Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html); or
   * Invoke `QueryStream.getResultList()` to do #1 and #2 then execute the query
 
@@ -87,9 +87,9 @@ Bulk deletes and updates are also supported.
 
 The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.html) interface has three subinterfaces for searches, bulk deletes, and bulk updates; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream), and [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream).
 
- * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream.html) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html) instance
- * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream.html) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaDelete.html) instance
- * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream.html) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
+ * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream.html) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html) instance
+ * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream.html) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaDelete.html) instance
+ * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream.html) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaUpdate.html) instance
 
 ## Single Values
 
