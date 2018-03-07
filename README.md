@@ -2,32 +2,23 @@
 
 QueryStream allows you to perform JPA queries using a `Stream`-like API.
 
-Just like Java 8's `Stream`s `QueryStream`s are built up in a pipeline, using methods like `map()`, `flatMap()`, `filter()`, etc.
+Just like a Java 8 `Stream`, a `QueryStream` is built up in a pipeline, using methods like `map()`, `flatMap()`, `filter()`, etc.
 
-With `QueryStream`, each step in the pipeline applies configuration to an internally generated [JPA Criteria query](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/package-summary.html).
+Each step in a `QueryStream` pipeline modifies an internal [JPA Criteria query](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/package-summary.html).
 
 When you're ready to execute the pipeline:
 
-  * Invoke `QueryStream.toCriteriaQuery()` to create a [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html)
-  * Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html)
-  * Invoke `QueryStream.getResultList()` to do #1 and #2 also execute the query
+  * Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html); or
+  * Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html); or
+  * Invoke `QueryStream.getResultList()` to do #1 and #2 then execute the query
 
 ## Example
 
-Payroll costs are getting out of control. You need a list of all managers whose direct reports have a average salary above $50,000, ordered from highest to lowest.
+Payroll costs are getting out of control. You need a list of all managers whose direct reports have an average salary above $50,000, ordered from highest to lowest.
 
 Here's how you'd build a Criteria query the usual way:
 
 ```java
-    @PersistenceContext
-    private EntityManager entityManager;
-    private CriteriaBuilder cb;
-
-    @PostConstruct
-    private void setupCriteriaBuilder() {
-        this.cb = this.entityManager.getCriteriaBuilder();
-    }
-
     public List<Employee> getHighPayrollManagers(EntityManager entityManager) {
 
         // Construct query
@@ -43,25 +34,23 @@ Here's how you'd build a Criteria query the usual way:
         final TypedQuery<Employee> typedQuery = entityManager.createQuery(criteriaQuery);
         return typedQuery.getResultList();
     }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+    private CriteriaBuilder cb;
+
+    @PostConstruct
+    private void setupCriteriaBuilder() {
+        this.cb = this.entityManager.getCriteriaBuilder();
+    }
 ```
 
 With QueryStream, your code becomes more visually intuitive:
 
 ```java
-    @PersistenceContext
-    private EntityManager entityManager;
-    private CriteriaBuilder cb;
-    private QueryStream.Builder qb;
-
-    @PostConstruct
-    private void setupBuilders() {
-        this.cb = this.entityManager.getCriteriaBuilder();
-        this.qb = QueryStream.newBuilder(this.entityManager);
-    }
-
     public List<Employee> getHighPayrollManagers() {
 
-        // Create references we will use
+        // Create a couple of references
         final RootRef<Employee> manager = new RootRef<>();
         final ExprRef<Double> avgSalary = new ExprRef<>();
 
@@ -77,17 +66,30 @@ With QueryStream, your code becomes more visually intuitive:
           .orderBy(avgSalary, false)
           .getResultList();
     }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+    private CriteriaBuilder cb;
+    private QueryStream.Builder qb;
+
+    @PostConstruct
+    private void setupBuilders() {
+        this.cb = this.entityManager.getCriteriaBuilder();
+        this.qb = QueryStream.newBuilder(this.entityManager);
+    }
 ```
+
+(See [#references]below) for more information about references.
 
 ## Bulk Updates and Deletes
 
-Bulk updates and deletes are also supported.
+Bulk deletes and updates are also supported.
 
-The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream) interface has three subinterfaces for searching, bulk updates, and bulk deletes; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream), and [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream).
+The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream) interface has three subinterfaces for searches, bulk deletes, and bulk updates; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream), and [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream).
 
  * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html) instance
- * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
  * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaDelete.html) instance
+ * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
 
 ## Single Values
 
@@ -106,17 +108,17 @@ Some queries are known to return a single value. The [SearchValue](http://querys
 
 ## References
 
-[Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`ing the reference at an earlier step.
+[Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`'ing the reference at an earlier step.
 
 References also help code clarity, because they provide a way to give meaningful names to important expressions.
 
-See the `getHighPayrollManagers()` example above for how it works.
+See the `getHighPayrollManagers()` example above for how it works. The main thing to remember is that the `bind()` must occur prior to the use of the reference in the pipeline.
 
 ## Subqueries
 
 Any stream can be converted into a subquery using `asSubquery()` or `exists()`.
 
-To find all managers who have a direct report making over $100,000:
+To find all managers for whom there exists a direct report making over $100,000:
 
 ```java
     public List<Employee> findManagersWithSixFigureDirectReport() {
@@ -129,7 +131,9 @@ To find all managers who have a direct report making over $100,000:
     }
 ```
 
-To find all employees with salary greater than the average of all their manager's direct reports:
+Note the subquery correlation done via `CriteriaBuilder.equal()`.
+
+To find all employees with salary greater than the average of their manager's direct reports:
 
 ```java
     public List<Employee> findEmployeesWithAboveAverageSalaries() {
@@ -197,6 +201,12 @@ Here's an example that finds all managers paired with the average salary of thei
           .getResultList();
     }
 ```
+
+## Unsupported Operations
+
+Operations that apply to a JPA `TypedQuery` but not a `CriteriaQuery`, such `setMaxResults()`, `setLockMode()`, `setParameter()`, etc., are not supported by the `QueryStream` API.
+
+Instead, invoke `QueryStream.toQuery()`, and then perform these operations directly on the returned `TypedQuery`.
 
 ### Installation
 
