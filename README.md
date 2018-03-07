@@ -83,15 +83,15 @@ With QueryStream, your code becomes more visually intuitive:
 
 Bulk updates and deletes are also supported.
 
-The [QueryStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream) interface has three subinterfaces for searching, bulk updates, and bulk deletes; these are [SearchStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [UpdateStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream), and [DeleteStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream).
+The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream) interface has three subinterfaces for searching, bulk updates, and bulk deletes; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream), and [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream).
 
- * A [SearchStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html) instance
- * An [UpdateStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
- * A [DeleteStream](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaDelete.html) instance
+ * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaQuery.html) instance
+ * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaUpdate.html) instance
+ * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/CriteriaDelete.html) instance
 
 ## Single Values
 
-Some queries are known to return a single value. The [SearchValue](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchValue) and its subinterfaces have a `value()` method, which executes the query and returns the value:
+Some queries are known to return a single value. The [SearchValue](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchValue) and its subinterfaces have a `value()` method, which executes the query and returns the value:
 
 ```java
     public double getAverageSalary(Employee manager) {
@@ -106,7 +106,7 @@ Some queries are known to return a single value. The [SearchValue](http://archie
 
 ## References
 
-[Ref](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`ing the reference at an earlier step.
+[Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`ing the reference at an earlier step.
 
 References also help code clarity, because they provide a way to give meaningful names to important expressions.
 
@@ -211,4 +211,4 @@ QueryStream is available from [Maven Central](http://search.maven.org/#search|ga
 
 ### API Javadocs
 
-Located [here](http://archiecobbs.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.html)
+Located [here](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.html)
