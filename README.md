@@ -79,7 +79,7 @@ With QueryStream, your code becomes more visually intuitive:
     }
 ```
 
-(See [#references]below) for more information about references.
+[See below](#references) for more information about references.
 
 ## Bulk Updates and Deletes
 
