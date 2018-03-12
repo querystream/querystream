@@ -7,6 +7,7 @@ package org.dellroad.querystream.jpa;
 
 import java.util.function.Function;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
@@ -20,10 +21,25 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      * Build and evaluate a JPA query based on this instance and return the single result, if any.
      *
      * @return result of executed query
-     * @throws javax.persistence.NoResultException if there is no result
+     * @throws NoResultException if there is no result
      */
     default X value() {
         return this.toQuery().getSingleResult();
+    }
+
+    /**
+     * Build and evaluate a JPA query based on this instance and return the single result, if any,
+     * otherwise the given value.
+     *
+     * @param defaultValue value to return if there is no match
+     * @return result of executed query, or {@code defaultValue} if not found
+     */
+    default X orElse(X defaultValue) {
+        try {
+            return this.toQuery().getSingleResult();
+        } catch (NoResultException e) {
+            return defaultValue;
+        }
     }
 
 // Narrowing overrides (SearchStream)
