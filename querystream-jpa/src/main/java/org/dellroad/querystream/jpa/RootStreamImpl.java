@@ -13,6 +13,7 @@ import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -112,6 +113,12 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public RootStream<X> bind(Ref<X, ? super Root<X>> ref) {
         return (RootStream<X>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> RootStream<X> bind(
+      Ref<X2, ? super S2> ref, Function<? super Root<X>, ? extends S2> refFunction) {
+        return (RootStream<X>)super.bind(ref, refFunction);
     }
 
     @Override

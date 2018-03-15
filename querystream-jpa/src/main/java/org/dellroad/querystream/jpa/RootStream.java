@@ -11,6 +11,7 @@ import java.util.function.Function;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -60,6 +61,9 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
 
     @Override
     RootStream<X> bind(Ref<X, ? super Root<X>> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> RootStream<X> bind(Ref<X2, ? super S2> ref, Function<? super Root<X>, ? extends S2> refFunction);
 
     @Override
     RootStream<X> filter(SingularAttribute<? super X, Boolean> attribute);

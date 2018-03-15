@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Selection;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
 
@@ -114,6 +115,12 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     @Override
     public IntStream bind(Ref<Integer, ? super Expression<Integer>> ref) {
         return (IntStream)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> IntStream bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Integer>, ? extends S2> refFunction) {
+        return (IntStream)super.bind(ref, refFunction);
     }
 
     @Override

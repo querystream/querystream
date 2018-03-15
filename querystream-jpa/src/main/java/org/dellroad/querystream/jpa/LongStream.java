@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Selection;
 
 /**
  * {@link SearchStream} containing {@link Long} values.
@@ -68,6 +69,10 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
 
     @Override
     LongStream bind(Ref<Long, ? super Expression<Long>> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> LongStream bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Long>, ? extends S2> refFunction);
 
     @Override
     LongStream filter(Function<? super Expression<Long>, ? extends Expression<Boolean>> predicateBuilder);

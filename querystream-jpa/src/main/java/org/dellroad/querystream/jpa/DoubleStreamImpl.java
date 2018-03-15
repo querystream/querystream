@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Selection;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
 
@@ -114,6 +115,12 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     @Override
     public DoubleStream bind(Ref<Double, ? super Expression<Double>> ref) {
         return (DoubleStream)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> DoubleStream bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Double>, ? extends S2> refFunction) {
+        return (DoubleStream)super.bind(ref, refFunction);
     }
 
     @Override

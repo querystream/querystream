@@ -10,6 +10,7 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -36,6 +37,12 @@ class IntValueImpl extends IntStreamImpl implements IntValue {
     @Override
     public IntValue bind(Ref<Integer, ? super Expression<Integer>> ref) {
         return (IntValue)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> IntValue bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Integer>, ? extends S2> refFunction) {
+        return (IntValue)super.bind(ref, refFunction);
     }
 
     @Override

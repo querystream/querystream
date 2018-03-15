@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.MapAttribute;
 import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
@@ -87,6 +88,9 @@ public interface ExprValue<X, S extends Expression<X>> extends SearchValue<X, S>
 
     @Override
     ExprValue<X, S> bind(Ref<X, ? super S> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> ExprValue<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);
 
     @Override
     ExprValue<X, S> filter(SingularAttribute<? super X, Boolean> attribute);

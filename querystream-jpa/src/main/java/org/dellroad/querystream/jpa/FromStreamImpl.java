@@ -13,6 +13,7 @@ import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -156,6 +157,12 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     @Override
     public FromStream<X, S> bind(Ref<X, ? super S> ref) {
         return (FromStream<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> FromStream<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (FromStream<X, S>)super.bind(ref, refFunction);
     }
 
     @Override

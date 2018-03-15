@@ -545,6 +545,9 @@ public interface SearchStream<X, S extends Selection<X>>
     SearchStream<X, S> bind(Ref<X, ? super S> ref);
 
     @Override
+    <X2, S2 extends Selection<X2>> SearchStream<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);
+
+    @Override
     SearchStream<X, S> filter(SingularAttribute<? super X, Boolean> attribute);
 
     @Override

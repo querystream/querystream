@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Selection;
 
 /**
  * {@link SearchStream} containing {@link Double} values.
@@ -62,6 +63,10 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
 
     @Override
     DoubleStream bind(Ref<Double, ? super Expression<Double>> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> DoubleStream bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Double>, ? extends S2> refFunction);
 
     @Override
     DoubleStream filter(Function<? super Expression<Double>, ? extends Expression<Boolean>> predicateBuilder);

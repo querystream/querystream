@@ -11,6 +11,7 @@ import java.util.function.Function;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -60,6 +61,9 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
 
     @Override
     PathStream<X, S> bind(Ref<X, ? super S> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> PathStream<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);
 
     @Override
     PathStream<X, S> filter(SingularAttribute<? super X, Boolean> attribute);

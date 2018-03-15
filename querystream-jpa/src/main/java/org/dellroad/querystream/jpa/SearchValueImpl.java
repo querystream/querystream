@@ -40,6 +40,12 @@ class SearchValueImpl<X, S extends Selection<X>> extends SearchStreamImpl<X, S> 
     }
 
     @Override
+    public <X2, S2 extends Selection<X2>> SearchValue<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (SearchValue<X, S>)super.bind(ref, refFunction);
+    }
+
+    @Override
     public SearchValue<X, S> filter(SingularAttribute<? super X, Boolean> attribute) {
         return (SearchValue<X, S>)super.filter(attribute);
     }

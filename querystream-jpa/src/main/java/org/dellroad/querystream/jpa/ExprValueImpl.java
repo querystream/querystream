@@ -10,6 +10,7 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -36,6 +37,12 @@ class ExprValueImpl<X, S extends Expression<X>> extends ExprStreamImpl<X, S> imp
     @Override
     public ExprValue<X, S> bind(Ref<X, ? super S> ref) {
         return (ExprValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> ExprValue<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (ExprValue<X, S>)super.bind(ref, refFunction);
     }
 
     @Override

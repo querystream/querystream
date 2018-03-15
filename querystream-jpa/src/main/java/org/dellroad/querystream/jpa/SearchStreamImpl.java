@@ -173,6 +173,12 @@ class SearchStreamImpl<X, S extends Selection<X>>
     }
 
     @Override
+    public <X2, S2 extends Selection<X2>> SearchStream<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (SearchStream<X, S>)super.bind(ref, refFunction);
+    }
+
+    @Override
     public SearchStream<X, S> filter(SingularAttribute<? super X, Boolean> attribute) {
         return (SearchStream<X, S>)super.filter(attribute);
     }

@@ -65,6 +65,20 @@ public interface QueryStream<X,
      */
     QueryStream<X, S, C, C2, Q> bind(Ref<X, ? super S> ref);
 
+    /**
+     * Bind an unbound reference to the result of applying the given function to the items in this stream.
+     *
+     * @param ref unbound reference
+     * @param refFunction function mapping this stream's {@link Selection} to the reference value
+     * @param <X2> type of the bound value
+     * @param <S2> criteria type of the bound value
+     * @throws IllegalArgumentException if {@code ref} is already bound
+     * @throws IllegalArgumentException if {@code ref} or {@code refFunction} is null
+     * @return new stream that binds {@code ref}
+     */
+    <X2, S2 extends Selection<X2>> QueryStream<X, S, C, C2, Q> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);
+
 // Filtering
 
     /**

@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Selection;
 
 /**
  * {@link SearchStream} containing {@link Integer} values.
@@ -72,6 +73,10 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
 
     @Override
     IntStream bind(Ref<Integer, ? super Expression<Integer>> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> IntStream bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Integer>, ? extends S2> refFunction);
 
     @Override
     IntStream filter(Function<? super Expression<Integer>, ? extends Expression<Boolean>> predicateBuilder);

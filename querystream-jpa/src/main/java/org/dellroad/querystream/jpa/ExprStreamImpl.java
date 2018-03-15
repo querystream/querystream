@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -135,6 +136,12 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     @Override
     public ExprStream<X, S> bind(Ref<X, ? super S> ref) {
         return (ExprStream<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> ExprStream<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (ExprStream<X, S>)super.bind(ref, refFunction);
     }
 
     @Override

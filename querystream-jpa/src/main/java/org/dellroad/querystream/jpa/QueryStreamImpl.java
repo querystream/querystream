@@ -142,13 +142,21 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public QueryStream<X, S, C, C2, Q> bind(Ref<X, ? super S> ref) {
+        return this.bind(ref, s -> s);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> QueryStream<X, S, C, C2, Q> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
         if (ref == null)
             throw new IllegalArgumentException("null ref");
+        if (refFunction == null)
+            throw new IllegalArgumentException("null refFunction");
         if (ref.isBound())
             throw new IllegalArgumentException("reference is already bound");
         return this.withConfig((builder, query) -> {
             final S selection = this.configure(builder, query);
-            ref.bind(selection);
+            ref.bind(refFunction.apply(selection));
             return selection;
         });
     }

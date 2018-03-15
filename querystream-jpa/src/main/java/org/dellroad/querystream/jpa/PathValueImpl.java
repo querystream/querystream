@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -37,6 +38,12 @@ class PathValueImpl<X, S extends Path<X>> extends PathStreamImpl<X, S> implement
     @Override
     public PathValue<X, S> bind(Ref<X, ? super S> ref) {
         return (PathValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> PathValue<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (PathValue<X, S>)super.bind(ref, refFunction);
     }
 
     @Override

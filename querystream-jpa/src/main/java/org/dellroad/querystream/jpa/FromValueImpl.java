@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -37,6 +38,12 @@ class FromValueImpl<X, S extends From<?, X>> extends FromStreamImpl<X, S> implem
     @Override
     public FromValue<X, S> bind(Ref<X, ? super S> ref) {
         return (FromValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> FromValue<X, S> bind(
+      Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction) {
+        return (FromValue<X, S>)super.bind(ref, refFunction);
     }
 
     @Override

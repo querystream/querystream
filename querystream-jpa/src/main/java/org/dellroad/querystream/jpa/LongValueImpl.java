@@ -10,6 +10,7 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -35,6 +36,12 @@ class LongValueImpl extends LongStreamImpl implements LongValue {
     @Override
     public LongValue bind(Ref<Long, ? super Expression<Long>> ref) {
         return (LongValue)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> LongValue bind(
+      Ref<X2, ? super S2> ref, Function<? super Expression<Long>, ? extends S2> refFunction) {
+        return (LongValue)super.bind(ref, refFunction);
     }
 
     @Override
