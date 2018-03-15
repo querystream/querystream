@@ -13,6 +13,7 @@ import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -98,6 +99,11 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     @Override
     public PathValue<X, S> findFirst() {
         return (PathValue<X, S>)super.findFirst();
+    }
+
+    @Override
+    public <R> PathStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
+        return (PathStream<X, S>)super.addRoot(ref, type);
     }
 
 // Narrowing overrides (QueryStreamImpl)

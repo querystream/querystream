@@ -11,6 +11,7 @@ import java.util.function.Function;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.SingularAttribute;
@@ -99,6 +100,9 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
 
     @Override
     <X2, S2 extends Selection<X2>> ExprStream<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);
+
+    @Override
+    <R> ExprStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type);
 
     @Override
     ExprStream<X, S> filter(SingularAttribute<? super X, Boolean> attribute);

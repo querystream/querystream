@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -108,6 +109,11 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     @Override
     public IntValue findFirst() {
         return (IntValue)super.findFirst();
+    }
+
+    @Override
+    public <R> IntStream addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
+        return (IntStream)super.addRoot(ref, type);
     }
 
 // Narrowing overrides (QueryStreamImpl)

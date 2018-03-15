@@ -66,6 +66,9 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
     <X2, S2 extends Selection<X2>> RootStream<X> bind(Ref<X2, ? super S2> ref, Function<? super Root<X>, ? extends S2> refFunction);
 
     @Override
+    <R> RootStream<X> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type);
+
+    @Override
     RootStream<X> filter(SingularAttribute<? super X, Boolean> attribute);
 
     @Override

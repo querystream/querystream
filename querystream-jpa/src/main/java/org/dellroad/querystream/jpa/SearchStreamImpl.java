@@ -19,6 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -158,6 +159,21 @@ class SearchStreamImpl<X, S extends Selection<X>>
     @Override
     public SearchValue<X, S> findFirst() {
         return this.toValue();
+    }
+
+// Binding
+
+    @Override
+    public <R> SearchStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
+        if (ref == null)
+            throw new IllegalArgumentException("null ref");
+        if (type == null)
+            throw new IllegalArgumentException("null type");
+        return this.withConfig((builder, query) -> {
+            final S selection = this.configure(builder, query);
+            ref.bind(query.from(type));
+            return selection;
+        });
     }
 
 // Narrowing overrides (QueryStreamImpl)

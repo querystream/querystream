@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
 /**
@@ -67,6 +68,9 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
     @Override
     <X2, S2 extends Selection<X2>> DoubleStream bind(
       Ref<X2, ? super S2> ref, Function<? super Expression<Double>, ? extends S2> refFunction);
+
+    @Override
+    <R> DoubleStream addRoot(Ref<R, ? super Root<R>> ref, Class<R> type);
 
     @Override
     DoubleStream filter(Function<? super Expression<Double>, ? extends Expression<Boolean>> predicateBuilder);

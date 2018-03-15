@@ -108,6 +108,11 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
         return (RootValue<X>)super.findFirst();
     }
 
+    @Override
+    public <R> RootStream<X> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
+        return (RootStream<X>)super.addRoot(ref, type);
+    }
+
 // Narrowing overrides (QueryStreamImpl)
 
     @Override

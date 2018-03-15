@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
 /**
@@ -77,6 +78,9 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
     @Override
     <X2, S2 extends Selection<X2>> IntStream bind(
       Ref<X2, ? super S2> ref, Function<? super Expression<Integer>, ? extends S2> refFunction);
+
+    @Override
+    <R> IntStream addRoot(Ref<R, ? super Root<R>> ref, Class<R> type);
 
     @Override
     IntStream filter(Function<? super Expression<Integer>, ? extends Expression<Boolean>> predicateBuilder);

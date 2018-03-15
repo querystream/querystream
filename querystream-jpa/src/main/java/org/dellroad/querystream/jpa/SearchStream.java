@@ -21,6 +21,7 @@ import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.MapJoin;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.SetJoin;
 import javax.persistence.metamodel.CollectionAttribute;
@@ -188,6 +189,29 @@ public interface SearchStream<X, S extends Selection<X>>
      * @return single-valued stream containg the first instance in this stream (or {@code NULL} if this stream is empty)
      */
     SearchValue<X, S> findFirst();
+
+// Binding
+
+    /**
+     * Bind an unbound reference to a new query root that will be added to the query.
+     *
+     * <p>
+     * To select the new root in a {@link SearchStream}, use {@link SearchStream#map(Class, Function) SearchStream.map()},
+     * providing a {@link Function} that returns {@code ref}.
+     *
+     * <p>
+     * Note that this effectively creates an unconstrained (cross product) join with the new root.
+     * Typically there would be some additional restrictions imposed (e.g., via {@link #filter filter()})
+     * to relate the new root to the items in the stream.
+     *
+     * @param ref unbound reference
+     * @param type type of the new query root
+     * @param <R> type of the new query root
+     * @throws IllegalArgumentException if {@code ref} is already bound
+     * @throws IllegalArgumentException if {@code type} or {@code ref} is null
+     * @return new stream that binds {@code ref} to a new query root from {@code type}
+     */
+    <R> SearchStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type);
 
 // Mapping
 
