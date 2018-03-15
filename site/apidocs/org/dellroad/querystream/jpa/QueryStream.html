@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":17,"i5":6,"i6":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":17,"i6":6,"i7":6};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -166,36 +166,43 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryConfigurer.html" 
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>&lt;X2,S2 extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria">Selection</a>&lt;X2&gt;&gt;<br><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C2</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">Q</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#bind-org.dellroad.querystream.jpa.Ref-java.util.function.Function-">bind</a></span>(<a href="../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;X2,? super S2&gt;&nbsp;ref,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,? extends S2&gt;&nbsp;refFunction)</code>
+<div class="block">Bind an unbound reference to the result of applying the given function to the items in this stream.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C2</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">Q</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#filter-java.util.function.Function-">filter</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;predicateBuilder)</code>
 <div class="block">Filter results using the boolean expression produced by the given function.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C2</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">Q</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#filter-javax.persistence.metamodel.SingularAttribute-">filter</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">X</a>,<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&nbsp;attribute)</code>
 <div class="block">Filter results using the specified boolean property.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getEntityManager--">getEntityManager</a></span>()</code>
 <div class="block">Get the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a> associated with this instance.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html" title="class in org.dellroad.querystream.jpa">QueryStream.Builder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#newBuilder-javax.persistence.EntityManager-">newBuilder</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</code>
 <div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html" title="class in org.dellroad.querystream.jpa"><code>QueryStream.Builder</code></a> that constructs <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa"><code>QueryStream</code></a>s using the given <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a>.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C2</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toCriteriaQuery--">toCriteriaQuery</a></span>()</code>
 <div class="block">Build a criteria API query based on this instance.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">Q</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toQuery--">toQuery</a></span>()</code>
 <div class="block">Build a fully configured JPA query based on this instance.</div>
@@ -281,6 +288,30 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryConfigurer.html" 
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>ref</code> is already bound</dd>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>ref</code> is null</dd>
+</dl>
+</li>
+</ul>
+<a name="bind-org.dellroad.querystream.jpa.Ref-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>bind</h4>
+<pre>&lt;X2,S2 extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria">Selection</a>&lt;X2&gt;&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">C2</a>,<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">Q</a>&gt;&nbsp;bind(<a href="../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;X2,? super S2&gt;&nbsp;ref,
+                                                           <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="type parameter in QueryStream">S</a>,? extends S2&gt;&nbsp;refFunction)</pre>
+<div class="block">Bind an unbound reference to the result of applying the given function to the items in this stream.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X2</code> - type of the bound value</dd>
+<dd><code>S2</code> - criteria type of the bound value</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>ref</code> - unbound reference</dd>
+<dd><code>refFunction</code> - function mapping this stream's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Selection</code></a> to the reference value</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new stream that binds <code>ref</code></dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>ref</code> is already bound</dd>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>ref</code> or <code>refFunction</code> is null</dd>
 </dl>
 </li>
 </ul>

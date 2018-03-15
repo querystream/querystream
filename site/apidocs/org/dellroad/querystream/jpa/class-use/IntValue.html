@@ -109,34 +109,39 @@
 <td class="colLast"><span class="typeNameLabel">IntValue.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html#bind-org.dellroad.querystream.jpa.Ref-">bind</a></span>(<a href="../../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;&nbsp;ref)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>&lt;X2,S2 extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria">Selection</a>&lt;X2&gt;&gt;<br><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
+<td class="colLast"><span class="typeNameLabel">IntValue.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html#bind-org.dellroad.querystream.jpa.Ref-java.util.function.Function-">bind</a></span>(<a href="../../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;X2,? super S2&gt;&nbsp;ref,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,? extends S2&gt;&nbsp;refFunction)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">IntValue.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html#filter-java.util.function.Function-">filter</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;predicateBuilder)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">IntStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntStream.html#findAny--">findAny</a></span>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">IntStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntStream.html#findFirst--">findFirst</a></span>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>default <a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">ExprValue.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/ExprValue.html#mapToInt-java.util.function.Function-">mapToInt</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&gt;&nbsp;intExprFunction)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>default <a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">ExprValue.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/ExprValue.html#mapToInt-javax.persistence.metamodel.SingularAttribute-">mapToInt</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;attribute)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">IntStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntStream.html#max--">max</a></span>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">IntStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntStream.html#min--">min</a></span>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><span class="typeNameLabel">IntStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/IntStream.html#sum--">sum</a></span>()</code>&nbsp;</td>
 </tr>
