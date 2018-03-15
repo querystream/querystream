@@ -31,21 +31,35 @@ public class DeleteType<X> extends QueryType<X, CriteriaDelete<X>, CriteriaDelet
 
     @Override
     public CriteriaDelete<X> createCriteriaQuery(CriteriaBuilder builder) {
+        if (builder == null)
+            throw new IllegalArgumentException("null builder");
         return builder.createCriteriaDelete(this.type);
     }
 
     @Override
     public Query createQuery(EntityManager entityManager, CriteriaDelete<X> query) {
+        if (entityManager == null)
+            throw new IllegalArgumentException("null entityManager");
+        if (query == null)
+            throw new IllegalArgumentException("null query");
         return entityManager.createQuery(query);
     }
 
     @Override
     public void where(CriteriaDelete<X> query, Expression<Boolean> restriction) {
+        if (query == null)
+            throw new IllegalArgumentException("null query");
+        if (restriction == null)
+            throw new IllegalArgumentException("null restriction");
         query.where(restriction);
     }
 
     @Override
     public void where(CriteriaDelete<X> query, Predicate restriction) {
+        if (query == null)
+            throw new IllegalArgumentException("null query");
+        if (restriction == null)
+            throw new IllegalArgumentException("null restriction");
         query.where(restriction);
     }
 }

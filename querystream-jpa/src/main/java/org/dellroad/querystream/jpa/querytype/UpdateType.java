@@ -31,21 +31,35 @@ public class UpdateType<X> extends QueryType<X, CriteriaUpdate<X>, CriteriaUpdat
 
     @Override
     public CriteriaUpdate<X> createCriteriaQuery(CriteriaBuilder builder) {
+        if (builder == null)
+            throw new IllegalArgumentException("null builder");
         return builder.createCriteriaUpdate(this.type);
     }
 
     @Override
     public Query createQuery(EntityManager entityManager, CriteriaUpdate<X> query) {
+        if (entityManager == null)
+            throw new IllegalArgumentException("null entityManager");
+        if (query == null)
+            throw new IllegalArgumentException("null query");
         return entityManager.createQuery(query);
     }
 
     @Override
     public void where(CriteriaUpdate<X> query, Expression<Boolean> restriction) {
+        if (query == null)
+            throw new IllegalArgumentException("null query");
+        if (restriction == null)
+            throw new IllegalArgumentException("null restriction");
         query.where(restriction);
     }
 
     @Override
     public void where(CriteriaUpdate<X> query, Predicate restriction) {
+        if (query == null)
+            throw new IllegalArgumentException("null query");
+        if (restriction == null)
+            throw new IllegalArgumentException("null restriction");
         query.where(restriction);
     }
 }

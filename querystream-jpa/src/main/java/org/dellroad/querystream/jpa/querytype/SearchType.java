@@ -33,21 +33,35 @@ public class SearchType<X> extends QueryType<X, AbstractQuery<?>, CriteriaQuery<
 
     @Override
     public CriteriaQuery<X> createCriteriaQuery(CriteriaBuilder builder) {
+        if (builder == null)
+            throw new IllegalArgumentException("null builder");
         return builder.createQuery(this.type);
     }
 
     @Override
     public TypedQuery<X> createQuery(EntityManager entityManager, CriteriaQuery<X> query) {
+        if (entityManager == null)
+            throw new IllegalArgumentException("null entityManager");
+        if (query == null)
+            throw new IllegalArgumentException("null query");
         return entityManager.createQuery(query);
     }
 
     @Override
     public void where(AbstractQuery<?> query, Expression<Boolean> restriction) {
+        if (query == null)
+            throw new IllegalArgumentException("null query");
+        if (restriction == null)
+            throw new IllegalArgumentException("null restriction");
         query.where(restriction);
     }
 
     @Override
     public void where(AbstractQuery<?> query, Predicate restriction) {
+        if (query == null)
+            throw new IllegalArgumentException("null query");
+        if (restriction == null)
+            throw new IllegalArgumentException("null restriction");
         query.where(restriction);
     }
 
