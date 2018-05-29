@@ -142,7 +142,7 @@ To find all employees with salary greater than the average of their manager's di
               employee.get(Employee_.salary),
               qb.stream(Employee.class)
                 .filter(coworker ->
-                  builder2.equal(
+                  cb.equal(
                     coworker.get(Employee_.manager),
                     employee.get(Employee_.manager)))
                 .mapToDouble(Employee_.salary)
