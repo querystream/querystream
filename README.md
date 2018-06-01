@@ -60,7 +60,7 @@ With QueryStream, your code becomes more visually intuitive:
           .flatMap(Employee_.directReports)
           .mapToDouble(Employee_.salary)
           .average()
-          .filter(v -> cb.greaterThan(v, 50000))
+          .filter(v -> qb.greaterThan(v, 50000))
           .bind(avgSalary)
           .groupBy(manager)
           .orderBy(avgSalary, false)
@@ -69,12 +69,10 @@ With QueryStream, your code becomes more visually intuitive:
 
     @PersistenceContext
     private EntityManager entityManager;
-    private CriteriaBuilder cb;
     private QueryStream.Builder qb;
 
     @PostConstruct
     private void setupBuilders() {
-        this.cb = this.entityManager.getCriteriaBuilder();
         this.qb = QueryStream.newBuilder(this.entityManager);
     }
 ```
@@ -98,7 +96,7 @@ Some queries are known to return a single value. The [SearchValue](http://querys
 ```java
     public double getAverageSalary(Employee manager) {
         return qb.stream(Employee.class)
-          .filter(e -> cb.equal(e, manager))
+          .filter(e -> qb.equal(e, manager))
           .flatMap(Employee_.directReports)
           .mapToDouble(Employee_.salary)
           .average()
@@ -124,9 +122,9 @@ To find all managers for whom there exists a direct report making over $100,000:
     public List<Employee> findManagersWithSixFigureDirectReport() {
         return qb.stream(Employee.class)
           .filter(manager -> qb.stream(Employee.class)
-                .filter(report -> cb.and(
-                    cb.equal(report.get(Employee_.manager), manager),
-                    cb.greaterThan(report.get(Employee_.salary), 100000.0)))
+                .filter(report -> qb.and(
+                    qb.equal(report.get(Employee_.manager), manager),
+                    qb.greaterThan(report.get(Employee_.salary), 100000.0)))
                 .exists());
     }
 ```
@@ -138,11 +136,11 @@ To find all employees with salary greater than the average of their manager's di
 ```java
     public List<Employee> findEmployeesWithAboveAverageSalaries() {
         return qb.stream(Employee.class)
-          .filter(employee -> cb.greaterThan(
+          .filter(employee -> qb.greaterThan(
               employee.get(Employee_.salary),
               qb.stream(Employee.class)
                 .filter(coworker ->
-                  cb.equal(
+                  qb.equal(
                     coworker.get(Employee_.manager),
                     employee.get(Employee_.manager)))
                 .mapToDouble(Employee_.salary)
@@ -157,7 +155,7 @@ Hmmm, that's a lot of nesting. You can make the code clearer by building the sub
 ```java
     public DoubleValue getAvgCoworkerSalary(RootRef<Employee> employee) {
         return qb.stream(Employee.class)
-          .filter(coworker -> cb.equal(coworker.get(Employee_.manager), employee.get().get(Employee_.manager)))
+          .filter(coworker -> qb.equal(coworker.get(Employee_.manager), employee.get().get(Employee_.manager)))
           .mapToDouble(Employee_.salary)
           .average();
     }
@@ -167,7 +165,7 @@ Hmmm, that's a lot of nesting. You can make the code clearer by building the sub
         return qb.stream(Employee.class)
           .bind(employee)
           .filter(employee ->
-            cb.greaterThan(employee.get(Employee_.salary), getAvgCoworkerSalary(employee).asSubquery()))
+            qb.greaterThan(employee.get(Employee_.salary), getAvgCoworkerSalary(employee).asSubquery()))
           .getResultList();
     }
 ```
@@ -195,9 +193,9 @@ Here's an example that finds all managers paired with the average salary of thei
           .average()
           .bind(avgSalary)
           .groupBy(manager)
-          .mapToSelection(Object[].class, e -> cb.array(manager.get(), avgSalary.get()))
+          .mapToSelection(Object[].class, e -> qb.array(manager.get(), avgSalary.get()))
           .orderBy(avgSalary, false);
-          .having(avgSalary -> cb.gt(avgSalary, 50000.0))
+          .having(avgSalary -> qb.gt(avgSalary, 50000.0))
           .getResultList();
     }
 ```

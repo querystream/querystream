@@ -121,15 +121,28 @@ public interface QueryStream<X,
      *
      * <p>
      * Instances are created via {@link QueryStream#newBuilder QueryStream.newBuilder()}.
+     *
+     * <p>
+     * The three main methods in this class are:
+     * <ul>
+     *  <li>{@link #stream stream()} - Create a {@link SearchStream} for search queries.</li>
+     *  <li>{@link #stream deleteStream()} - Create a {@link DeleteStream} for bulk delete queries.</li>
+     *  <li>{@link #stream updateStream()} - Create a {@link UpdateStream} for bulk update queries.</li>
+     * </ul>
+     *
+     * <p>
+     * For convenience, this class also implements {@link CriteriaBuilder}.
      */
-    final class Builder {
+    final class Builder extends ForwardingCriteriaBuilder {
 
         private final EntityManager entityManager;
+        private final CriteriaBuilder criteriaBuilder;
 
         private Builder(EntityManager entityManager) {
             if (entityManager == null)
                 throw new IllegalArgumentException("null entityManager");
             this.entityManager = entityManager;
+            this.criteriaBuilder = this.entityManager.getCriteriaBuilder();
         }
 
         /**
@@ -137,8 +150,9 @@ public interface QueryStream<X,
          *
          * @return {@link CriteriaBuilder} created from this instance's {@link EntityManager}
          */
+        @Override
         public CriteriaBuilder getCriteriaBuilder() {
-            return this.entityManager.getCriteriaBuilder();
+            return this.criteriaBuilder;
         }
 
         /**

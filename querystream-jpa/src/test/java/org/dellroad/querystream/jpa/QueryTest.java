@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import org.dellroad.querystream.jpa.test.Employee;
 import org.dellroad.querystream.jpa.test.Employee_;
@@ -45,9 +44,7 @@ public class QueryTest extends TestSupport {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    private QueryStream.Builder qsb;
-    private CriteriaBuilder cb;
+    private QueryStream.Builder qb;
 
 // Tests
 
@@ -72,26 +69,26 @@ public class QueryTest extends TestSupport {
         final TestCase[] testCases = new TestCase[] {
 
         // Find all employees
-        new TestCase(() -> this.qsb.stream(Employee.class),
+        new TestCase(() -> this.qb.stream(Employee.class),
           "select generatedAlias0 from Employee as generatedAlias0"),
 
         // Find all employees with salary > 50k
-        new TestCase(() -> this.qsb.stream(Employee.class)
-          .filter(e -> this.cb.gt(e.get(Employee_.salary), 50000.0f)),
+        new TestCase(() -> this.qb.stream(Employee.class)
+          .filter(e -> this.qb.gt(e.get(Employee_.salary), 50000.0f)),
           "select generatedAlias0 from Employee as generatedAlias0 where generatedAlias0.salary>50000.0F"),
 
         // Find average salary of all employess
-        new TestCase(() -> this.qsb.stream(Employee.class)
+        new TestCase(() -> this.qb.stream(Employee.class)
           .mapToDouble(Employee_.salary)
           .average(),
           "select avg(generatedAlias0.salary) from Employee as generatedAlias0"),
 
         // Find all employess with salary greater than the average for their department
-        new TestCase(() -> this.qsb.stream(Employee.class)
+        new TestCase(() -> this.qb.stream(Employee.class)
           .filter(e ->
-            this.cb.gt(e.get(Employee_.salary),
-            this.qsb.stream(Employee.class)
-              .filter(e2 -> this.cb.equal(e2.get(Employee_.department), e.get(Employee_.department)))
+            this.qb.gt(e.get(Employee_.salary),
+            this.qb.stream(Employee.class)
+              .filter(e2 -> this.qb.equal(e2.get(Employee_.department), e.get(Employee_.department)))
               .mapToDouble(Employee_.salary)
               .average()
               .asSubquery())),
@@ -102,11 +99,11 @@ public class QueryTest extends TestSupport {
 
         // Find all employees whose manager has a direct report named "fred" using subquery
         new TestCase(() -> {
-            return this.qsb.stream(Employee.class)
-              .filter(e -> this.qsb.stream(Employee.class)
-                                    .filter(manager -> this.cb.equal(manager, e.get(Employee_.manager)))
+            return this.qb.stream(Employee.class)
+              .filter(e -> this.qb.stream(Employee.class)
+                                    .filter(manager -> this.qb.equal(manager, e.get(Employee_.manager)))
                                     .join(Employee_.directReports)
-                                    .filter(report -> this.cb.equal(report.get(Employee_.name), "fred"))
+                                    .filter(report -> this.qb.equal(report.get(Employee_.name), "fred"))
                                     .exists());
           },
           "select generatedAlias0 from Employee as generatedAlias0"
@@ -120,15 +117,15 @@ public class QueryTest extends TestSupport {
         new TestCase(() -> {
             final RootRef<Employee> managerRef = new RootRef<>();
             final ExprRef<Double> avgSalaryRef = new ExprRef<>();
-            return this.qsb.stream(Employee.class)
+            return this.qb.stream(Employee.class)
               .bind(managerRef)
               .flatMap(Employee_.directReports)
               .mapToDouble(Employee_.salary)
               .average()
               .bind(avgSalaryRef)
               .groupBy(managerRef)
-              .having(avgSalary -> this.cb.gt(avgSalary, 50000))
-              .mapToSelection(Object[].class, e -> this.cb.array(managerRef.get(), avgSalaryRef.get()))
+              .having(avgSalary -> this.qb.gt(avgSalary, 50000))
+              .mapToSelection(Object[].class, e -> this.qb.array(managerRef.get(), avgSalaryRef.get()))
               .orderBy(avgSalaryRef, false);
           },
           "select generatedAlias0, avg(generatedAlias1.salary) from Employee as generatedAlias0"
@@ -180,8 +177,7 @@ public class QueryTest extends TestSupport {
         this.context.getAutowireCapableBeanFactory().autowireBean(this);
         this.log.info("SETUP: initializing database");
         this.initializeDB();
-        this.qsb = QueryStream.newBuilder(this.entityManager);
-        this.cb = this.qsb.getCriteriaBuilder();
+        this.qb = QueryStream.newBuilder(this.entityManager);
     }
 
     @AfterClass
