@@ -24,10 +24,11 @@ public interface Ref<X, S extends Selection<X>> {
      * Bind the given value to this reference.
      *
      * @param value value to bind
+     * @return same {@code value}
      * @throws IllegalStateException if another value is already bound
      * @throws IllegalArgumentException if {@code value} is null
      */
-    void bind(S value);
+    S bind(S value);
 
     /**
      * Get the bound value.

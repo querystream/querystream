@@ -26,12 +26,13 @@ class AbstractRef<X, S extends Selection<X>> implements Ref<X, S> {
 // Ref
 
     @Override
-    public void bind(S value) {
+    public S bind(S value) {
         if (value == null)
             throw new IllegalArgumentException("null value");
         if (this.value != null)
             throw new IllegalStateException(this + " is already bound (to " + this.value + ")");
         this.value = value;
+        return value;
     }
 
     @Override
