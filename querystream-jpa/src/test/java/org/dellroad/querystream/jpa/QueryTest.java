@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.Root;
 
 import org.dellroad.querystream.jpa.test.Employee;
 import org.dellroad.querystream.jpa.test.Employee_;
@@ -112,6 +113,21 @@ public class QueryTest extends TestSupport {
             + " inner join generatedAlias2.directReports as generatedAlias1"
             + " where ( generatedAlias2=generatedAlias0.manager ) and ( generatedAlias1.name=:param0 ) )"),
 
+        // Find all employees whose manager has a direct report named "fred" using substream()
+        new TestCase(() -> {
+            return this.qb.stream(Employee.class)
+              .filter(e -> this.qb.substream(e)
+                                    .map(Employee_.manager)
+                                    .join(Employee_.directReports)
+                                    .filter(report -> this.qb.equal(report.get(Employee_.name), "fred"))
+                                    .exists());
+          },
+          "select generatedAlias0 from Employee as generatedAlias0"
+           + " where exists ( "
+           + "select generatedAlias1 from generatedAlias0.manager as generatedAlias2"
+           + " inner join generatedAlias2.directReports as generatedAlias1"
+           + " where generatedAlias1.name=:param0 )"),
+
         // Find all managers paired with the average salary of their direct reports
         // where the average salary is at least 50k, sorted by average salary descending
         new TestCase(() -> {
@@ -145,6 +161,17 @@ public class QueryTest extends TestSupport {
           .map(tc -> new TestCase[] { tc })
           .collect(Collectors.toList())
           .toArray(new TestCase[testCases.length][]);
+    }
+
+    @Test
+    public void testBadSubstream() throws Exception {
+        final Root<Employee> root = this.qb.createQuery().from(Employee.class);
+        try {
+            this.qb.substream(root).toQuery();
+            assert false : "expected exception";
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
 // TestCase

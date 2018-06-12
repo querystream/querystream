@@ -9,11 +9,19 @@ import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CommonAbstractCriteria;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.MapJoin;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.criteria.SetJoin;
 import javax.persistence.metamodel.SingularAttribute;
+
+import org.dellroad.querystream.jpa.querytype.SearchType;
 
 /**
  * Builder for JPA criteria queries, based on configuration through a {@link java.util.stream.Stream}-like API.
@@ -126,6 +134,7 @@ public interface QueryStream<X,
      * The three main methods in this class are:
      * <ul>
      *  <li>{@link #stream stream()} - Create a {@link SearchStream} for search queries.</li>
+     *  <li>{@link #substream(Root) substream()} - Create a {@link SearchStream} for use as a correlated subquery.</li>
      *  <li>{@link #stream deleteStream()} - Create a {@link DeleteStream} for bulk delete queries.</li>
      *  <li>{@link #stream updateStream()} - Create a {@link UpdateStream} for bulk update queries.</li>
      * </ul>
@@ -165,6 +174,131 @@ public interface QueryStream<X,
          */
         public <X> RootStream<X> stream(Class<X> type) {
             return new RootStreamImpl<>(this.entityManager, type);
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified correlated {@link Root}.
+         *
+         * <p>
+         * The returned {@link RootStream} cannot be materialized directly via {@link RootStream#toQuery toQuery()}
+         * or {@link RootStream#toCriteriaQuery toCriteriaQuery()}; instead, it can only be used indirectly as a
+         * subquery.
+         *
+         * <p>
+         * Here's an example that returns the names of teachers who have one or more newly enrolled students:
+         * <pre>
+         *  List&lt;String&gt; names =
+         *    qb.stream(Teacher.class)
+         *      .filter(teacher -&gt; qb.exists(
+         *         qb.substream(teacher)
+         *           .map(Teacher_.students)
+         *           .filter(Student_.newlyEnrolled)))
+         *      .map(Teacher_.name)
+         *      .getResultList();
+         * </pre>
+         *
+         * @param root correlated root for subquery
+         * @param <X> stream result type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code root} is null
+         */
+        @SuppressWarnings("unchecked")
+        public <X> RootStream<X> substream(Root<X> root) {
+            if (root == null)
+                throw new IllegalArgumentException("null root");
+            return new RootStreamImpl<>(this.entityManager, new SearchType<X>((Class<X>)root.getJavaType()),
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(root));
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified join.
+         *
+         * @param root correlated join object for subquery
+         * @param <X> join origin type
+         * @param <E> collection element type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code join} is null
+         * @see #substream(Root)
+         */
+        @SuppressWarnings("unchecked")
+        public <X, E> FromStream<E, CollectionJoin<X, E>> substream(CollectionJoin<X, E> join) {
+            if (join == null)
+                throw new IllegalArgumentException("null join");
+            return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified join.
+         *
+         * @param root correlated join object for subquery
+         * @param <X> join origin type
+         * @param <E> list element type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code join} is null
+         * @see #substream(Root)
+         */
+        @SuppressWarnings("unchecked")
+        public <X, E> FromStream<E, ListJoin<X, E>> substream(ListJoin<X, E> join) {
+            if (join == null)
+                throw new IllegalArgumentException("null join");
+            return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified join.
+         *
+         * @param root correlated join object for subquery
+         * @param <X> join origin type
+         * @param <K> map key type
+         * @param <V> map value type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code join} is null
+         * @see #substream(Root)
+         */
+        @SuppressWarnings("unchecked")
+        public <X, K, V> FromStream<V, MapJoin<X, K, V>> substream(MapJoin<X, K, V> join) {
+            if (join == null)
+                throw new IllegalArgumentException("null join");
+            return new FromStreamImpl<>(this.entityManager, new SearchType<V>((Class<V>)join.getJavaType()),
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified join.
+         *
+         * @param root correlated join object for subquery
+         * @param <X> join origin type
+         * @param <E> set element type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code join} is null
+         * @see #substream(Root)
+         */
+        @SuppressWarnings("unchecked")
+        public <X, E> FromStream<E, SetJoin<X, E>> substream(SetJoin<X, E> join) {
+            if (join == null)
+                throw new IllegalArgumentException("null join");
+            return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified join.
+         *
+         * @param root correlated join object for subquery
+         * @param <X> join origin type
+         * @param <E> collection element type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code join} is null
+         * @see #substream(Root)
+         */
+        @SuppressWarnings("unchecked")
+        public <X, E> FromStream<E, Join<X, E>> substream(Join<X, E> join) {
+            if (join == null)
+                throw new IllegalArgumentException("null join");
+            return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
         }
 
         /**

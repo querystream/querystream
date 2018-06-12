@@ -17,6 +17,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Selection;
+import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.QueryType;
@@ -228,6 +229,12 @@ abstract class QueryStreamImpl<X,
 
         public CommonAbstractCriteria getQuery() {
             return this.query;
+        }
+
+        public Subquery<?> getSubquery() {
+            if (!(this.query instanceof Subquery))
+                throw new IllegalArgumentException("streams built with QueryBuilder.substream() can only be used in subqueries");
+            return (Subquery<?>)this.query;
         }
     }
 }
