@@ -44,12 +44,18 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
     /**
      * Create value returning the number of instances in this stream.
      *
+     * <b>Warning:</b> don't use in combination with {@code groupBy()}, because SQL's {@code COUNT()} returns a non-unique
+     * result in grouped queries, or else a {@link javax.persistence.NonUniqueResultException} can result.
+     *
      * @return single-valued stream counting instances in this stream
      */
     LongValue count();
 
     /**
      * Create value returning the number of distinct instances in this stream.
+     *
+     * <b>Warning:</b> don't use in combination with {@code groupBy()}, because SQL's {@code COUNT()} returns a non-unique
+     * result in grouped queries, or else a {@link javax.persistence.NonUniqueResultException} can result.
      *
      * @return single-valued stream counting distinct instances in this stream
      */
