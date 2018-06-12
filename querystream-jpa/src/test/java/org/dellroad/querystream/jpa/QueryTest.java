@@ -133,7 +133,14 @@ public class QueryTest extends TestSupport {
           + " group by generatedAlias0 having avg(generatedAlias1.salary)>50000.0D"
           + " order by avg(generatedAlias1.salary) desc"),
 
+        // Count employees
+        new TestCase(() -> this.qb.stream(Employee.class)
+            .count(),
+            "select count(generatedAlias0) from Employee as generatedAlias0"),
+
         };
+
+        // Done
         return Arrays.asList(testCases).stream()
           .map(tc -> new TestCase[] { tc })
           .collect(Collectors.toList())
@@ -193,11 +200,12 @@ public class QueryTest extends TestSupport {
     }
 
     public void initializeDB(Connection connection) throws SQLException {
+        this.log.info("applying intial DDL: {}", this.initialDDL);
         try (final InputStream input = this.initialDDL.getInputStream()) {
             for (String command : StreamUtils.copyToString(input, StandardCharsets.UTF_8).split(";")) {
-                if (command.trim().isEmpty())
+                if ((command = command.trim()).isEmpty())
                     continue;
-                this.log.info("applying intial DDL: {}", command);
+                this.log.info("applying intial DDL command: {}", command);
                 try (final Statement statement = connection.createStatement()) {
                     statement.execute(command);
                 }
