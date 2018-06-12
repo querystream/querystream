@@ -225,8 +225,14 @@ public interface SearchStream<X, S extends Selection<X>>
     default <Y> PathStream<Y, Path<Y>> map(SingularAttribute<? super X, Y> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
-          (builder, query) -> ((Path<X>)this.configure(builder, query)).get(attribute)); // cast must be valid if attribute exists
+        return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()), (builder, query) -> {
+
+            // We always prefer having a From over a Path, because you can continue to join with it.
+            // If you say path.get() you get a Path, even if you could have said path.join() to get a From.
+            // So when mapping a SingluarAttribute, path.join() is the same as path.get() but better.
+            final Path<X> path = (Path<X>)this.configure(builder, query);   // cast must be valid if attribute exists
+            return path instanceof From ? ((From<?, X>)path).join(attribute) : path.get(attribute);
+        });
     }
 
     /**
