@@ -93,7 +93,7 @@ public class QueryTest extends TestSupport {
               .average()
               .asSubquery())),
           "select generatedAlias0 from Employee as generatedAlias0"
-          + " where generatedAlias0.salary>( "
+            + " where generatedAlias0.salary>( "
             + "select avg(generatedAlias1.salary) from Employee as generatedAlias1"
             + " where generatedAlias1.department=generatedAlias0.department )"),
 
@@ -107,7 +107,7 @@ public class QueryTest extends TestSupport {
                                     .exists());
           },
           "select generatedAlias0 from Employee as generatedAlias0"
-          + " where exists ( "
+            + " where exists ( "
             + "select generatedAlias1 from Employee as generatedAlias2"
             + " inner join generatedAlias2.directReports as generatedAlias1"
             + " where ( generatedAlias2=generatedAlias0.manager ) and ( generatedAlias1.name=:param0 ) )"),
@@ -129,14 +129,14 @@ public class QueryTest extends TestSupport {
               .orderBy(avgSalaryRef, false);
           },
           "select generatedAlias0, avg(generatedAlias1.salary) from Employee as generatedAlias0"
-          + " inner join generatedAlias0.directReports as generatedAlias1"
-          + " group by generatedAlias0 having avg(generatedAlias1.salary)>50000.0D"
-          + " order by avg(generatedAlias1.salary) desc"),
+            + " inner join generatedAlias0.directReports as generatedAlias1"
+            + " group by generatedAlias0 having avg(generatedAlias1.salary)>50000.0D"
+            + " order by avg(generatedAlias1.salary) desc"),
 
         // Count employees
         new TestCase(() -> this.qb.stream(Employee.class)
             .count(),
-            "select count(generatedAlias0) from Employee as generatedAlias0"),
+          "select count(generatedAlias0) from Employee as generatedAlias0"),
 
         };
 
