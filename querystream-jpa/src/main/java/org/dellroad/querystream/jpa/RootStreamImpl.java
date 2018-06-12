@@ -26,6 +26,7 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
         this(entityManager, new SearchType<X>(type));
     }
 
+    // Separate constructor to avoid bogus error ("cannot reference queryType before supertype constructor has been called")
     private RootStreamImpl(EntityManager entityManager, SearchType<X> queryType) {
         this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()));
     }
