@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10,"i57":10,"i58":10,"i59":10,"i60":10,"i61":10,"i62":10,"i63":10,"i64":10,"i65":10,"i66":10,"i67":10,"i68":10,"i69":10,"i70":10,"i71":10,"i72":10,"i73":10,"i74":10,"i75":10,"i76":10,"i77":10,"i78":10,"i79":10,"i80":10,"i81":10,"i82":10,"i83":10,"i84":10,"i85":10,"i86":10,"i87":10,"i88":10,"i89":10,"i90":10,"i91":10,"i92":10,"i93":10,"i94":10,"i95":10,"i96":10,"i97":10,"i98":10,"i99":10,"i100":10,"i101":10,"i102":10,"i103":10,"i104":10,"i105":10,"i106":10,"i107":10,"i108":10,"i109":10,"i110":10,"i111":10,"i112":10,"i113":10,"i114":10,"i115":10,"i116":10,"i117":10,"i118":10,"i119":10,"i120":10,"i121":10,"i122":10,"i123":10,"i124":10,"i125":10,"i126":10,"i127":10,"i128":10,"i129":10,"i130":10,"i131":10,"i132":10,"i133":10,"i134":10,"i135":10,"i136":10,"i137":10,"i138":10,"i139":10,"i140":10,"i141":10,"i142":10,"i143":10,"i144":10,"i145":10,"i146":10,"i147":10,"i148":10,"i149":10,"i150":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10,"i57":10,"i58":10,"i59":10,"i60":10,"i61":10,"i62":10,"i63":10,"i64":10,"i65":10,"i66":10,"i67":10,"i68":10,"i69":10,"i70":10,"i71":10,"i72":10,"i73":10,"i74":10,"i75":10,"i76":10,"i77":10,"i78":10,"i79":10,"i80":10,"i81":10,"i82":10,"i83":10,"i84":10,"i85":10,"i86":10,"i87":10,"i88":10,"i89":10,"i90":10,"i91":10,"i92":10,"i93":10,"i94":10,"i95":10,"i96":10,"i97":10,"i98":10,"i99":10,"i100":10,"i101":10,"i102":10,"i103":10,"i104":10,"i105":10,"i106":10,"i107":10,"i108":10,"i109":10,"i110":10,"i111":10,"i112":10,"i113":10,"i114":10,"i115":10,"i116":10,"i117":10,"i118":10,"i119":10,"i120":10,"i121":10,"i122":10,"i123":10,"i124":10,"i125":10,"i126":10,"i127":10,"i128":10,"i129":10,"i130":10,"i131":10,"i132":10,"i133":10,"i134":10,"i135":10,"i136":10,"i137":10,"i138":10,"i139":10,"i140":10,"i141":10,"i142":10,"i143":10,"i144":10,"i145":10,"i146":10,"i147":10,"i148":10,"i149":10,"i150":10,"i151":10,"i152":10,"i153":10,"i154":10,"i155":10,"i156":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -128,6 +128,7 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
  The three main methods in this class are:
  <ul>
   <li><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#stream-java.lang.Class-"><code>stream()</code></a> - Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for search queries.</li>
+  <li><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-"><code>substream()</code></a> - Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a correlated subquery.</li>
   <li><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#stream-java.lang.Class-"><code>deleteStream()</code></a> - Create a <a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa"><code>DeleteStream</code></a> for bulk delete queries.</li>
   <li><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#stream-java.lang.Class-"><code>updateStream()</code></a> - Create a <a href="../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa"><code>UpdateStream</code></a> for bulk update queries.</li>
  </ul>
@@ -721,163 +722,199 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 </td>
 </tr>
 <tr id="i117" class="rowColor">
+<td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.CollectionJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;&nbsp;join)</code>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+</td>
+</tr>
+<tr id="i118" class="altColor">
+<td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Join-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,E&gt;&nbsp;join)</code>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+</td>
+</tr>
+<tr id="i119" class="rowColor">
+<td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.ListJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;&nbsp;join)</code>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+</td>
+</tr>
+<tr id="i120" class="altColor">
+<td class="colFirst"><code>&lt;X,K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.MapJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;&nbsp;join)</code>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+</td>
+</tr>
+<tr id="i121" class="rowColor">
+<td class="colFirst"><code>&lt;X&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a>&lt;X&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;X&gt;&nbsp;root)</code>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified correlated <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Root</code></a>.</div>
+</td>
+</tr>
+<tr id="i122" class="altColor">
+<td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.SetJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;&nbsp;join)</code>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+</td>
+</tr>
+<tr id="i123" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substring-javax.persistence.criteria.Expression-javax.persistence.criteria.Expression-">substring</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;x,
          <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i118" class="altColor">
+<tr id="i124" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substring-javax.persistence.criteria.Expression-javax.persistence.criteria.Expression-javax.persistence.criteria.Expression-">substring</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;x,
          <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&nbsp;y,
          <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&nbsp;z)</code>&nbsp;</td>
 </tr>
-<tr id="i119" class="rowColor">
+<tr id="i125" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substring-javax.persistence.criteria.Expression-int-">substring</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;x,
          int&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i120" class="altColor">
+<tr id="i126" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substring-javax.persistence.criteria.Expression-int-int-">substring</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;x,
          int&nbsp;y,
          int&nbsp;z)</code>&nbsp;</td>
 </tr>
-<tr id="i121" class="rowColor">
+<tr id="i127" class="rowColor">
 <td class="colFirst"><code>&lt;N extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;N&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#sum-javax.persistence.criteria.Expression-javax.persistence.criteria.Expression-">sum</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends N&gt;&nbsp;x,
    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends N&gt;&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i122" class="altColor">
+<tr id="i128" class="altColor">
 <td class="colFirst"><code>&lt;N extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;N&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#sum-javax.persistence.criteria.Expression-N-">sum</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends N&gt;&nbsp;x,
    N&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i123" class="rowColor">
+<tr id="i129" class="rowColor">
 <td class="colFirst"><code>&lt;N extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;N&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#sum-javax.persistence.criteria.Expression-">sum</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;N&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i124" class="altColor">
+<tr id="i130" class="altColor">
 <td class="colFirst"><code>&lt;N extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;N&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#sum-N-javax.persistence.criteria.Expression-">sum</a></span>(N&nbsp;x,
    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends N&gt;&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i125" class="rowColor">
+<tr id="i131" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#sumAsDouble-javax.persistence.criteria.Expression-">sumAsDouble</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Float.html?is-external=true" title="class or interface in java.lang">Float</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i126" class="altColor">
+<tr id="i132" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#sumAsLong-javax.persistence.criteria.Expression-">sumAsLong</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i127" class="rowColor">
+<tr id="i133" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html?is-external=true" title="class or interface in java.math">BigDecimal</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toBigDecimal-javax.persistence.criteria.Expression-">toBigDecimal</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i128" class="altColor">
+<tr id="i134" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigInteger.html?is-external=true" title="class or interface in java.math">BigInteger</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toBigInteger-javax.persistence.criteria.Expression-">toBigInteger</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i129" class="rowColor">
+<tr id="i135" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toDouble-javax.persistence.criteria.Expression-">toDouble</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i130" class="altColor">
+<tr id="i136" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Float.html?is-external=true" title="class or interface in java.lang">Float</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toFloat-javax.persistence.criteria.Expression-">toFloat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i131" class="rowColor">
+<tr id="i137" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toInteger-javax.persistence.criteria.Expression-">toInteger</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i132" class="altColor">
+<tr id="i138" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang">Long</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toLong-javax.persistence.criteria.Expression-">toLong</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i133" class="rowColor">
+<tr id="i139" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#toString-javax.persistence.criteria.Expression-">toString</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i134" class="altColor">
+<tr id="i140" class="altColor">
 <td class="colFirst"><code>&lt;X,T,E extends T&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.CollectionJoin-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,T&gt;&nbsp;join,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;E&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i135" class="rowColor">
+<tr id="i141" class="rowColor">
 <td class="colFirst"><code>&lt;X,T,V extends T&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,V&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.Join-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,T&gt;&nbsp;join,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;V&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i136" class="altColor">
+<tr id="i142" class="altColor">
 <td class="colFirst"><code>&lt;X,T,E extends T&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.ListJoin-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,T&gt;&nbsp;join,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;E&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i137" class="rowColor">
+<tr id="i143" class="rowColor">
 <td class="colFirst"><code>&lt;X,K,T,V extends T&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.MapJoin-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,T&gt;&nbsp;join,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;V&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i138" class="altColor">
+<tr id="i144" class="altColor">
 <td class="colFirst"><code>&lt;X,T extends X&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.Path-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;X&gt;&nbsp;path,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i139" class="rowColor">
+<tr id="i145" class="rowColor">
 <td class="colFirst"><code>&lt;X,T extends X&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.Root-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;X&gt;&nbsp;root,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i140" class="altColor">
+<tr id="i146" class="altColor">
 <td class="colFirst"><code>&lt;X,T,E extends T&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#treat-javax.persistence.criteria.SetJoin-java.lang.Class-">treat</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,T&gt;&nbsp;join,
      <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;E&gt;&nbsp;type)</code>&nbsp;</td>
 </tr>
-<tr id="i141" class="rowColor">
+<tr id="i147" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#trim-char-javax.persistence.criteria.Expression-">trim</a></span>(char&nbsp;x,
     <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i142" class="altColor">
+<tr id="i148" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#trim-javax.persistence.criteria.CriteriaBuilder.Trimspec-char-javax.persistence.criteria.Expression-">trim</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.Trimspec.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaBuilder.Trimspec</a>&nbsp;x,
     char&nbsp;y,
     <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;z)</code>&nbsp;</td>
 </tr>
-<tr id="i143" class="rowColor">
+<tr id="i149" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#trim-javax.persistence.criteria.CriteriaBuilder.Trimspec-javax.persistence.criteria.Expression-javax.persistence.criteria.Expression-">trim</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.Trimspec.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaBuilder.Trimspec</a>&nbsp;x,
     <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&gt;&nbsp;y,
     <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;z)</code>&nbsp;</td>
 </tr>
-<tr id="i144" class="altColor">
+<tr id="i150" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#trim-javax.persistence.criteria.CriteriaBuilder.Trimspec-javax.persistence.criteria.Expression-">trim</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.Trimspec.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaBuilder.Trimspec</a>&nbsp;x,
     <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i145" class="rowColor">
+<tr id="i151" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#trim-javax.persistence.criteria.Expression-javax.persistence.criteria.Expression-">trim</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&gt;&nbsp;x,
     <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;y)</code>&nbsp;</td>
 </tr>
-<tr id="i146" class="altColor">
+<tr id="i152" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#trim-javax.persistence.criteria.Expression-">trim</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;x)</code>&nbsp;</td>
 </tr>
-<tr id="i147" class="rowColor">
+<tr id="i153" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CompoundSelection.html?is-external=true" title="class or interface in javax.persistence.criteria">CompoundSelection</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Tuple.html?is-external=true" title="class or interface in javax.persistence">Tuple</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#tuple-javax.persistence.criteria.Selection...-">tuple</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria">Selection</a>&lt;?&gt;...&nbsp;selections)</code>&nbsp;</td>
 </tr>
-<tr id="i148" class="altColor">
+<tr id="i154" class="altColor">
 <td class="colFirst"><code>&lt;X&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;X&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#updateStream-java.lang.Class-">updateStream</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;X&gt;&nbsp;type)</code>
 <div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa"><code>UpdateStream</code></a> for bulk update queries.</div>
 </td>
 </tr>
-<tr id="i149" class="rowColor">
+<tr id="i155" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#upper-javax.persistence.criteria.Expression-">upper</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;expr)</code>&nbsp;</td>
 </tr>
-<tr id="i150" class="altColor">
+<tr id="i156" class="altColor">
 <td class="colFirst"><code>&lt;V,M extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;?,V&gt;&gt;<br><a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;V&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#values-M-">values</a></span>(M&nbsp;map)</code>&nbsp;</td>
 </tr>
@@ -934,6 +971,160 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <dd>new search stream</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>type</code> is null</dd>
+</dl>
+</li>
+</ul>
+<a name="substream-javax.persistence.criteria.Root-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>substream</h4>
+<pre>public&nbsp;&lt;X&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a>&lt;X&gt;&nbsp;substream(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;X&gt;&nbsp;root)</pre>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified correlated <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Root</code></a>.
+
+ <p>
+ The returned <a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa"><code>RootStream</code></a> cannot be materialized directly via <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toQuery--"><code>toQuery()</code></a>
+ or <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toCriteriaQuery--"><code>toCriteriaQuery()</code></a>; instead, it can only be used indirectly as a
+ subquery.
+
+ <p>
+ Here's an example that returns the names of teachers who have one or more newly enrolled students:
+ <pre>
+  List&lt;String&gt; names =
+    qb.stream(Teacher.class)
+      .filter(teacher -&gt; qb.exists(
+         qb.substream(teacher)
+           .map(Teacher_.students)
+           .filter(Student_.newlyEnrolled)))
+      .map(Teacher_.name)
+      .getResultList();
+ </pre></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X</code> - stream result type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>root</code> - correlated root for subquery</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new subquery search stream</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>root</code> is null</dd>
+</dl>
+</li>
+</ul>
+<a name="substream-javax.persistence.criteria.CollectionJoin-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>substream</h4>
+<pre>public&nbsp;&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;&gt;&nbsp;substream(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;&nbsp;join)</pre>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X</code> - join origin type</dd>
+<dd><code>E</code> - collection element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>join</code> - correlated join object for subquery</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new subquery search stream</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>join</code> is null</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-"><code>substream(Root)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="substream-javax.persistence.criteria.ListJoin-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>substream</h4>
+<pre>public&nbsp;&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;&gt;&nbsp;substream(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;&nbsp;join)</pre>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X</code> - join origin type</dd>
+<dd><code>E</code> - list element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>join</code> - correlated join object for subquery</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new subquery search stream</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>join</code> is null</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-"><code>substream(Root)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="substream-javax.persistence.criteria.MapJoin-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>substream</h4>
+<pre>public&nbsp;&lt;X,K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;&gt;&nbsp;substream(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;&nbsp;join)</pre>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X</code> - join origin type</dd>
+<dd><code>K</code> - map key type</dd>
+<dd><code>V</code> - map value type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>join</code> - correlated join object for subquery</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new subquery search stream</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>join</code> is null</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-"><code>substream(Root)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="substream-javax.persistence.criteria.SetJoin-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>substream</h4>
+<pre>public&nbsp;&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;&gt;&nbsp;substream(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;&nbsp;join)</pre>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X</code> - join origin type</dd>
+<dd><code>E</code> - set element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>join</code> - correlated join object for subquery</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new subquery search stream</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>join</code> is null</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-"><code>substream(Root)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="substream-javax.persistence.criteria.Join-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>substream</h4>
+<pre>public&nbsp;&lt;X,E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,E&gt;&gt;&nbsp;substream(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,E&gt;&nbsp;join)</pre>
+<div class="block">Create a <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>X</code> - join origin type</dd>
+<dd><code>E</code> - collection element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>join</code> - correlated join object for subquery</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new subquery search stream</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>join</code> is null</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Root-"><code>substream(Root)</code></a></dd>
 </dl>
 </li>
 </ul>
