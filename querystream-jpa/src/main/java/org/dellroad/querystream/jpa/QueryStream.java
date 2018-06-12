@@ -213,7 +213,7 @@ public interface QueryStream<X,
         /**
          * Create a {@link SearchStream} for use as a subquery, using the specified join.
          *
-         * @param root correlated join object for subquery
+         * @param join correlated join object for subquery
          * @param <X> join origin type
          * @param <E> collection element type
          * @return new subquery search stream
@@ -231,7 +231,7 @@ public interface QueryStream<X,
         /**
          * Create a {@link SearchStream} for use as a subquery, using the specified join.
          *
-         * @param root correlated join object for subquery
+         * @param join correlated join object for subquery
          * @param <X> join origin type
          * @param <E> list element type
          * @return new subquery search stream
@@ -249,7 +249,7 @@ public interface QueryStream<X,
         /**
          * Create a {@link SearchStream} for use as a subquery, using the specified join.
          *
-         * @param root correlated join object for subquery
+         * @param join correlated join object for subquery
          * @param <X> join origin type
          * @param <K> map key type
          * @param <V> map value type
@@ -268,7 +268,7 @@ public interface QueryStream<X,
         /**
          * Create a {@link SearchStream} for use as a subquery, using the specified join.
          *
-         * @param root correlated join object for subquery
+         * @param join correlated join object for subquery
          * @param <X> join origin type
          * @param <E> set element type
          * @return new subquery search stream
@@ -286,7 +286,7 @@ public interface QueryStream<X,
         /**
          * Create a {@link SearchStream} for use as a subquery, using the specified join.
          *
-         * @param root correlated join object for subquery
+         * @param join correlated join object for subquery
          * @param <X> join origin type
          * @param <E> collection element type
          * @return new subquery search stream
