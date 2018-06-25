@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -86,6 +87,21 @@ public interface QueryStream<X,
      */
     <X2, S2 extends Selection<X2>> QueryStream<X, S, C, C2, Q> bind(
       Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);
+
+// Peek
+
+    /**
+     * Peek at the items in this stream.
+     *
+     * <p>
+     * This is useful in cases where the selection can be modified, e.g., setting join {@code ON} conditions
+     * using {@link Join#on Join.on()}.
+     *
+     * @param peeker peeker into stream
+     * @throws IllegalArgumentException if {@code peeker} is null
+     * @return new stream that peeks into this stream
+     */
+    QueryStream<X, S, C, C2, Q> peek(Consumer<? super S> peeker);
 
 // Filtering
 

@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
@@ -43,6 +44,9 @@ public interface FromValue<X, S extends From<?, X>> extends PathValue<X, S>, Fro
 
     @Override
     FromValue<X, S> bind(Ref<X, ? super S> ref);
+
+    @Override
+    FromValue<X, S> peek(Consumer<? super S> peeker);
 
     @Override
     <X2, S2 extends Selection<X2>> FromValue<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);

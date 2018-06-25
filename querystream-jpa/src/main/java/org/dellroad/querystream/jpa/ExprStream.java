@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
@@ -103,6 +104,9 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
 
     @Override
     ExprStream<X, S> bind(Ref<X, ? super S> ref);
+
+    @Override
+    ExprStream<X, S> peek(Consumer<? super S> peeker);
 
     @Override
     <X2, S2 extends Selection<X2>> ExprStream<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);

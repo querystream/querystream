@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.Query;
@@ -43,6 +44,9 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
 
     @Override
     UpdateStream<X> bind(Ref<X, ? super Root<X>> ref);
+
+    @Override
+    UpdateStream<X> peek(Consumer<? super Root<X>> peeker);
 
     @Override
     UpdateStream<X> filter(SingularAttribute<? super X, Boolean> attribute);

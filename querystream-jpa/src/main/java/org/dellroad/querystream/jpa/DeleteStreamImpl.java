@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -61,6 +62,11 @@ class DeleteStreamImpl<X>
     @Override
     public DeleteStream<X> bind(Ref<X, ? super Root<X>> ref) {
         return (DeleteStream<X>)super.bind(ref);
+    }
+
+    @Override
+    public DeleteStream<X> peek(Consumer<? super Root<X>> peeker) {
+        return (DeleteStream<X>)super.peek(peeker);
     }
 
     @Override

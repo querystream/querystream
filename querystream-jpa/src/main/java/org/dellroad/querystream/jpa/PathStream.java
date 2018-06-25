@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
@@ -62,6 +63,9 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
 
     @Override
     PathStream<X, S> bind(Ref<X, ? super S> ref);
+
+    @Override
+    PathStream<X, S> peek(Consumer<? super S> peeker);
 
     @Override
     <X2, S2 extends Selection<X2>> PathStream<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);

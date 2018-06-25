@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
@@ -19,6 +20,9 @@ public interface IntValue extends ExprValue<Integer, Expression<Integer>>, IntSt
 
     @Override
     IntValue bind(Ref<Integer, ? super Expression<Integer>> ref);
+
+    @Override
+    IntValue peek(Consumer<? super Expression<Integer>> peeker);
 
     @Override
     <X2, S2 extends Selection<X2>> IntValue bind(

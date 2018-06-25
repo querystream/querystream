@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -121,6 +122,11 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     @Override
     public LongStream bind(Ref<Long, ? super Expression<Long>> ref) {
         return (LongStream)super.bind(ref);
+    }
+
+    @Override
+    public LongStream peek(Consumer<? super Expression<Long>> peeker) {
+        return (LongStream)super.peek(peeker);
     }
 
     @Override

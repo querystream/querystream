@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -38,6 +39,11 @@ class PathValueImpl<X, S extends Path<X>> extends PathStreamImpl<X, S> implement
     @Override
     public PathValue<X, S> bind(Ref<X, ? super S> ref) {
         return (PathValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public PathValue<X, S> peek(Consumer<? super S> peeker) {
+        return (PathValue<X, S>)super.peek(peeker);
     }
 
     @Override

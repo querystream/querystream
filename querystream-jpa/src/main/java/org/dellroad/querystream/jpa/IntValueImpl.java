@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -37,6 +38,11 @@ class IntValueImpl extends IntStreamImpl implements IntValue {
     @Override
     public IntValue bind(Ref<Integer, ? super Expression<Integer>> ref) {
         return (IntValue)super.bind(ref);
+    }
+
+    @Override
+    public IntValue peek(Consumer<? super Expression<Integer>> peeker) {
+        return (IntValue)super.peek(peeker);
     }
 
     @Override

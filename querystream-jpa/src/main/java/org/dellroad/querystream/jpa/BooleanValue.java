@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
@@ -25,6 +26,9 @@ public interface BooleanValue extends ExprValue<Boolean, Expression<Boolean>> {
 
     @Override
     BooleanValue bind(Ref<Boolean, ? super Expression<Boolean>> ref);
+
+    @Override
+    BooleanValue peek(Consumer<? super Expression<Boolean>> peeker);
 
     @Override
     BooleanValue filter(Function<? super Expression<Boolean>, ? extends Expression<Boolean>> predicateBuilder);

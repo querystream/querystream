@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -42,6 +43,11 @@ class BooleanValueImpl extends ExprValueImpl<Boolean, Expression<Boolean>> imple
     @Override
     public BooleanValue bind(Ref<Boolean, ? super Expression<Boolean>> ref) {
         return (BooleanValue)super.bind(ref);
+    }
+
+    @Override
+    public BooleanValue peek(Consumer<? super Expression<Boolean>> peeker) {
+        return (BooleanValue)super.peek(peeker);
     }
 
     @Override

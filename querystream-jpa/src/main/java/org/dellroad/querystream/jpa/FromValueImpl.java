@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -38,6 +39,11 @@ class FromValueImpl<X, S extends From<?, X>> extends FromStreamImpl<X, S> implem
     @Override
     public FromValue<X, S> bind(Ref<X, ? super S> ref) {
         return (FromValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public FromValue<X, S> peek(Consumer<? super S> peeker) {
+        return (FromValue<X, S>)super.peek(peeker);
     }
 
     @Override

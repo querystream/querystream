@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -144,6 +145,17 @@ abstract class QueryStreamImpl<X,
     @Override
     public QueryStream<X, S, C, C2, Q> bind(Ref<X, ? super S> ref) {
         return this.bind(ref, s -> s);
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> peek(Consumer<? super S> peeker) {
+        if (peeker == null)
+            throw new IllegalArgumentException("null peeker");
+        return this.withConfig((builder, query) -> {
+            final S selection = this.configure(builder, query);
+            peeker.accept(selection);
+            return selection;
+        });
     }
 
     @Override

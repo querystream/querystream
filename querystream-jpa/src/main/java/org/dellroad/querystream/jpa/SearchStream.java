@@ -8,6 +8,7 @@ package org.dellroad.querystream.jpa;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.TypedQuery;
@@ -585,6 +586,9 @@ public interface SearchStream<X, S extends Selection<X>>
 
     @Override
     SearchStream<X, S> bind(Ref<X, ? super S> ref);
+
+    @Override
+    SearchStream<X, S> peek(Consumer<? super S> peeker);
 
     @Override
     <X2, S2 extends Selection<X2>> SearchStream<X, S> bind(Ref<X2, ? super S2> ref, Function<? super S, ? extends S2> refFunction);

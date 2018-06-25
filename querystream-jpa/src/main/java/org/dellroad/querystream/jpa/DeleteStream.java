@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.Query;
@@ -32,6 +33,9 @@ public interface DeleteStream<X> extends QueryStream<X, Root<X>, CriteriaDelete<
 
     @Override
     DeleteStream<X> bind(Ref<X, ? super Root<X>> ref);
+
+    @Override
+    DeleteStream<X> peek(Consumer<? super Root<X>> peeker);
 
     @Override
     DeleteStream<X> filter(SingularAttribute<? super X, Boolean> attribute);

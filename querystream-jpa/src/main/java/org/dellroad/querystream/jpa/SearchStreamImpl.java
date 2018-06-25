@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -194,6 +195,11 @@ class SearchStreamImpl<X, S extends Selection<X>>
     @Override
     public SearchStream<X, S> bind(Ref<X, ? super S> ref) {
         return (SearchStream<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public SearchStream<X, S> peek(Consumer<? super S> peeker) {
+        return (SearchStream<X, S>)super.peek(peeker);
     }
 
     @Override

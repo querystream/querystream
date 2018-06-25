@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.criteria.Expression;
@@ -64,6 +65,9 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
 
     @Override
     DoubleStream bind(Ref<Double, ? super Expression<Double>> ref);
+
+    @Override
+    DoubleStream peek(Consumer<? super Expression<Double>> peeker);
 
     @Override
     <X2, S2 extends Selection<X2>> DoubleStream bind(

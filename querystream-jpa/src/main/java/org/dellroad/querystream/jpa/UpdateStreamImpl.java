@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -88,6 +89,11 @@ class UpdateStreamImpl<X>
     @Override
     public UpdateStream<X> bind(Ref<X, ? super Root<X>> ref) {
         return (UpdateStream<X>)super.bind(ref);
+    }
+
+    @Override
+    public UpdateStream<X> peek(Consumer<? super Root<X>> peeker) {
+        return (UpdateStream<X>)super.peek(peeker);
     }
 
     @Override

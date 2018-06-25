@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -37,6 +38,11 @@ class SearchValueImpl<X, S extends Selection<X>> extends SearchStreamImpl<X, S> 
     @Override
     public SearchValue<X, S> bind(Ref<X, ? super S> ref) {
         return (SearchValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public SearchValue<X, S> peek(Consumer<? super S> peeker) {
+        return (SearchValue<X, S>)super.peek(peeker);
     }
 
     @Override

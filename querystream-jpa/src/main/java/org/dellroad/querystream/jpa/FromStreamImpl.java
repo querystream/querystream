@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -163,6 +164,11 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     @Override
     public FromStream<X, S> bind(Ref<X, ? super S> ref) {
         return (FromStream<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public FromStream<X, S> peek(Consumer<? super S> peeker) {
+        return (FromStream<X, S>)super.peek(peeker);
     }
 
     @Override

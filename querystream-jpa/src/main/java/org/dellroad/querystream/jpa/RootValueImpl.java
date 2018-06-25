@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -38,6 +39,11 @@ class RootValueImpl<X> extends RootStreamImpl<X> implements RootValue<X> {
     @Override
     public RootValue<X> bind(Ref<X, ? super Root<X>> ref) {
         return (RootValue<X>)super.bind(ref);
+    }
+
+    @Override
+    public RootValue<X> peek(Consumer<? super Root<X>> peeker) {
+        return (RootValue<X>)super.peek(peeker);
     }
 
     @Override

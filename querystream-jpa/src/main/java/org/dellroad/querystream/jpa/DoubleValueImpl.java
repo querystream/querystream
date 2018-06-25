@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -37,6 +38,11 @@ class DoubleValueImpl extends DoubleStreamImpl implements DoubleValue {
     @Override
     public DoubleValue bind(Ref<Double, ? super Expression<Double>> ref) {
         return (DoubleValue)super.bind(ref);
+    }
+
+    @Override
+    public DoubleValue peek(Consumer<? super Expression<Double>> peeker) {
+        return (DoubleValue)super.peek(peeker);
     }
 
     @Override

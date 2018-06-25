@@ -5,6 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -37,6 +38,11 @@ class ExprValueImpl<X, S extends Expression<X>> extends ExprStreamImpl<X, S> imp
     @Override
     public ExprValue<X, S> bind(Ref<X, ? super S> ref) {
         return (ExprValue<X, S>)super.bind(ref);
+    }
+
+    @Override
+    public ExprValue<X, S> peek(Consumer<? super S> peeker) {
+        return (ExprValue<X, S>)super.peek(peeker);
     }
 
     @Override

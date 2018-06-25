@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -121,6 +122,11 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     @Override
     public DoubleStream bind(Ref<Double, ? super Expression<Double>> ref) {
         return (DoubleStream)super.bind(ref);
+    }
+
+    @Override
+    public DoubleStream peek(Consumer<? super Expression<Double>> peeker) {
+        return (DoubleStream)super.peek(peeker);
     }
 
     @Override
