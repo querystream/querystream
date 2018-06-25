@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":18,"i9":18,"i10":18,"i11":18,"i12":18,"i13":18,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":18,"i20":18,"i21":18,"i22":18,"i23":18,"i24":18,"i25":18,"i26":18,"i27":18,"i28":18,"i29":18,"i30":18,"i31":18,"i32":18,"i33":18,"i34":18,"i35":18,"i36":18,"i37":18,"i38":18,"i39":18,"i40":18,"i41":18,"i42":6,"i43":6,"i44":6,"i45":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":18,"i9":18,"i10":18,"i11":18,"i12":18,"i13":18,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":18,"i20":18,"i21":18,"i22":18,"i23":18,"i24":18,"i25":18,"i26":18,"i27":18,"i28":18,"i29":18,"i30":18,"i31":18,"i32":18,"i33":18,"i34":18,"i35":18,"i36":18,"i37":18,"i38":18,"i39":18,"i40":18,"i41":18,"i42":6,"i43":6,"i44":6,"i45":6,"i46":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -402,19 +402,25 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 </tr>
 <tr id="i43" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>...&nbsp;orders)</code>
+<div class="block">Order results using the specified <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a>s.</div>
+</td>
+</tr>
+<tr id="i44" class="altColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy</a></span>(<a href="../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;?,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;ref,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified expression reference.</div>
 </td>
 </tr>
-<tr id="i44" class="altColor">
+<tr id="i45" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified property.</div>
 </td>
 </tr>
-<tr id="i45" class="rowColor">
+<tr id="i46" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderByMulti-java.util.function.Function-">orderByMulti</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>&gt;&gt;&nbsp;orderListFunction)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a> list produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.</div>
@@ -491,13 +497,13 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Order results using the specified property.
 
  <p>
- Adds to any existing sort ordering.</div>
+ Replaces any existing sort ordering.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>attribute</code> - associated property</dd>
 <dd><code>asc</code> - true for ascending, false for descending</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new stream with additional ordering</dd>
+<dd>a new stream with specified ordering</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>attribute</code> is null</dd>
 </dl>
@@ -514,15 +520,36 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Order results using the specified expression reference.
 
  <p>
- Adds to any existing sort ordering.</div>
+ Replaces any existing sort ordering.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ref</code> - previously bound expression reference</dd>
 <dd><code>asc</code> - true for ascending, false for descending</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new stream with additional ordering</dd>
+<dd>a new stream with specified ordering</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>ref</code> is null</dd>
+</dl>
+</li>
+</ul>
+<a name="orderBy-javax.persistence.criteria.Order...-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>orderBy</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;&nbsp;orderBy(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>...&nbsp;orders)</pre>
+<div class="block">Order results using the specified <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a>s.
+
+ <p>
+ Replaces any existing sort ordering.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>orders</code> - ordering(s), with higher precedence orderings first</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified ordering</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>orders</code> is null</dd>
 </dl>
 </li>
 </ul>
@@ -537,13 +564,13 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.
 
  <p>
- Adds to any existing sort ordering.</div>
+ Replaces any existing sort ordering.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>orderExprFunction</code> - <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a> that produces an <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> to order on given an item expression</dd>
 <dd><code>asc</code> - true for ascending, false for descending</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new stream with additional ordering</dd>
+<dd>a new stream with specified ordering</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>orderExprFunction</code> is null</dd>
 </dl>
@@ -559,12 +586,12 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a> list produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.
 
  <p>
- Adds to any existing sort ordering.</div>
+ Replaces any existing sort ordering.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>orderListFunction</code> - <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a> that produces the sort ordering given an item expression</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new stream with additional ordering</dd>
+<dd>a new stream with specified ordering</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>orderListFunction</code> is null</dd>
 </dl>
