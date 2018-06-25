@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -250,6 +250,12 @@ extends <a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/RootStream.html#orderByMulti-java.util.function.Function-">orderByMulti</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>&gt;&gt;&nbsp;orderListFunction)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a> list produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/RootStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;&nbsp;peeker)</code>
+<div class="block">Peek at the items in this stream.</div>
 </td>
 </tr>
 </table>
@@ -646,6 +652,37 @@ extends <a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title
 <dd><code>ref</code> - unbound reference</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>new stream that binds <code>ref</code></dd>
+</dl>
+</li>
+</ul>
+<a name="peek-java.util.function.Consumer-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>peek</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&nbsp;peek(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;&nbsp;peeker)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#peek-java.util.function.Consumer-">QueryStream</a></code></span></div>
+<div class="block">Peek at the items in this stream.
+
+ <p>
+ This is useful in cases where the selection can be modified, e.g., setting join <code>ON</code> conditions
+ using <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true#on-javax.persistence.criteria.Expression-" title="class or interface in javax.persistence.criteria"><code>Join.on()</code></a>.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/FromStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/PathStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/AbstractQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">AbstractQuery</a>&lt;?&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaQuery</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/RootStream.html" title="type parameter in RootStream">X</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>peeker</code> - peeker into stream</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new stream that peeks into this stream</dd>
 </dl>
 </li>
 </ul>

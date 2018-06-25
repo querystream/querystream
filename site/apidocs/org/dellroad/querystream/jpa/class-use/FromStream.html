@@ -267,30 +267,34 @@
 <td class="colLast"><span class="typeNameLabel">FromStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/FromStream.html#orderByMulti-java.util.function.Function-">orderByMulti</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="type parameter in FromStream">S</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>&gt;&gt;&nbsp;orderListFunction)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="type parameter in FromStream">X</a>,<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="type parameter in FromStream">S</a>&gt;</code></td>
+<td class="colLast"><span class="typeNameLabel">FromStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/FromStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="type parameter in FromStream">S</a>&gt;&nbsp;peeker)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">QueryStream.Builder.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.CollectionJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;X,E&gt;&nbsp;join)</code>
 <div class="block">Create a <a href="../../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,E&gt;&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">QueryStream.Builder.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.Join-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;X,E&gt;&nbsp;join)</code>
 <div class="block">Create a <a href="../../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">QueryStream.Builder.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.ListJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;X,E&gt;&nbsp;join)</code>
 <div class="block">Create a <a href="../../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>&lt;X,K,V&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">QueryStream.Builder.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.MapJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;X,K,V&gt;&nbsp;join)</code>
 <div class="block">Create a <a href="../../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>&lt;X,E&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">QueryStream.Builder.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/QueryStream.Builder.html#substream-javax.persistence.criteria.SetJoin-">substream</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;X,E&gt;&nbsp;join)</code>
 <div class="block">Create a <a href="../../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for use as a subquery, using the specified join.</div>

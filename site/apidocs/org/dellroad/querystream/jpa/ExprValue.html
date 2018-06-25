@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":18,"i5":18,"i6":18,"i7":18,"i8":18,"i9":18,"i10":18,"i11":18,"i12":18,"i13":18,"i14":18,"i15":18};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":18,"i5":18,"i6":18,"i7":18,"i8":18,"i9":18,"i10":18,"i11":18,"i12":18,"i13":18,"i14":18,"i15":18,"i16":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -243,6 +243,12 @@ extends <a href="../../../../org/dellroad/querystream/jpa/SearchValue.html" titl
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/ExprValue.html#mapToPath-java.lang.Class-java.util.function.Function-">mapToPath</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;Y&gt;&gt;&nbsp;pathFunction)</code>
 <div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="interface in org.dellroad.querystream.jpa">ExprValue</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/ExprValue.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a>&gt;&nbsp;peeker)</code>
+<div class="block">Peek at the items in this stream.</div>
 </td>
 </tr>
 </table>
@@ -567,6 +573,35 @@ extends <a href="../../../../org/dellroad/querystream/jpa/SearchValue.html" titl
 <dd><code>ref</code> - unbound reference</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>new stream that binds <code>ref</code></dd>
+</dl>
+</li>
+</ul>
+<a name="peek-java.util.function.Consumer-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>peek</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="interface in org.dellroad.querystream.jpa">ExprValue</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a>&gt;&nbsp;peek(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a>&gt;&nbsp;peeker)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#peek-java.util.function.Consumer-">QueryStream</a></code></span></div>
+<div class="block">Peek at the items in this stream.
+
+ <p>
+ This is useful in cases where the selection can be modified, e.g., setting join <code>ON</code> conditions
+ using <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true#on-javax.persistence.criteria.Expression-" title="class or interface in javax.persistence.criteria"><code>Join.on()</code></a>.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a> extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a> extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/AbstractQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">AbstractQuery</a>&lt;?&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaQuery</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a> extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/SearchValue.html#peek-java.util.function.Consumer-">peek</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchValue.html" title="interface in org.dellroad.querystream.jpa">SearchValue</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>,<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">S</a> extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/ExprValue.html" title="type parameter in ExprValue">X</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>peeker</code> - peeker into stream</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new stream that peeks into this stream</dd>
 </dl>
 </li>
 </ul>
