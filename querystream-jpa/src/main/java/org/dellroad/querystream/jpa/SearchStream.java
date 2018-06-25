@@ -67,11 +67,11 @@ public interface SearchStream<X, S extends Selection<X>>
      * Order results using the specified property.
      *
      * <p>
-     * Adds to any existing sort ordering.
+     * Replaces any existing sort ordering.
      *
      * @param attribute associated property
      * @param asc true for ascending, false for descending
-     * @return a new stream with additional ordering
+     * @return a new stream with specified ordering
      * @throws IllegalArgumentException if {@code attribute} is null
      */
     SearchStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
@@ -80,11 +80,11 @@ public interface SearchStream<X, S extends Selection<X>>
      * Order results using the specified expression reference.
      *
      * <p>
-     * Adds to any existing sort ordering.
+     * Replaces any existing sort ordering.
      *
      * @param ref previously bound expression reference
      * @param asc true for ascending, false for descending
-     * @return a new stream with additional ordering
+     * @return a new stream with specified ordering
      * @throws IllegalArgumentException if {@code ref} is null
      */
     SearchStream<X, S> orderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
@@ -93,11 +93,11 @@ public interface SearchStream<X, S extends Selection<X>>
      * Order results using the {@link Expression} produced by the given {@link Function}.
      *
      * <p>
-     * Adds to any existing sort ordering.
+     * Replaces any existing sort ordering.
      *
      * @param orderExprFunction {@link Function} that produces an {@link Expression} to order on given an item expression
      * @param asc true for ascending, false for descending
-     * @return a new stream with additional ordering
+     * @return a new stream with specified ordering
      * @throws IllegalArgumentException if {@code orderExprFunction} is null
      */
     SearchStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
@@ -106,10 +106,10 @@ public interface SearchStream<X, S extends Selection<X>>
      * Order results using the {@link Order} list produced by the given {@link Function}.
      *
      * <p>
-     * Adds to any existing sort ordering.
+     * Replaces any existing sort ordering.
      *
      * @param orderListFunction {@link Function} that produces the sort ordering given an item expression
-     * @return a new stream with additional ordering
+     * @return a new stream with specified ordering
      * @throws IllegalArgumentException if {@code orderListFunction} is null
      */
     SearchStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction);
