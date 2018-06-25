@@ -6,6 +6,7 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -72,6 +73,13 @@ class SearchStreamImpl<X, S extends Selection<X>>
         if (ref == null)
             throw new IllegalArgumentException("null ref");
         return this.orderBy(selection -> ref.get(), asc);
+    }
+
+    @Override
+    public SearchStream<X, S> orderBy(Order... orders) {
+        if (orders == null)
+            throw new IllegalArgumentException("null orders");
+        return this.orderByMulti(selection -> Arrays.asList(orders));
     }
 
     @Override

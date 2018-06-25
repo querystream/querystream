@@ -90,6 +90,18 @@ public interface SearchStream<X, S extends Selection<X>>
     SearchStream<X, S> orderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
 
     /**
+     * Order results using the specified {@link Order}s.
+     *
+     * <p>
+     * Replaces any existing sort ordering.
+     *
+     * @param orders ordering(s), with higher precedence orderings first
+     * @return a new stream with specified ordering
+     * @throws IllegalArgumentException if {@code orders} is null
+     */
+    SearchStream<X, S> orderBy(Order... orders);
+
+    /**
      * Order results using the {@link Expression} produced by the given {@link Function}.
      *
      * <p>
