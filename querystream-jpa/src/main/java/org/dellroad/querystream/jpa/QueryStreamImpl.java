@@ -65,6 +65,13 @@ abstract class QueryStreamImpl<X,
         this.configurer = configurer;
     }
 
+// QueryType
+
+    @Override
+    public QT getQueryType() {
+        return this.queryType;
+    }
+
 // Extenders
 
     /**

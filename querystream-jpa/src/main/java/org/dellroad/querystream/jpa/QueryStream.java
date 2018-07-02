@@ -22,6 +22,7 @@ import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.SetJoin;
 import javax.persistence.metamodel.SingularAttribute;
 
+import org.dellroad.querystream.jpa.querytype.QueryType;
 import org.dellroad.querystream.jpa.querytype.SearchType;
 
 /**
@@ -38,6 +39,15 @@ public interface QueryStream<X,
   C extends CommonAbstractCriteria,
   C2 extends C,
   Q extends Query> extends QueryConfigurer<C, X, S> {
+
+// QueryType
+
+    /**
+     * Get the {@link QueryType} of this instance.
+     *
+     * @return associated {@link QueryType}
+     */
+    QueryType<X, C, C2, Q> getQueryType();
 
 // Queryification
 
