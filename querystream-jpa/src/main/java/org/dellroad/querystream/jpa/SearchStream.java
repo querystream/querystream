@@ -243,8 +243,19 @@ public interface SearchStream<X, S extends Selection<X>>
             // We always prefer having a From over a Path, because you can continue to join with it.
             // If you say path.get() you get a Path, even if you could have said path.join() to get a From.
             // So when mapping a SingluarAttribute, path.join() is the same as path.get() but better.
+            // Of course, the attribute also has to point to something joinable, not e.g. a basic type.
             final Path<X> path = (Path<X>)this.configure(builder, query);   // cast must be valid if attribute exists
-            return path instanceof From ? ((From<?, X>)path).join(attribute) : path.get(attribute);
+            final boolean joinable;
+            switch (attribute.getPersistentAttributeType()) {
+            case BASIC:
+            case EMBEDDED:
+                joinable = false;
+                break;
+            default:
+                joinable = true;
+                break;
+            }
+            return joinable && path instanceof From ? ((From<?, X>)path).join(attribute) : path.get(attribute);
         });
     }
 
