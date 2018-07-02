@@ -82,6 +82,11 @@ class UpdateStreamImpl<X>
 // Narrowing overrides (QueryStreamImpl)
 
     @Override
+    public UpdateType<X> getQueryType() {
+        return this.queryType;
+    }
+
+    @Override
     UpdateStream<X> modQuery(BiConsumer<? super CriteriaBuilder, ? super CriteriaUpdate<X>> modifier) {
         return (UpdateStream<X>)super.modQuery(modifier);
     }

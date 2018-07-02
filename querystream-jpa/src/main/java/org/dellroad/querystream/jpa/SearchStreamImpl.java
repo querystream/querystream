@@ -188,6 +188,11 @@ class SearchStreamImpl<X, S extends Selection<X>>
 // Narrowing overrides (QueryStreamImpl)
 
     @Override
+    public SearchType<X> getQueryType() {
+        return this.queryType;
+    }
+
+    @Override
     SearchStream<X, S> modQuery(BiConsumer<? super CriteriaBuilder, ? super AbstractQuery<?>> modifier) {
         return (SearchStream<X, S>)super.modQuery(modifier);
     }

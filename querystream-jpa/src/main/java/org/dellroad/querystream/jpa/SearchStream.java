@@ -585,6 +585,9 @@ public interface SearchStream<X, S extends Selection<X>>
 // Narrowing overrides (QueryStream)
 
     @Override
+    SearchType<X> getQueryType();
+
+    @Override
     SearchStream<X, S> bind(Ref<X, ? super S> ref);
 
     @Override

@@ -15,6 +15,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
+import org.dellroad.querystream.jpa.querytype.UpdateType;
+
 /**
  * Builder for JPA criteria bulk update queries using a {@link java.util.stream.Stream}-like API.
  */
@@ -41,6 +43,9 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
     <Y, V extends Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, V value);
 
 // Narrowing overrides
+
+    @Override
+    UpdateType<X> getQueryType();
 
     @Override
     UpdateStream<X> bind(Ref<X, ? super Root<X>> ref);

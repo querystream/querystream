@@ -14,6 +14,8 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
+import org.dellroad.querystream.jpa.querytype.DeleteType;
+
 /**
  * Builder for JPA criteria bulk delete queries using a {@link java.util.stream.Stream}-like API.
  */
@@ -30,6 +32,9 @@ public interface DeleteStream<X> extends QueryStream<X, Root<X>, CriteriaDelete<
     int delete();
 
 // Narrowing overrides
+
+    @Override
+    DeleteType<X> getQueryType();
 
     @Override
     DeleteStream<X> bind(Ref<X, ? super Root<X>> ref);

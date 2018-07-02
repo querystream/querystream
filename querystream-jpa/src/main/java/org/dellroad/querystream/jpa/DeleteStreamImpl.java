@@ -60,6 +60,11 @@ class DeleteStreamImpl<X>
 // Narrowing overrides (QueryStreamImpl)
 
     @Override
+    public DeleteType<X> getQueryType() {
+        return this.queryType;
+    }
+
+    @Override
     public DeleteStream<X> bind(Ref<X, ? super Root<X>> ref) {
         return (DeleteStream<X>)super.bind(ref);
     }
