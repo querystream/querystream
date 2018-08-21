@@ -78,6 +78,40 @@ public interface SearchStream<X, S extends Selection<X>>
     SearchStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
 
     /**
+     * Order results using the specified properties.
+     *
+     * <p>
+     * Replaces any existing sort ordering.
+     *
+     * @param attribute1 associated property
+     * @param asc1 true for {@code attribute1} ascending, false for {@code attribute1} descending
+     * @param attribute2 associated property
+     * @param asc2 true for {@code attribute2} ascending, false for {@code attribute2} descending
+     * @return a new stream with specified ordering
+     * @throws IllegalArgumentException if {@code attribute1} or {@code attribute2} is null
+     */
+    SearchStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2);
+
+    /**
+     * Order results using the specified properties.
+     *
+     * <p>
+     * Replaces any existing sort ordering.
+     *
+     * @param attribute1 associated property
+     * @param asc1 true for {@code attribute1} ascending, false for {@code attribute1} descending
+     * @param attribute2 associated property
+     * @param asc2 true for {@code attribute2} ascending, false for {@code attribute2} descending
+     * @param attribute3 associated property
+     * @param asc3 true for {@code attribute3} ascending, false for {@code attribute3} descending
+     * @return a new stream with specified ordering
+     * @throws IllegalArgumentException if {@code attribute1}, {@code attribute2}, or {@code attribute3} is null
+     */
+    SearchStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3);
+
+    /**
      * Order results using the specified expression reference.
      *
      * <p>

@@ -110,6 +110,18 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     }
 
     @Override
+    public FromStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2) {
+        return (FromStream<X, S>)super.orderBy(attribute1, asc1, attribute2, asc2);
+    }
+
+    @Override
+    public FromStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3) {
+        return (FromStream<X, S>)super.orderBy(attribute1, asc1, attribute2, asc2, attribute3, asc3);
+    }
+
+    @Override
     public FromStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
         return (FromStream<X, S>)super.orderBy(orderExprFunction, asc);
     }

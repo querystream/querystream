@@ -58,6 +58,18 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     }
 
     @Override
+    public PathStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2) {
+        return (PathStream<X, S>)super.orderBy(attribute1, asc1, attribute2, asc2);
+    }
+
+    @Override
+    public PathStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3) {
+        return (PathStream<X, S>)super.orderBy(attribute1, asc1, attribute2, asc2, attribute3, asc3);
+    }
+
+    @Override
     public PathStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
         return (PathStream<X, S>)super.orderBy(orderExprFunction, asc);
     }

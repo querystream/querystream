@@ -91,6 +91,42 @@ class SearchStreamImpl<X, S extends Selection<X>>
     }
 
     @Override
+    public SearchStream<X, S> orderBy(
+      SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2) {
+        if (attribute1 == null)
+            throw new IllegalArgumentException("null attribute1");
+        if (attribute2 == null)
+            throw new IllegalArgumentException("null attribute2");
+        return this.orderByMulti(selection -> {
+            final Path<X> path = (Path<X>)selection;                                    // cast must be valid if attribute exists
+            return Arrays.asList(
+              asc1 ? this.builder().asc(path.get(attribute1)) : this.builder().desc(path.get(attribute1)),
+              asc2 ? this.builder().asc(path.get(attribute2)) : this.builder().desc(path.get(attribute2)));
+        });
+    }
+
+    @Override
+    public SearchStream<X, S> orderBy(
+      SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2,
+      SingularAttribute<? super X, ?> attribute3, boolean asc3) {
+        if (attribute1 == null)
+            throw new IllegalArgumentException("null attribute1");
+        if (attribute2 == null)
+            throw new IllegalArgumentException("null attribute2");
+        if (attribute3 == null)
+            throw new IllegalArgumentException("null attribute3");
+        return this.orderByMulti(selection -> {
+            final Path<X> path = (Path<X>)selection;                                    // cast must be valid if attribute exists
+            return Arrays.asList(
+              asc1 ? this.builder().asc(path.get(attribute1)) : this.builder().desc(path.get(attribute1)),
+              asc2 ? this.builder().asc(path.get(attribute2)) : this.builder().desc(path.get(attribute2)),
+              asc3 ? this.builder().asc(path.get(attribute3)) : this.builder().desc(path.get(attribute3)));
+        });
+    }
+
+    @Override
     public SearchStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
         if (orderExprFunction == null)
             throw new IllegalArgumentException("null orderExprFunction");

@@ -74,6 +74,14 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
     ExprStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
 
     @Override
+    ExprStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2);
+
+    @Override
+    ExprStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3);
+
+    @Override
     ExprStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     @Override

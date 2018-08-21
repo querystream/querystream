@@ -32,6 +32,14 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
     RootStream<X> orderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
 
     @Override
+    RootStream<X> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2);
+
+    @Override
+    RootStream<X> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3);
+
+    @Override
     RootStream<X> orderBy(Function<? super Root<X>, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     @Override

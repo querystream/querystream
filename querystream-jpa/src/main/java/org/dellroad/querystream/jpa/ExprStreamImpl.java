@@ -89,6 +89,18 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     }
 
     @Override
+    public ExprStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2) {
+        return (ExprStream<X, S>)super.orderBy(attribute1, asc1, attribute2, asc2);
+    }
+
+    @Override
+    public ExprStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3) {
+        return (ExprStream<X, S>)super.orderBy(attribute1, asc1, attribute2, asc2, attribute3, asc3);
+    }
+
+    @Override
     public ExprStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
         return (ExprStream<X, S>)super.orderBy(orderExprFunction, asc);
     }

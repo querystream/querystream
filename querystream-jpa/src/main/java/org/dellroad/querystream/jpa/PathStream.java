@@ -33,6 +33,14 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
     PathStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
 
     @Override
+    PathStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2);
+
+    @Override
+    PathStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute1, boolean asc1,
+      SingularAttribute<? super X, ?> attribute2, boolean asc2, SingularAttribute<? super X, ?> attribute3, boolean asc3);
+
+    @Override
     PathStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     @Override
