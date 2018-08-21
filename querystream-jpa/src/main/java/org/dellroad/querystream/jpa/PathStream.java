@@ -21,6 +21,16 @@ import javax.persistence.metamodel.SingularAttribute;
  */
 public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
 
+    /**
+     * Map this stream into a stream whose elements are the result of applying the given narrowing cast.
+     *
+     * @param type new, narrower item type
+     * @param <Y> narrower type
+     * @return recast stream
+     * @see CriteriaBuilder#treat(Path, Class) CriteriaBuilder.treat()
+     */
+    <Y extends X> PathStream<Y, ? extends Path<Y>> cast(Class<Y> type);
+
 // Narrowing overrides (SearchStream)
 
     @Override

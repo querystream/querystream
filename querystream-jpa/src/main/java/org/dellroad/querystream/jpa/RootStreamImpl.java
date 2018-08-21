@@ -37,6 +37,14 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
         super(entityManager, queryType, configurer);
     }
 
+// Narrowing overrides (PathStreamImpl)
+
+    @Override
+    public <Y extends X> RootStream<Y> cast(Class<Y> type) {
+        return new RootStreamImpl<Y>(this.getEntityManager(), new SearchType<>(type),
+          (builder, query) -> builder.treat(this.configure(builder, query), type));
+    }
+
 // Narrowing overrides (SearchStreamImpl)
 
     @Override

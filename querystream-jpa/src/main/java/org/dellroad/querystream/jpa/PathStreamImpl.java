@@ -29,6 +29,12 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
         super(entityManager, queryType, configurer);
     }
 
+    @Override
+    public <Y extends X> PathStream<Y, ? extends Path<Y>> cast(Class<Y> type) {
+        return new PathStreamImpl<Y, Path<Y>>(this.getEntityManager(), new SearchType<>(type),
+          (builder, query) -> builder.treat(this.configure(builder, query), type));
+    }
+
 // Narrowing overrides (SearchStreamImpl)
 
     @Override

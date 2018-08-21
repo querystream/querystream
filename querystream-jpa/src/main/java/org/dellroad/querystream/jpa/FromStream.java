@@ -21,6 +21,12 @@ import javax.persistence.metamodel.SingularAttribute;
  */
 public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
 
+// Narrowing overrides (PathStream)
+
+    // can't do this because there's no method CriteriaBuilder.treat(From, Class)
+    //@Override
+    //<Y extends X> FromStream<Y, ? extends From<?, Y>> cast(Class<Y> type);
+
 // Narrowing overrides (SearchStream)
 
     @Override

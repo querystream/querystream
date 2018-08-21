@@ -20,6 +20,11 @@ import javax.persistence.metamodel.SingularAttribute;
  */
 public interface RootStream<X> extends FromStream<X, Root<X>> {
 
+// Narrowing overrides (PathStream)
+
+    @Override
+    <Y extends X> RootStream<Y> cast(Class<Y> type);
+
 // Narrowing overrides (SearchStream)
 
     @Override
