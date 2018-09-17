@@ -61,7 +61,13 @@ public interface QueryStream<X,
     /**
      * Build a criteria API query based on this instance.
      *
+     * <p>
+     * Note that due to limitations of the JPA Criteria API, the returned query object lacks the row offset and limit
+     * returned by {@link #getFirstResult} and {@link #getMaxResults}, as this information can only be configured
+     * on the fully formed {@link Query} (which is returned by {@link #toQuery}).
+     *
      * @return new Criteria API query corresponding to this instance
+     * @see #toQuery
      */
     C2 toCriteriaQuery();
 
@@ -71,6 +77,20 @@ public interface QueryStream<X,
      * @return new JPA query corresponding to this instance
      */
     Q toQuery();
+
+    /**
+     * Get the row offset associated with this query.
+     *
+     * @return row offset, or -1 if there is none configured
+     */
+    int getFirstResult();
+
+    /**
+     * Get the row limit associated with this query.
+     *
+     * @return row limit, or -1 if there is none configured
+     */
+    int getMaxResults();
 
 // Refs
 
@@ -136,6 +156,34 @@ public interface QueryStream<X,
      * @return new filtered stream
      */
     QueryStream<X, S, C, C2, Q> filter(SingularAttribute<? super X, Boolean> attribute);
+
+// Streamy stuff
+
+    /**
+     * Return this stream truncated to the specified maximum length.
+     *
+     * <p>
+     * Due to limitations in the JPA Criteria API, this method is not supported on subquery streams
+     * and in general must be specified last (after any filtering, sorting, grouping, joins, etc.).
+     *
+     * @param maxSize maximum number of elements to return
+     * @return new truncated stream
+     * @throws IllegalArgumentException if {@code maxSize} is negative
+     */
+    QueryStream<X, S, C, C2, Q> limit(int maxSize);
+
+    /**
+     * Return this stream with the specified number of initial elements skipped.
+     *
+     * <p>
+     * Due to limitations in the JPA Criteria API, this method is not supported on subquery streams
+     * and in general must be specified last (after any filtering, sorting, grouping, joins, etc.).
+     *
+     * @param num number of elements to skip
+     * @return new elided stream
+     * @throws IllegalArgumentException if {@code num} is negative
+     */
+    QueryStream<X, S, C, C2, Q> skip(int num);
 
 // Builder
 
@@ -233,7 +281,7 @@ public interface QueryStream<X,
             if (root == null)
                 throw new IllegalArgumentException("null root");
             return new RootStreamImpl<>(this.entityManager, new SearchType<X>((Class<X>)root.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(root));
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(root), -1, -1);
         }
 
         /**
@@ -251,7 +299,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
         }
 
         /**
@@ -269,7 +317,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
         }
 
         /**
@@ -288,7 +336,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<V>((Class<V>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
         }
 
         /**
@@ -306,7 +354,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
         }
 
         /**
@@ -324,7 +372,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join));
+              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
         }
 
         /**

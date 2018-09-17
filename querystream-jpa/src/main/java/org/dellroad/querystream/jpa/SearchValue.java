@@ -37,7 +37,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      */
     default X orElse(X defaultValue) {
         try {
-            return this.toQuery().getSingleResult();
+            return this.value();
         } catch (NoResultException e) {
             return defaultValue;
         }

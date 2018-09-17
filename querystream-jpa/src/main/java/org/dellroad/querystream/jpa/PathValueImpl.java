@@ -22,16 +22,16 @@ class PathValueImpl<X, S extends Path<X>> extends PathStreamImpl<X, S> implement
 // Constructors
 
     PathValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     PathValue<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new PathValueImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new PathValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

@@ -29,12 +29,12 @@ class DeleteStreamImpl<X>
     }
 
     private DeleteStreamImpl(EntityManager entityManager, DeleteType<X> queryType) {
-        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()));
+        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), -1, -1);
     }
 
     private DeleteStreamImpl(EntityManager entityManager, DeleteType<X> queryType,
-      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // DeleteStream
@@ -48,8 +48,8 @@ class DeleteStreamImpl<X>
 
     @Override
     DeleteStream<X> create(EntityManager entityManager, DeleteType<X> queryType,
-      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer) {
-        return new DeleteStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        return new DeleteStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
@@ -82,5 +82,15 @@ class DeleteStreamImpl<X>
     @Override
     public DeleteStream<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder) {
         return (DeleteStream<X>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public DeleteStream<X> limit(int limit) {
+        return (DeleteStream<X>)super.limit(limit);
+    }
+
+    @Override
+    public DeleteStream<X> skip(int skip) {
+        return (DeleteStream<X>)super.skip(skip);
     }
 }

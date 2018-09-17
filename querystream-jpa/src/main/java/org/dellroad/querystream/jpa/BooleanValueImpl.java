@@ -19,23 +19,24 @@ class BooleanValueImpl extends ExprValueImpl<Boolean, Expression<Boolean>> imple
 // Constructors
 
     BooleanValueImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Boolean, ? extends Expression<Boolean>> configurer) {
-        super(entityManager, new SearchType<>(Boolean.class), configurer);
+      QueryConfigurer<AbstractQuery<?>, Boolean, ? extends Expression<Boolean>> configurer, int firstResult, int maxResults) {
+        super(entityManager, new SearchType<>(Boolean.class), configurer, firstResult, maxResults);
     }
 
 // BooleanValue
 
     @Override
     public BooleanValue not() {
-        return new BooleanValueImpl(this.entityManager, (builder, query) -> builder.not(this.configurer.configure(builder, query)));
+        return new BooleanValueImpl(this.entityManager,
+          (builder, query) -> builder.not(this.configurer.configure(builder, query)), this.firstResult, this.maxResults);
     }
 
 // Subclass required methods
 
     @Override
     BooleanValue create(EntityManager entityManager, SearchType<Boolean> queryType,
-      QueryConfigurer<AbstractQuery<?>, Boolean, ? extends Expression<Boolean>> configurer) {
-        return new BooleanValueImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Boolean, ? extends Expression<Boolean>> configurer, int firstResult, int maxResults) {
+        return new BooleanValueImpl(entityManager, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

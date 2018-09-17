@@ -22,16 +22,16 @@ class RootValueImpl<X> extends RootStreamImpl<X> implements RootValue<X> {
 // Constructors
 
     RootValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     RootValue<X> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer) {
-        return new RootValueImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        return new RootValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

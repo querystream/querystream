@@ -58,4 +58,10 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
 
     @Override
     UpdateStream<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    UpdateStream<X> limit(int maxSize);
+
+    @Override
+    UpdateStream<X> skip(int num);
 }

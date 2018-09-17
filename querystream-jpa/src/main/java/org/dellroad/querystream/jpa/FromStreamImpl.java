@@ -25,8 +25,8 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
 // Constructors
 
     FromStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 /*
@@ -85,13 +85,19 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
 
     @Override
     FromStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new FromStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new FromStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
     FromValue<X, S> toValue() {
-        return new FromValueImpl<>(this.entityManager, this.queryType, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    FromValue<X, S> toValue(boolean forceLimit) {
+        return new FromValueImpl<>(this.entityManager, this.queryType,
+          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -197,5 +203,15 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     @Override
     public FromStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         return (FromStream<X, S>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public FromStream<X, S> limit(int limit) {
+        return (FromStream<X, S>)super.limit(limit);
+    }
+
+    @Override
+    public FromStream<X, S> skip(int skip) {
+        return (FromStream<X, S>)super.skip(skip);
     }
 }

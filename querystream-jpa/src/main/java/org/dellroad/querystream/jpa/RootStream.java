@@ -90,4 +90,10 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
 
     @Override
     RootStream<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    RootStream<X> limit(int maxSize);
+
+    @Override
+    RootStream<X> skip(int num);
 }

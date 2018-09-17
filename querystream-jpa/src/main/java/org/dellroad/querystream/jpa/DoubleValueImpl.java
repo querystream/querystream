@@ -21,16 +21,16 @@ class DoubleValueImpl extends DoubleStreamImpl implements DoubleValue {
 // Constructors
 
     DoubleValueImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer) {
-        super(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
+        super(entityManager, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     DoubleValue create(EntityManager entityManager, SearchType<Double> queryType,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer) {
-        return new DoubleValueImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
+        return new DoubleValueImpl(entityManager, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

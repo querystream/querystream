@@ -34,16 +34,16 @@ class SearchStreamImpl<X, S extends Selection<X>>
 // Constructors
 
     SearchStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Superclass overrides
 
     @Override
     SearchStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new SearchStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new SearchStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
@@ -59,13 +59,19 @@ class SearchStreamImpl<X, S extends Selection<X>>
 // Subclass required methods
 
     SearchValue<X, S> toValue() {
-        return new SearchValueImpl<>(this.entityManager, this.queryType, this.configurer);
+        return this.toValue(false);
+    }
+
+    SearchValue<X, S> toValue(boolean forceLimit) {
+        return new SearchValueImpl<>(this.entityManager, this.queryType,
+          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
 // CriteriaQuery stuff
 
     @Override
     public SearchStream<X, S> distinct() {
+        QueryStreamImpl.checkOffsetLimit(this, "distinct() must be performed prior to skip() or limit()");
         return this.modQuery((builder, query) -> query.distinct(true));
     }
 
@@ -140,10 +146,11 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction) {
         if (orderListFunction == null)
             throw new IllegalArgumentException("null orderListFunction");
+        QueryStreamImpl.checkOffsetLimit(this, "sorting must be performed prior to skip() or limit()");
         return this.withConfig((builder, query) -> {
             if (!(query instanceof CriteriaQuery)) {
-                throw new UnsupportedOperationException("sorry, asSubquery() after sorted() or orderBy()"
-                  + " is not supported because the JPA Criteria API doesn't support sorting in subqueries");
+                throw new UnsupportedOperationException("sorry, can't sort a subquery because"
+                  + " the JPA Criteria API doesn't support sorting in subqueries");
             }
             final S selection = this.configure(builder, query);
             ((CriteriaQuery<?>)query).orderBy(new ArrayList<>(orderListFunction.apply(selection)));
@@ -176,6 +183,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> groupByMulti(Function<? super S, ? extends List<Expression<?>>> groupFunction) {
         if (groupFunction == null)
             throw new IllegalArgumentException("null groupFunction");
+        QueryStreamImpl.checkOffsetLimit(this, "grouping must be performed prior to skip() or limit()");
         return this.withConfig((builder, query) -> {
             final S selection = this.configure(builder, query);
             query.groupBy(groupFunction.apply(selection));
@@ -187,6 +195,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> having(Function<? super S, ? extends Expression<Boolean>> havingFunction) {
         if (havingFunction == null)
             throw new IllegalArgumentException("null havingFunction");
+        QueryStreamImpl.checkOffsetLimit(this, "grouping must be performed prior to skip() or limit()");
         return this.withConfig((builder, query) -> {
             final S selection = this.configure(builder, query);
             query.having(havingFunction.apply(selection));
@@ -198,12 +207,12 @@ class SearchStreamImpl<X, S extends Selection<X>>
 
     @Override
     public SearchValue<X, S> findAny() {
-        return this.toValue();
+        return this instanceof SearchValue ? (SearchValue<X, S>)this : this.toValue(true);
     }
 
     @Override
     public SearchValue<X, S> findFirst() {
-        return this.toValue();
+        return this instanceof SearchValue ? (SearchValue<X, S>)this : this.toValue(true);
     }
 
 // Binding
@@ -214,6 +223,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
             throw new IllegalArgumentException("null ref");
         if (type == null)
             throw new IllegalArgumentException("null type");
+        QueryStreamImpl.checkOffsetLimit(this, "roots must be added prior to skip() or limit()");
         return this.withConfig((builder, query) -> {
             final S selection = this.configure(builder, query);
             ref.bind(query.from(type));
@@ -257,5 +267,15 @@ class SearchStreamImpl<X, S extends Selection<X>>
     @Override
     public SearchStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         return (SearchStream<X, S>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public SearchStream<X, S> limit(int limit) {
+        return (SearchStream<X, S>)super.limit(limit);
+    }
+
+    @Override
+    public SearchStream<X, S> skip(int skip) {
+        return (SearchStream<X, S>)super.skip(skip);
     }
 }

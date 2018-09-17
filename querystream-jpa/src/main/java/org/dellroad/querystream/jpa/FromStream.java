@@ -92,4 +92,10 @@ public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
 
     @Override
     FromStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    FromStream<X, S> limit(int maxSize);
+
+    @Override
+    FromStream<X, S> skip(int num);
 }

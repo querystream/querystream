@@ -23,43 +23,64 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
 // Constructors
 
     LongStreamImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer) {
-        super(entityManager, new SearchType<Long>(Long.class), configurer);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
+        super(entityManager, new SearchType<Long>(Long.class), configurer, firstResult, maxResults);
+    }
+
+// Mapping
+
+    @Override
+    public DoubleStream asDoubleStream() {
+        return new DoubleStreamImpl(this.getEntityManager(),
+          (builder, query) -> builder.toDouble(this.configure(builder, query)), this.firstResult, this.maxResults);
     }
 
 // Aggregation
 
     @Override
     public DoubleValue average() {
-        return new DoubleValueImpl(this.entityManager, (builder, query) -> builder.avg(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "average() must be performed prior to skip() or limit()");
+        return new DoubleValueImpl(this.entityManager,
+          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue max() {
-        return new LongValueImpl(this.entityManager, (builder, query) -> builder.max(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "max() must be performed prior to skip() or limit()");
+        return new LongValueImpl(this.entityManager,
+          (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue min() {
-        return new LongValueImpl(this.entityManager, (builder, query) -> builder.min(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "min() must be performed prior to skip() or limit()");
+        return new LongValueImpl(this.entityManager,
+          (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue sum() {
-        return new LongValueImpl(this.entityManager, (builder, query) -> builder.sum(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "sum() must be performed prior to skip() or limit()");
+        return new LongValueImpl(this.entityManager,
+          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     LongStream create(EntityManager entityManager, SearchType<Long> queryType,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer) {
-        return new LongStreamImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
+        return new LongStreamImpl(entityManager, configurer, firstResult, maxResults);
     }
 
     @Override
     LongValue toValue() {
-        return new LongValueImpl(this.entityManager, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    LongValue toValue(boolean forceLimit) {
+        return new LongValueImpl(this.entityManager, this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -138,5 +159,15 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     @Override
     public LongStream filter(Function<? super Expression<Long>, ? extends Expression<Boolean>> predicateBuilder) {
         return (LongStream)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public LongStream limit(int limit) {
+        return (LongStream)super.limit(limit);
+    }
+
+    @Override
+    public LongStream skip(int skip) {
+        return (LongStream)super.skip(skip);
     }
 }

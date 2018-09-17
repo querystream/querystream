@@ -36,8 +36,9 @@ public interface FromValue<X, S extends From<?, X>> extends PathValue<X, S>, Fro
             throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        QueryStreamImpl.checkOffsetLimit(this, "join() must be performed prior to skip() or limit()");
         return new FromValueImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
-           (builder, query) -> this.configure(builder, query).join(attribute, joinType));
+           (builder, query) -> this.configure(builder, query).join(attribute, joinType), -1, -1);
     }
 
 // Narrowing overrides (QueryStream)

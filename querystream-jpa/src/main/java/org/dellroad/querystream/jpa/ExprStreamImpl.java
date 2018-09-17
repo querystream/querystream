@@ -27,8 +27,8 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
 // Constructors
 
     ExprStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Subqueries
@@ -51,26 +51,35 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
 
     @Override
     public LongValue count() {
-        return new LongValueImpl(this.entityManager, (builder, query) -> builder.count(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "count() must be performed prior to skip() or limit()");
+        return new LongValueImpl(this.entityManager,
+          (builder, query) -> builder.count(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue countDistinct() {
-        return new LongValueImpl(this.entityManager, (builder, query)
-          -> builder.countDistinct(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "countDistinct() must be performed prior to skip() or limit()");
+        return new LongValueImpl(this.entityManager,
+          (builder, query) -> builder.countDistinct(this.configurer.configure(builder, query)), -1, -1);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     ExprStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new ExprStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new ExprStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
     ExprValue<X, S> toValue() {
-        return new ExprValueImpl<>(this.entityManager, this.queryType, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    ExprValue<X, S> toValue(boolean forceLimit) {
+        return new ExprValueImpl<>(this.entityManager, this.queryType,
+          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -176,5 +185,15 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     @Override
     public ExprStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         return (ExprStream<X, S>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public ExprStream<X, S> limit(int limit) {
+        return (ExprStream<X, S>)super.limit(limit);
+    }
+
+    @Override
+    public ExprStream<X, S> skip(int skip) {
+        return (ExprStream<X, S>)super.skip(skip);
     }
 }

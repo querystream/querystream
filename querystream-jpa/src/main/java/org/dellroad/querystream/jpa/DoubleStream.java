@@ -78,4 +78,10 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
 
     @Override
     DoubleStream filter(Function<? super Expression<Double>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    DoubleStream limit(int maxSize);
+
+    @Override
+    DoubleStream skip(int num);
 }

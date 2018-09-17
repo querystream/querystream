@@ -96,4 +96,10 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
 
     @Override
     PathStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    PathStream<X, S> limit(int maxSize);
+
+    @Override
+    PathStream<X, S> skip(int num);
 }

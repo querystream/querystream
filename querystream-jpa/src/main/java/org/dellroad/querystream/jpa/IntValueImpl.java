@@ -21,16 +21,16 @@ class IntValueImpl extends IntStreamImpl implements IntValue {
 // Constructors
 
     IntValueImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer) {
-        super(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
+        super(entityManager, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     IntValue create(EntityManager entityManager, SearchType<Integer> queryType,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer) {
-        return new IntValueImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
+        return new IntValueImpl(entityManager, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

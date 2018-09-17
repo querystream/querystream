@@ -23,43 +23,70 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
 // Constructors
 
     IntStreamImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer) {
-        super(entityManager, new SearchType<Integer>(Integer.class), configurer);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
+        super(entityManager, new SearchType<Integer>(Integer.class), configurer, firstResult, maxResults);
+    }
+
+// Mapping
+
+    @Override
+    public LongStream asLongStream() {
+        return new LongStreamImpl(this.getEntityManager(),
+          (builder, query) -> builder.toLong(this.configure(builder, query)), this.firstResult, this.maxResults);
+    }
+
+    @Override
+    public DoubleStream asDoubleStream() {
+        return new DoubleStreamImpl(this.getEntityManager(),
+          (builder, query) -> builder.toDouble(this.configure(builder, query)), this.firstResult, this.maxResults);
     }
 
 // Aggregation
 
     @Override
     public DoubleValue average() {
-        return new DoubleValueImpl(this.entityManager, (builder, query) -> builder.avg(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "average() must be performed prior to skip() or limit()");
+        return new DoubleValueImpl(this.entityManager,
+          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public IntValue max() {
-        return new IntValueImpl(this.entityManager, (builder, query) -> builder.max(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "max() must be performed prior to skip() or limit()");
+        return new IntValueImpl(this.entityManager,
+          (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public IntValue min() {
-        return new IntValueImpl(this.entityManager, (builder, query) -> builder.min(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "min() must be performed prior to skip() or limit()");
+        return new IntValueImpl(this.entityManager,
+          (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public IntValue sum() {
-        return new IntValueImpl(this.entityManager, (builder, query) -> builder.sum(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "sum() must be performed prior to skip() or limit()");
+        return new IntValueImpl(this.entityManager,
+          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     IntStream create(EntityManager entityManager, SearchType<Integer> queryType,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer) {
-        return new IntStreamImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
+        return new IntStreamImpl(entityManager, configurer, firstResult, maxResults);
     }
 
     @Override
     IntValue toValue() {
-        return new IntValueImpl(this.entityManager, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    IntValue toValue(boolean forceLimit) {
+        return new IntValueImpl(this.entityManager, this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -138,5 +165,15 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     @Override
     public IntStream filter(Function<? super Expression<Integer>, ? extends Expression<Boolean>> predicateBuilder) {
         return (IntStream)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public IntStream limit(int limit) {
+        return (IntStream)super.limit(limit);
+    }
+
+    @Override
+    public IntStream skip(int skip) {
+        return (IntStream)super.skip(skip);
     }
 }

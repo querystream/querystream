@@ -21,16 +21,16 @@ class ExprValueImpl<X, S extends Expression<X>> extends ExprStreamImpl<X, S> imp
 // Constructors
 
     ExprValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     ExprValue<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new ExprValueImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new ExprValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

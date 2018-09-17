@@ -20,16 +20,17 @@ class LongValueImpl extends LongStreamImpl implements LongValue {
 
 // Constructors
 
-    LongValueImpl(EntityManager entityManager, QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer) {
-        super(entityManager, configurer);
+    LongValueImpl(EntityManager entityManager,
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
+        super(entityManager, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     LongValue create(EntityManager entityManager, SearchType<Long> queryType,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer) {
-        return new LongValueImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
+        return new LongValueImpl(entityManager, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

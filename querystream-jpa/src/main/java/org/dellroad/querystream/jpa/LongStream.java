@@ -31,9 +31,7 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
 
 // Mapping
 
-    default DoubleStream asDoubleStream() {
-        return new DoubleStreamImpl(this.getEntityManager(), (builder, query) -> builder.toDouble(this.configure(builder, query)));
-    }
+    DoubleStream asDoubleStream();
 
 // Narrowing overrides (SearchStream)
 
@@ -84,4 +82,10 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
 
     @Override
     LongStream filter(Function<? super Expression<Long>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    LongStream limit(int maxSize);
+
+    @Override
+    LongStream skip(int num);
 }

@@ -31,12 +31,12 @@ class UpdateStreamImpl<X>
     }
 
     private UpdateStreamImpl(EntityManager entityManager, UpdateType<X> queryType) {
-        super(entityManager, queryType, (builder, query) -> query.from(queryType.getType()));
+        super(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), -1, -1);
     }
 
     private UpdateStreamImpl(EntityManager entityManager, UpdateType<X> queryType,
-      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // UpdateStream
@@ -48,21 +48,25 @@ class UpdateStreamImpl<X>
 
     @Override
     public <Y> UpdateStream<X> set(Path<Y> attribute, Expression<? extends Y> value) {
+        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y, V extends Y> UpdateStream<X> set(Path<Y> attribute, V value) {
+        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, Expression<? extends Y> value) {
+        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y, V extends Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, V value) {
+        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
@@ -70,8 +74,8 @@ class UpdateStreamImpl<X>
 
     @Override
     UpdateStream<X> create(EntityManager entityManager, UpdateType<X> queryType,
-      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer) {
-        return new UpdateStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        return new UpdateStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
@@ -109,5 +113,15 @@ class UpdateStreamImpl<X>
     @Override
     public UpdateStream<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder) {
         return (UpdateStream<X>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public UpdateStream<X> limit(int limit) {
+        return (UpdateStream<X>)super.limit(limit);
+    }
+
+    @Override
+    public UpdateStream<X> skip(int skip) {
+        return (UpdateStream<X>)super.skip(skip);
     }
 }

@@ -50,19 +50,28 @@ abstract class QueryStreamImpl<X,
     final EntityManager entityManager;
     final QT queryType;
     final QueryConfigurer<C, X, ? extends S> configurer;
+    final int firstResult;
+    final int maxResults;
 
 // Constructors
 
-    QueryStreamImpl(EntityManager entityManager, QT queryType, QueryConfigurer<C, X, ? extends S> configurer) {
+    QueryStreamImpl(EntityManager entityManager, QT queryType,
+      QueryConfigurer<C, X, ? extends S> configurer, int firstResult, int maxResults) {
         if (entityManager == null)
             throw new IllegalArgumentException("null entityManager");
         if (queryType == null)
             throw new IllegalArgumentException("null queryType");
         if (configurer == null)
             throw new IllegalArgumentException("null configurer");
+        if (firstResult < -1)
+            throw new IllegalArgumentException("invalid firstResult");
+        if (maxResults < -1)
+            throw new IllegalArgumentException("invalid maxResults");
         this.entityManager = entityManager;
         this.queryType = queryType;
         this.configurer = configurer;
+        this.firstResult = firstResult;
+        this.maxResults = maxResults;
     }
 
 // QueryType
@@ -86,7 +95,7 @@ abstract class QueryStreamImpl<X,
             final S selection = this.configure(builder, query);
             modifier.accept(builder, query);
             return selection;
-        });
+        }, this.firstResult, this.maxResults);
     }
 
     /**
@@ -97,7 +106,7 @@ abstract class QueryStreamImpl<X,
     QueryStream<X, S, C, C2, Q> withConfig(QueryConfigurer<C, X, ? extends S> configurer) {
         if (configurer == null)
             throw new IllegalArgumentException("null configurer");
-        return this.create(this.entityManager, this.queryType, configurer);
+        return this.create(this.entityManager, this.queryType, configurer, this.firstResult, this.maxResults);
     }
 
 // Subclass required methods
@@ -106,7 +115,7 @@ abstract class QueryStreamImpl<X,
      * Create a new instance with the same type as this instance.
      */
     abstract QueryStream<X, S, C, C2, Q> create(EntityManager entityManager,
-      QT queryType, QueryConfigurer<C, X, ? extends S> configurer);
+      QT queryType, QueryConfigurer<C, X, ? extends S> configurer, int firstResult, int maxResults);
 
     /**
      * Apply selection criteria, if appropriate.
@@ -144,7 +153,22 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public Q toQuery() {
-        return this.queryType.createQuery(this.entityManager, this.toCriteriaQuery());
+        final Q query = this.queryType.createQuery(this.entityManager, this.toCriteriaQuery());
+        if (this.firstResult != -1)
+            query.setFirstResult(this.firstResult);
+        if (this.maxResults != -1)
+            query.setMaxResults(this.maxResults);
+        return query;
+    }
+
+    @Override
+    public int getFirstResult() {
+        return this.firstResult;
+    }
+
+    @Override
+    public int getMaxResults() {
+        return this.maxResults;
     }
 
 // Refs
@@ -194,6 +218,7 @@ abstract class QueryStreamImpl<X,
     public QueryStream<X, S, C, C2, Q> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         if (predicateBuilder == null)
             throw new IllegalArgumentException("null predicateBuilder");
+        QueryStreamImpl.checkOffsetLimit(this, "filter() must be performed prior to skip() or limit()");
         return this.withConfig((builder, query) -> {
             final S result = this.configure(builder, query);
             this.and(builder, query, predicateBuilder.apply(result));
@@ -204,6 +229,43 @@ abstract class QueryStreamImpl<X,
     private void and(CriteriaBuilder builder, C query, Expression<Boolean> expression) {
         final Predicate oldRestriction = query.getRestriction();
         this.queryType.where(query, oldRestriction != null ? builder.and(oldRestriction, expression) : expression);
+    }
+
+// Streamy stuff
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> limit(int limit) {
+        if (limit < 0)
+            throw new IllegalArgumentException("limit < 0");
+        final int newMaxResults = this.maxResults != -1 ? Math.min(limit, this.maxResults) : limit;
+        return this.create(this.entityManager, this.queryType, (builder, query) -> {
+            if (query instanceof Subquery)
+                QueryStreamImpl.failOffsetLimit("can't invoke limit() on a subquery");
+            return this.configure(builder, query);
+        }, this.firstResult, newMaxResults);
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> skip(int skip) {
+        if (skip < 0)
+            throw new IllegalArgumentException("skip < 0");
+        final int newFirstResult = this.firstResult != -1 ? this.firstResult + skip : skip;
+        return this.create(this.entityManager, this.queryType, (builder, query) -> {
+            if (query instanceof Subquery)
+                QueryStreamImpl.failOffsetLimit("can't invoke skip() on a subquery");
+            return this.configure(builder, query);
+        }, newFirstResult, this.maxResults);
+    }
+
+    // This is used to prevent other stuff being applied after skip()/limit()
+    static void checkOffsetLimit(QueryStream<?, ?, ?, ?, ?> stream, String restriction) {
+        if (stream.getFirstResult() != -1 || stream.getMaxResults() != -1)
+            QueryStreamImpl.failOffsetLimit(restriction);
+    }
+
+    static void failOffsetLimit(String restriction) {
+        throw new UnsupportedOperationException("sorry, " + restriction + " because the JPA Criteria API"
+          + " only supports setting a row offset or row count limit on the outer Query that contains the CriteriaQuery");
     }
 
 // QueryInfo
@@ -228,6 +290,9 @@ abstract class QueryStreamImpl<X,
         }
     }
 
+    // Holds information about the current (sub)queries under construction. A stack of nested QueryInfo objects is available
+    // as each configurer executes during an invocation of toCriteriaQuery(); the top of the stack represents the current
+    // (sub)query under construction; the bottom of the stack is the outermost query and is the only non-subquery.
     static class QueryInfo {
 
         private final CriteriaBuilder builder;

@@ -11,7 +11,10 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -61,8 +64,19 @@ public class QueryTest extends TestSupport {
         final String expected = testCase.getSQL().trim().replaceAll("\\s+", " ");
         this.log.info("SQL: " + new BasicFormatterImpl().format(actual));
 
-        // Compare
+        // Compare generated SQL to expected
         Assert.assertEquals(actual, expected);
+
+        // Execute query
+        final QueryStream<?, ?, ?, ?, ?> stream = testCase.getStream();
+        if (stream instanceof SearchStream)
+            ((SearchStream<?, ?>)stream).getResultList().size();
+        else if (stream instanceof UpdateStream)
+            ((UpdateStream<?>)stream).update();
+        else if (stream instanceof DeleteStream)
+            ((DeleteStream<?>)stream).delete();
+        else
+            throw new RuntimeException("what is this? " + stream);
     }
 
     @DataProvider(name = "testQueries")
@@ -172,6 +186,90 @@ public class QueryTest extends TestSupport {
         } catch (IllegalArgumentException e) {
             // expected
         }
+    }
+
+    @Test
+    @Transactional
+    public void testSkipLimit() throws Exception {
+
+        final Employee e1 = new Employee();
+        e1.setName("aaa");
+        e1.setSalary(20000.0f);
+        this.entityManager.persist(e1);
+
+        final Employee e2 = new Employee();
+        e2.setName("bbb");
+        e2.setSalary(15000.0f);
+        this.entityManager.persist(e2);
+
+        final Employee e3 = new Employee();
+        e3.setName("ccc");
+        e3.setSalary(25000.0f);
+        this.entityManager.persist(e3);
+
+        Assert.assertEquals(this.qb.stream(Employee.class)
+          .orderBy(Employee_.name, true)
+          .limit(1)
+          .findFirst()
+          .value(), e1);
+
+        Assert.assertEquals(this.qb.stream(Employee.class)
+          .orderBy(Employee_.name, true)
+          .limit(100)
+          .findFirst()
+          .value(), e1);
+
+        Assert.assertEquals(this.qb.stream(Employee.class)
+          .orderBy(Employee_.name, true)
+          .skip(1)
+          .limit(1)
+          .findFirst()
+          .value(), e2);
+
+        Assert.assertEquals(this.qb.stream(Employee.class)
+          .orderBy(Employee_.name, true)
+          .skip(2)
+          .findFirst()
+          .value(), e3);
+
+        Assert.assertEquals(this.qb.stream(Employee.class)
+          .orderBy(Employee_.salary, false)
+          .skip(2)
+          .findAny()
+          .value(), e2);
+
+// can't get this to work for some reason?
+//        Assert.assertEquals(this.qb.stream(Employee.class)
+//          .limit(0)
+//          .findAny()
+//          .orElse(null), null);
+    }
+
+    @Test(dataProvider = "badSkipLimitUsageFunctions")
+    @Transactional
+    public void testBadSkipLimitUsage(Function<RootStream<Employee>, ? extends SearchStream<?, ?>> function) throws Exception {
+        RootStream<Employee> stream = this.qb.stream(Employee.class);
+        stream = this.random.nextBoolean() ? stream.skip(1) : stream.limit(2);
+        try {
+            function.apply(stream).getResultList();
+            assert false;
+        } catch (UnsupportedOperationException e) {
+            this.log.debug("got expected " + e);
+        }
+    }
+
+    // Stuff that you can't do after limit() or skip()
+    @DataProvider(name = "badSkipLimitUsageFunctions")
+    public Object[][] genBadSkipLimitUsageFunctions() throws Exception {
+        final List<Function<RootStream<Employee>, ? extends SearchStream<?, ?>>> funcs = new ArrayList<>();
+        funcs.add(s -> s.orderBy(Employee_.salary, false));
+        funcs.add(s -> s.filter(e -> this.qb.equal(e.get(Employee_.name), "foobar")));
+        funcs.add(s -> s.map(Employee_.name));
+        funcs.add(s -> s.countDistinct());
+        funcs.add(s -> s.count());
+        return funcs.stream()
+          .map(func -> new Object[] { func })
+          .toArray(Object[][]::new);
     }
 
 // TestCase

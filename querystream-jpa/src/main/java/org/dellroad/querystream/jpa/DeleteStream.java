@@ -47,4 +47,10 @@ public interface DeleteStream<X> extends QueryStream<X, Root<X>, CriteriaDelete<
 
     @Override
     DeleteStream<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    DeleteStream<X> limit(int maxSize);
+
+    @Override
+    DeleteStream<X> skip(int num);
 }

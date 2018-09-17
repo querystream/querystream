@@ -127,4 +127,10 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
 
     @Override
     ExprStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    ExprStream<X, S> limit(int maxSize);
+
+    @Override
+    ExprStream<X, S> skip(int num);
 }

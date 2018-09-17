@@ -31,13 +31,9 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
 
 // Mapping
 
-    default LongStream asLongStream() {
-        return new LongStreamImpl(this.getEntityManager(), (builder, query) -> builder.toLong(this.configure(builder, query)));
-    }
+    LongStream asLongStream();
 
-    default DoubleStream asDoubleStream() {
-        return new DoubleStreamImpl(this.getEntityManager(), (builder, query) -> builder.toDouble(this.configure(builder, query)));
-    }
+    DoubleStream asDoubleStream();
 
 // Narrowing overrides (SearchStream)
 
@@ -88,4 +84,10 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
 
     @Override
     IntStream filter(Function<? super Expression<Integer>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    IntStream limit(int maxSize);
+
+    @Override
+    IntStream skip(int num);
 }

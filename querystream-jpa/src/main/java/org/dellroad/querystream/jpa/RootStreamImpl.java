@@ -29,12 +29,12 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
 
     // Separate constructor to avoid bogus error ("cannot reference queryType before supertype constructor has been called")
     private RootStreamImpl(EntityManager entityManager, SearchType<X> queryType) {
-        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()));
+        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), -1, -1);
     }
 
     RootStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (PathStreamImpl)
@@ -42,20 +42,26 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public <Y extends X> RootStream<Y> cast(Class<Y> type) {
         return new RootStreamImpl<Y>(this.getEntityManager(), new SearchType<>(type),
-          (builder, query) -> builder.treat(this.configure(builder, query), type));
+          (builder, query) -> builder.treat(this.configure(builder, query), type), this.firstResult, this.maxResults);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     RootStream<X> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer) {
-        return new RootStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
+        return new RootStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
     RootValue<X> toValue() {
-        return new RootValueImpl<>(this.entityManager, this.queryType, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    RootValue<X> toValue(boolean forceLimit) {
+        return new RootValueImpl<>(this.entityManager, this.queryType,
+          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -161,5 +167,15 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public RootStream<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder) {
         return (RootStream<X>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public RootStream<X> limit(int limit) {
+        return (RootStream<X>)super.limit(limit);
+    }
+
+    @Override
+    public RootStream<X> skip(int skip) {
+        return (RootStream<X>)super.skip(skip);
     }
 }

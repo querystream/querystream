@@ -23,43 +23,56 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
 // Constructors
 
     DoubleStreamImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer) {
-        super(entityManager, new SearchType<Double>(Double.class), configurer);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
+        super(entityManager, new SearchType<Double>(Double.class), configurer, firstResult, maxResults);
     }
 
 // Aggregation
 
     @Override
     public DoubleValue average() {
-        return new DoubleValueImpl(this.entityManager, (builder, query) -> builder.avg(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "average() must be performed prior to skip() or limit()");
+        return new DoubleValueImpl(this.entityManager,
+          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public DoubleValue max() {
-        return new DoubleValueImpl(this.entityManager, (builder, query) -> builder.max(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "max() must be performed prior to skip() or limit()");
+        return new DoubleValueImpl(this.entityManager,
+          (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public DoubleValue min() {
-        return new DoubleValueImpl(this.entityManager, (builder, query) -> builder.min(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "min() must be performed prior to skip() or limit()");
+        return new DoubleValueImpl(this.entityManager,
+          (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public DoubleValue sum() {
-        return new DoubleValueImpl(this.entityManager, (builder, query) -> builder.sum(this.configurer.configure(builder, query)));
+        QueryStreamImpl.checkOffsetLimit(this, "sum() must be performed prior to skip() or limit()");
+        return new DoubleValueImpl(this.entityManager,
+          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     DoubleStream create(EntityManager entityManager, SearchType<Double> queryType,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer) {
-        return new DoubleStreamImpl(entityManager, configurer);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
+        return new DoubleStreamImpl(entityManager, configurer, firstResult, maxResults);
     }
 
     @Override
     DoubleValue toValue() {
-        return new DoubleValueImpl(this.entityManager, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    DoubleValue toValue(boolean forceLimit) {
+        return new DoubleValueImpl(this.entityManager, this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -138,5 +151,15 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     @Override
     public DoubleStream filter(Function<? super Expression<Double>, ? extends Expression<Boolean>> predicateBuilder) {
         return (DoubleStream)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public DoubleStream limit(int limit) {
+        return (DoubleStream)super.limit(limit);
+    }
+
+    @Override
+    public DoubleStream skip(int skip) {
+        return (DoubleStream)super.skip(skip);
     }
 }

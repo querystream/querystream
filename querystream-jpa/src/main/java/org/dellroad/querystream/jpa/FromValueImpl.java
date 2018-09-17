@@ -22,16 +22,16 @@ class FromValueImpl<X, S extends From<?, X>> extends FromStreamImpl<X, S> implem
 // Constructors
 
     FromValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Subclass required methods
 
     @Override
     FromValue<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new FromValueImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new FromValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
 // Narrowing overrides (QueryStream)

@@ -25,27 +25,33 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
 // Constructors
 
     PathStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        super(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        super(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
     public <Y extends X> PathStream<Y, ? extends Path<Y>> cast(Class<Y> type) {
         return new PathStreamImpl<Y, Path<Y>>(this.getEntityManager(), new SearchType<>(type),
-          (builder, query) -> builder.treat(this.configure(builder, query), type));
+          (builder, query) -> builder.treat(this.configure(builder, query), type), this.firstResult, this.maxResults);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     PathStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
-        return new PathStreamImpl<>(entityManager, queryType, configurer);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
+        return new PathStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
     }
 
     @Override
     PathValue<X, S> toValue() {
-        return new PathValueImpl<>(this.entityManager, this.queryType, this.configurer);
+        return this.toValue(false);
+    }
+
+    @Override
+    PathValue<X, S> toValue(boolean forceLimit) {
+        return new PathValueImpl<>(this.entityManager, this.queryType,
+          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
     }
 
     @Override
@@ -151,5 +157,15 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     @Override
     public PathStream<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         return (PathStream<X, S>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public PathStream<X, S> limit(int limit) {
+        return (PathStream<X, S>)super.limit(limit);
+    }
+
+    @Override
+    public PathStream<X, S> skip(int skip) {
+        return (PathStream<X, S>)super.skip(skip);
     }
 }
