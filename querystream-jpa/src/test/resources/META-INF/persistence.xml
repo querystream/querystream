@@ -17,7 +17,7 @@
             <property name="hibernate.connection.release_mode" value="on_close"/>
             <property name="hibernate.default_batch_fetch_size" value="16"/>
             <property name="hibernate.default_entity_mode" value="pojo"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.max_fetch_depth" value="2"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>

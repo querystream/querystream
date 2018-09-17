@@ -58,4 +58,15 @@ public class Employee extends AbstractPersistent {
     public void setDirectReports(Set<Employee> directReports) {
         this.directReports = directReports;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName()
+          + "[name=" + (this.name != null ? "\"" + this.name + "\"" : null)
+          + ",salary=" + this.salary
+          + ",department=" + this.department
+          + ",manager=" + this.manager
+          + ",directReports=" + this.directReports
+          + "]";
+    }
 }
