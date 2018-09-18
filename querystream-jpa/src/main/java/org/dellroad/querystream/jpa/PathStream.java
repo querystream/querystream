@@ -27,7 +27,7 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
      * @param type new, narrower item type
      * @param <Y> narrower type
      * @return recast stream
-     * @see CriteriaBuilder#treat(Path, Class) CriteriaBuilder.treat()
+     * @see javax.persistence.criteria.CriteriaBuilder#treat(Path, Class) CriteriaBuilder.treat()
      */
     <Y extends X> PathStream<Y, ? extends Path<Y>> cast(Class<Y> type);
 
