@@ -210,6 +210,12 @@
 </a>
 <h2 class="title">C</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#cast-java.lang.Class-">cast(Class&lt;Y&gt;)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
+<dd>
+<div class="block">Map this stream into a stream whose elements are the result of applying the given narrowing cast.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#cast-java.lang.Class-">cast(Class&lt;Y&gt;)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/QueryConfigurer.html#configure-javax.persistence.criteria.CriteriaBuilder-C-">configure(CriteriaBuilder, C)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/QueryConfigurer.html" title="interface in org.dellroad.querystream.jpa">QueryConfigurer</a></dt>
 <dd>
 <div class="block">Configure the given query.</div>
@@ -508,10 +514,18 @@
 <dd>
 <div class="block">Get the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a> associated with this instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/QueryStream.html#getFirstResult--">getFirstResult()</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a></dt>
+<dd>
+<div class="block">Get the row offset associated with this query.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/test/AbstractPersistent.html#getId--">getId()</a></span> - Method in class org.dellroad.querystream.jpa.test.<a href="org/dellroad/querystream/jpa/test/AbstractPersistent.html" title="class in org.dellroad.querystream.jpa.test">AbstractPersistent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/test/Employee.html#getManager--">getManager()</a></span> - Method in class org.dellroad.querystream.jpa.test.<a href="org/dellroad/querystream/jpa/test/Employee.html" title="class in org.dellroad.querystream.jpa.test">Employee</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/QueryStream.html#getMaxResults--">getMaxResults()</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a></dt>
+<dd>
+<div class="block">Get the row limit associated with this query.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/test/Department.html#getName--">getName()</a></span> - Method in class org.dellroad.querystream.jpa.test.<a href="org/dellroad/querystream/jpa/test/Department.html" title="class in org.dellroad.querystream.jpa.test">Department</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/test/Employee.html#getName--">getName()</a></span> - Method in class org.dellroad.querystream.jpa.test.<a href="org/dellroad/querystream/jpa/test/Employee.html" title="class in org.dellroad.querystream.jpa.test">Employee</a></dt>
@@ -680,6 +694,30 @@
 </a>
 <h2 class="title">L</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/DeleteStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/DoubleStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/IntStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/LongStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/QueryStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a></dt>
+<dd>
+<div class="block">Return this stream truncated to the specified maximum length.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/SearchStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/UpdateStream.html#limit-int-">limit(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa"><span class="typeNameLink">LongStream</span></a> - Interface in <a href="org/dellroad/querystream/jpa/package-summary.html">org.dellroad.querystream.jpa</a></dt>
 <dd>
 <div class="block"><a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> containing <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Long.html?is-external=true" title="class or interface in java.lang"><code>Long</code></a> values.</div>
@@ -808,41 +846,79 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/DoubleStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super Expression&lt;Double&gt;, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/DoubleStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super S, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super S, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/IntStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/IntStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super Expression&lt;Integer&gt;, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/IntStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/LongStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/LongStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super Expression&lt;Long&gt;, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/LongStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super S, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#orderBy-java.util.function.Function-boolean-">orderBy(Function&lt;? super Root&lt;X&gt;, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy(Order...)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></dt>
 <dd>
 <div class="block">Order results using the specified property.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></dt>
+<dd>
+<div class="block">Order results using the specified properties.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy(SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean, SingularAttribute&lt;? super X, ?&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></dt>
+<dd>
+<div class="block">Order results using the specified properties.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/SearchStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy(Ref&lt;?, ? extends Expression&lt;?&gt;&gt;, boolean)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></dt>
 <dd>
@@ -1067,6 +1143,30 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/test/Employee.html#setSalary-float-">setSalary(float)</a></span> - Method in class org.dellroad.querystream.jpa.test.<a href="org/dellroad/querystream/jpa/test/Employee.html" title="class in org.dellroad.querystream.jpa.test">Employee</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/DeleteStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/DoubleStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/ExprStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/FromStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/IntStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/LongStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/PathStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/QueryStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a></dt>
+<dd>
+<div class="block">Return this stream with the specified number of initial elements skipped.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/RootStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/RootStream.html" title="interface in org.dellroad.querystream.jpa">RootStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/SearchStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/UpdateStream.html#skip-int-">skip(int)</a></span> - Method in interface org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/QueryStream.Builder.html#stream-java.lang.Class-">stream(Class&lt;X&gt;)</a></span> - Method in class org.dellroad.querystream.jpa.<a href="org/dellroad/querystream/jpa/QueryStream.Builder.html" title="class in org.dellroad.querystream.jpa">QueryStream.Builder</a></dt>
 <dd>
 <div class="block">Create a <a href="org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa"><code>SearchStream</code></a> for search queries.</div>
@@ -1115,6 +1215,8 @@
 <dd>
 <div class="block">Build a fully configured JPA query based on this instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/test/Employee.html#toString--">toString()</a></span> - Method in class org.dellroad.querystream.jpa.test.<a href="org/dellroad/querystream/jpa/test/Employee.html" title="class in org.dellroad.querystream.jpa.test">Employee</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/querystream/jpa/querytype/QueryType.html#type">type</a></span> - Variable in class org.dellroad.querystream.jpa.querytype.<a href="org/dellroad/querystream/jpa/querytype/QueryType.html" title="class in org.dellroad.querystream.jpa.querytype">QueryType</a></dt>
 <dd>&nbsp;</dd>
 </dl>

@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":18,"i2":18,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":6,"i20":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":6,"i20":6,"i21":6,"i22":6,"i23":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -140,7 +140,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -153,11 +153,11 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></code></td>
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#asDoubleStream--">asDoubleStream</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></code></td>
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#asLongStream--">asLongStream</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -226,40 +226,58 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 </td>
 </tr>
 <tr id="i14" class="altColor">
-<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#max--">max</a></span>()</code>&nbsp;</td>
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#limit-int-">limit</a></span>(int&nbsp;maxSize)</code>
+<div class="block">Return this stream truncated to the specified maximum length.</div>
+</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#min--">min</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#max--">max</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i16" class="altColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#min--">min</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#orderBy-java.util.function.Function-boolean-">orderBy</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;orderExprFunction,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>...&nbsp;orders)</code>
+<div class="block">Order results using the specified <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a>s.</div>
+</td>
+</tr>
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy</a></span>(<a href="../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;?,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;ref,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified expression reference.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#orderByMulti-java.util.function.Function-">orderByMulti</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>&gt;&gt;&nbsp;orderListFunction)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a> list produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;&nbsp;peeker)</code>
 <div class="block">Peek at the items in this stream.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#skip-int-">skip</a></span>(int&nbsp;num)</code>
+<div class="block">Return this stream with the specified number of initial elements skipped.</div>
+</td>
+</tr>
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/IntValue.html" title="interface in org.dellroad.querystream.jpa">IntValue</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/IntStream.html#sum--">sum</a></span>()</code>&nbsp;</td>
 </tr>
@@ -269,21 +287,21 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.dellroad.querystream.jpa.<a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a></h3>
-<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#asSubquery--">asSubquery</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#count--">count</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#countDistinct--">countDistinct</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#exists--">exists</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#filter-javax.persistence.metamodel.SingularAttribute-">filter</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#groupBy-javax.persistence.metamodel.SingularAttribute-">groupBy</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a></code></li>
+<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#asSubquery--">asSubquery</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#count--">count</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#countDistinct--">countDistinct</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#exists--">exists</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#filter-javax.persistence.metamodel.SingularAttribute-">filter</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#groupBy-javax.persistence.metamodel.SingularAttribute-">groupBy</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a>, <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.dellroad.querystream.jpa.SearchStream">
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.dellroad.querystream.jpa.<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a></h3>
-<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMap-javax.persistence.metamodel.CollectionAttribute-">flatMap</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMap-javax.persistence.metamodel.ListAttribute-">flatMap</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMap-javax.persistence.metamodel.SetAttribute-">flatMap</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMapKeys-javax.persistence.metamodel.MapAttribute-">flatMapKeys</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMapValues-javax.persistence.metamodel.MapAttribute-">flatMapValues</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#getQueryType--">getQueryType</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#getResultList--">getResultList</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-java.lang.Class-java.util.function.Function-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.MapAttribute-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.PluralAttribute-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.SingularAttribute-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToDouble-java.util.function.Function-">mapToDouble</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToDouble-javax.persistence.metamodel.SingularAttribute-">mapToDouble</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToFrom-java.lang.Class-java.util.function.Function-">mapToFrom</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToInt-java.util.function.Function-">mapToInt</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToInt-javax.persistence.metamodel.SingularAttribute-">mapToInt</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToLong-java.util.function.Function-">mapToLong</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToLong-javax.persistence.metamodel.SingularAttribute-">mapToLong</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToPath-java.lang.Class-java.util.function.Function-">mapToPath</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToSelection-java.lang.Class-java.util.function.Function-">mapToSelection</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy</a></code></li>
+<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMap-javax.persistence.metamodel.CollectionAttribute-">flatMap</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMap-javax.persistence.metamodel.ListAttribute-">flatMap</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMap-javax.persistence.metamodel.SetAttribute-">flatMap</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMapKeys-javax.persistence.metamodel.MapAttribute-">flatMapKeys</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#flatMapValues-javax.persistence.metamodel.MapAttribute-">flatMapValues</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#getQueryType--">getQueryType</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#getResultList--">getResultList</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-">join</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-java.lang.Class-java.util.function.Function-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.MapAttribute-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.PluralAttribute-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.SingularAttribute-">map</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToDouble-java.util.function.Function-">mapToDouble</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToDouble-javax.persistence.metamodel.SingularAttribute-">mapToDouble</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToFrom-java.lang.Class-java.util.function.Function-">mapToFrom</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToInt-java.util.function.Function-">mapToInt</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToInt-javax.persistence.metamodel.SingularAttribute-">mapToInt</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToLong-java.util.function.Function-">mapToLong</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToLong-javax.persistence.metamodel.SingularAttribute-">mapToLong</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToPath-java.lang.Class-java.util.function.Function-">mapToPath</a>, <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToSelection-java.lang.Class-java.util.function.Function-">mapToSelection</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.dellroad.querystream.jpa.QueryStream">
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.dellroad.querystream.jpa.<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a></h3>
-<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getEntityManager--">getEntityManager</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#newBuilder-javax.persistence.EntityManager-">newBuilder</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toCriteriaQuery--">toCriteriaQuery</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toQuery--">toQuery</a></code></li>
+<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getEntityManager--">getEntityManager</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getFirstResult--">getFirstResult</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getMaxResults--">getMaxResults</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#newBuilder-javax.persistence.EntityManager-">newBuilder</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toCriteriaQuery--">toCriteriaQuery</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toQuery--">toQuery</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.dellroad.querystream.jpa.QueryConfigurer">
@@ -348,7 +366,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 <ul class="blockList">
 <li class="blockList">
 <h4>asLongStream</h4>
-<pre>default&nbsp;<a href="../../../../org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a>&nbsp;asLongStream()</pre>
+<pre><a href="../../../../org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a>&nbsp;asLongStream()</pre>
 </li>
 </ul>
 <a name="asDoubleStream--">
@@ -357,7 +375,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 <ul class="blockList">
 <li class="blockList">
 <h4>asDoubleStream</h4>
-<pre>default&nbsp;<a href="../../../../org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a>&nbsp;asDoubleStream()</pre>
+<pre><a href="../../../../org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a>&nbsp;asDoubleStream()</pre>
 </li>
 </ul>
 <a name="distinct--">
@@ -426,6 +444,30 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>orderExprFunction</code> - <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a> that produces an <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> to order on given an item expression</dd>
 <dd><code>asc</code> - true for ascending, false for descending</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified ordering</dd>
+</dl>
+</li>
+</ul>
+<a name="orderBy-javax.persistence.criteria.Order...-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>orderBy</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a>&nbsp;orderBy(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>...&nbsp;orders)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.criteria.Order...-">SearchStream</a></code></span></div>
+<div class="block">Order results using the specified <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a>s.
+
+ <p>
+ Replaces any existing sort ordering.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>orders</code> - ordering(s), with higher precedence orderings first</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new stream with specified ordering</dd>
 </dl>
@@ -704,7 +746,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 <a name="filter-java.util.function.Function-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>filter</h4>
 <pre><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a>&nbsp;filter(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;predicateBuilder)</pre>
@@ -724,6 +766,60 @@ extends <a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title
 <dd><code>predicateBuilder</code> - function mapping this stream's item to a boolean <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>new filtered stream</dd>
+</dl>
+</li>
+</ul>
+<a name="limit-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>limit</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a>&nbsp;limit(int&nbsp;maxSize)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#limit-int-">QueryStream</a></code></span></div>
+<div class="block">Return this stream truncated to the specified maximum length.
+
+ <p>
+ Due to limitations in the JPA Criteria API, this method is not supported on subquery streams
+ and in general must be specified last (after any filtering, sorting, grouping, joins, etc.).</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#limit-int-">limit</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#limit-int-">limit</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/AbstractQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">AbstractQuery</a>&lt;?&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaQuery</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#limit-int-">limit</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>maxSize</code> - maximum number of elements to return</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new truncated stream</dd>
+</dl>
+</li>
+</ul>
+<a name="skip-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>skip</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a>&nbsp;skip(int&nbsp;num)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#skip-int-">QueryStream</a></code></span></div>
+<div class="block">Return this stream with the specified number of initial elements skipped.
+
+ <p>
+ Due to limitations in the JPA Criteria API, this method is not supported on subquery streams
+ and in general must be specified last (after any filtering, sorting, grouping, joins, etc.).</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html#skip-int-">skip</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#skip-int-">skip</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/AbstractQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">AbstractQuery</a>&lt;?&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaQuery</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#skip-int-">skip</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>num</code> - number of elements to skip</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new elided stream</dd>
 </dl>
 </li>
 </ul>

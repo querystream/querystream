@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -173,8 +173,20 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html#limit-int-">limit</a></span>(int&nbsp;maxSize)</code>
+<div class="block">Return this stream truncated to the specified maximum length.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;&gt;&nbsp;peeker)</code>
 <div class="block">Peek at the items in this stream.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html#skip-int-">skip</a></span>(int&nbsp;num)</code>
+<div class="block">Return this stream with the specified number of initial elements skipped.</div>
 </td>
 </tr>
 </table>
@@ -183,7 +195,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.dellroad.querystream.jpa.<a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a></h3>
-<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#bind-org.dellroad.querystream.jpa.Ref-java.util.function.Function-">bind</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getEntityManager--">getEntityManager</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#newBuilder-javax.persistence.EntityManager-">newBuilder</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toCriteriaQuery--">toCriteriaQuery</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toQuery--">toQuery</a></code></li>
+<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#bind-org.dellroad.querystream.jpa.Ref-java.util.function.Function-">bind</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getEntityManager--">getEntityManager</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getFirstResult--">getFirstResult</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#getMaxResults--">getMaxResults</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#newBuilder-javax.persistence.EntityManager-">newBuilder</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toCriteriaQuery--">toCriteriaQuery</a>, <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#toQuery--">toQuery</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.dellroad.querystream.jpa.QueryConfigurer">
@@ -307,7 +319,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <a name="filter-java.util.function.Function-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>filter</h4>
 <pre><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;&nbsp;filter(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;predicateBuilder)</pre>
@@ -323,6 +335,52 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <dd><code>predicateBuilder</code> - function mapping this stream's item to a boolean <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>new filtered stream</dd>
+</dl>
+</li>
+</ul>
+<a name="limit-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>limit</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;&nbsp;limit(int&nbsp;maxSize)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#limit-int-">QueryStream</a></code></span></div>
+<div class="block">Return this stream truncated to the specified maximum length.
+
+ <p>
+ Due to limitations in the JPA Criteria API, this method is not supported on subquery streams
+ and in general must be specified last (after any filtering, sorting, grouping, joins, etc.).</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#limit-int-">limit</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaDelete.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaDelete</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaDelete.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaDelete</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Query.html?is-external=true" title="class or interface in javax.persistence">Query</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>maxSize</code> - maximum number of elements to return</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new truncated stream</dd>
+</dl>
+</li>
+</ul>
+<a name="skip-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>skip</h4>
+<pre><a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="interface in org.dellroad.querystream.jpa">DeleteStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;&nbsp;skip(int&nbsp;num)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#skip-int-">QueryStream</a></code></span></div>
+<div class="block">Return this stream with the specified number of initial elements skipped.
+
+ <p>
+ Due to limitations in the JPA Criteria API, this method is not supported on subquery streams
+ and in general must be specified last (after any filtering, sorting, grouping, joins, etc.).</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html#skip-int-">skip</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" title="interface in org.dellroad.querystream.jpa">QueryStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaDelete.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaDelete</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaDelete.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaDelete</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/DeleteStream.html" title="type parameter in DeleteStream">X</a>&gt;,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Query.html?is-external=true" title="class or interface in javax.persistence">Query</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>num</code> - number of elements to skip</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>new elided stream</dd>
 </dl>
 </li>
 </ul>

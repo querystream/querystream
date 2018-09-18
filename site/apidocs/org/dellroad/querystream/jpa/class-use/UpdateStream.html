@@ -118,27 +118,35 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
-<td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;&gt;&nbsp;peeker)</code>&nbsp;</td>
+<td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#limit-int-">limit</a></span>(int&nbsp;maxSize)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
+<td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Root.html?is-external=true" title="class or interface in javax.persistence.criteria">Root</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;&gt;&nbsp;peeker)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>&lt;Y&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#set-javax.persistence.criteria.Path-javax.persistence.criteria.Expression-">set</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;Y&gt;&nbsp;attribute,
    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends Y&gt;&nbsp;value)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>&lt;Y,V extends Y&gt;<br><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#set-javax.persistence.criteria.Path-V-">set</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;Y&gt;&nbsp;attribute,
    V&nbsp;value)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>&lt;Y&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#set-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.Expression-">set</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>,Y&gt;&nbsp;attribute,
    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends Y&gt;&nbsp;value)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>&lt;Y,V extends Y&gt;<br><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#set-javax.persistence.metamodel.SingularAttribute-V-">set</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>,Y&gt;&nbsp;attribute,
    V&nbsp;value)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="type parameter in UpdateStream">X</a>&gt;</code></td>
+<td class="colLast"><span class="typeNameLabel">UpdateStream.</span><code><span class="memberNameLink"><a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html#skip-int-">skip</a></span>(int&nbsp;num)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>&lt;X&gt;&nbsp;<a href="../../../../../org/dellroad/querystream/jpa/UpdateStream.html" title="interface in org.dellroad.querystream.jpa">UpdateStream</a>&lt;X&gt;</code></td>
