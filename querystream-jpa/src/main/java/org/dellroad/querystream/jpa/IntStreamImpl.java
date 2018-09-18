@@ -105,6 +105,11 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     }
 
     @Override
+    public IntStream orderBy(Order... orders) {
+        return (IntStream)super.orderBy(orders);
+    }
+
+    @Override
     public IntStream orderByMulti(Function<? super Expression<Integer>, ? extends List<? extends Order>> orderListFunction) {
         return (IntStream)super.orderByMulti(orderListFunction);
     }

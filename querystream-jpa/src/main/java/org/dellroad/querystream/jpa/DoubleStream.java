@@ -41,6 +41,9 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
     DoubleStream orderBy(Function<? super Expression<Double>, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     @Override
+    DoubleStream orderBy(Order... orders);
+
+    @Override
     DoubleStream orderByMulti(Function<? super Expression<Double>, ? extends List<? extends Order>> orderListFunction);
 
     @Override

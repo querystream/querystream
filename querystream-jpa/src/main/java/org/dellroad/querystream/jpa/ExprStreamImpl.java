@@ -115,6 +115,11 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     }
 
     @Override
+    public ExprStream<X, S> orderBy(Order... orders) {
+        return (ExprStream<X, S>)super.orderBy(orders);
+    }
+
+    @Override
     public ExprStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction) {
         return (ExprStream<X, S>)super.orderByMulti(orderListFunction);
     }

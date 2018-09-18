@@ -87,6 +87,11 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     }
 
     @Override
+    public PathStream<X, S> orderBy(Order... orders) {
+        return (PathStream<X, S>)super.orderBy(orders);
+    }
+
+    @Override
     public PathStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction) {
         return (PathStream<X, S>)super.orderByMulti(orderListFunction);
     }

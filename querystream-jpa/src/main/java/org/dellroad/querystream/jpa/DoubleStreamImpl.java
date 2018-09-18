@@ -91,6 +91,11 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     }
 
     @Override
+    public DoubleStream orderBy(Order... orders) {
+        return (DoubleStream)super.orderBy(orders);
+    }
+
+    @Override
     public DoubleStream orderByMulti(Function<? super Expression<Double>, ? extends List<? extends Order>> orderListFunction) {
         return (DoubleStream)super.orderByMulti(orderListFunction);
     }

@@ -48,6 +48,9 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
     RootStream<X> orderBy(Function<? super Root<X>, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     @Override
+    RootStream<X> orderBy(Order... orders);
+
+    @Override
     RootStream<X> orderByMulti(Function<? super Root<X>, ? extends List<? extends Order>> orderListFunction);
 
     @Override

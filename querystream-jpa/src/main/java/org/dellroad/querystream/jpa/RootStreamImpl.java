@@ -97,6 +97,11 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     }
 
     @Override
+    public RootStream<X> orderBy(Order... orders) {
+        return (RootStream<X>)super.orderBy(orders);
+    }
+
+    @Override
     public RootStream<X> orderByMulti(Function<? super Root<X>, ? extends List<? extends Order>> orderListFunction) {
         return (RootStream<X>)super.orderByMulti(orderListFunction);
     }

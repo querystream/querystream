@@ -85,6 +85,9 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
     ExprStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     @Override
+    ExprStream<X, S> orderBy(Order... orders);
+
+    @Override
     ExprStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction);
 
     @Override

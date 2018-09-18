@@ -99,6 +99,11 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     }
 
     @Override
+    public LongStream orderBy(Order... orders) {
+        return (LongStream)super.orderBy(orders);
+    }
+
+    @Override
     public LongStream orderByMulti(Function<? super Expression<Long>, ? extends List<? extends Order>> orderListFunction) {
         return (LongStream)super.orderByMulti(orderListFunction);
     }

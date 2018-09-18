@@ -133,6 +133,11 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     }
 
     @Override
+    public FromStream<X, S> orderBy(Order... orders) {
+        return (FromStream<X, S>)super.orderBy(orders);
+    }
+
+    @Override
     public FromStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction) {
         return (FromStream<X, S>)super.orderByMulti(orderListFunction);
     }
