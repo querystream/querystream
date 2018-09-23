@@ -4,7 +4,7 @@ QueryStream allows you to perform JPA queries using a `Stream`-like API.
 
 Just like a Java 8 `Stream`, a `QueryStream` is built up in a pipeline, using methods like `map()`, `flatMap()`, `filter()`, etc.
 
-Each step in a `QueryStream` pipeline modifies an internal [JPA Criteria query](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/package-summary.html).
+Each step in a `QueryStream` pipeline modifies the construction of an internal [JPA Criteria query](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/package-summary.html).
 
 When you're ready to execute the pipeline:
 
@@ -45,7 +45,7 @@ Here's how you'd build a Criteria query the usual way:
     }
 ```
 
-With QueryStream, your code becomes more visually intuitive:
+With QueryStream, your code becomes more succint and visually intuitive:
 
 ```java
     public List<Employee> getHighPayrollManagers() {
@@ -91,7 +91,7 @@ The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.ht
 
 ## Single Values
 
-Some queries are known to return a single value. The [SearchValue](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchValue.html) and its subinterfaces have a `value()` method, which executes the query and returns the value:
+Some queries are known to return a single value. The [SearchValue](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchValue.html) and its subinterfaces represent streams for which it is known that at most one result will be found. These interfaces have a `value()` method, which executes the query and returns the single value:
 
 ```java
     public double getAverageSalary(Employee manager) {
@@ -129,7 +129,17 @@ To find all managers for whom there exists a direct report making over $100,000:
     }
 ```
 
-Note the subquery correlation done via `CriteriaBuilder.equal()`.
+Note the subquery correlation was done implicitly using `CriteriaBuilder.equal()`; you can clean this up a bit with an explicit correlation using `substream()`:
+
+```java
+    public List<Employee> findManagersWithSixFigureDirectReport() {
+        return qb.stream(Employee.class)
+          .filter(manager -> qb.substream(manager)
+            .flatMap(Employee_.directReports)
+            .filter(report -> qb.greaterThan(report.get(Employee_.salary), 100000.0))
+            .exists());
+    }
+```
 
 To find all employees with salary greater than the average of their manager's direct reports:
 
@@ -150,7 +160,7 @@ To find all employees with salary greater than the average of their manager's di
     }
 ```
 
-Hmmm, that's a lot of nesting. You can make the code clearer by building the subquery separately, and using a reference for the correlation:
+Hmmm, that's a lot of nesting. You could make the code clearer by building the subquery separately, and using a reference for the correlation:
 
 ```java
     public DoubleValue getAvgCoworkerSalary(RootRef<Employee> employee) {
@@ -169,6 +179,7 @@ Hmmm, that's a lot of nesting. You can make the code clearer by building the sub
           .getResultList();
     }
 ```
+That's really just regular Java refactoring.
 
 ## Multiselect and Grouping
 
@@ -200,9 +211,19 @@ Here's an example that finds all managers paired with the average salary of thei
     }
 ```
 
+## Offset and Limit
+
+Use `skip()` and `limit()` to set the row offset and the maximum number of results.
+
 ## Unsupported Operations
 
-Operations that apply to a JPA `TypedQuery` but not a `CriteriaQuery`, such `setMaxResults()`, `setLockMode()`, `setParameter()`, etc., are not supported by the `QueryStream` API.
+In some cases, limitations in the JPA Criteria API impose certain restrictions on what you can do.
+
+For example, `skip()` and `limit()` must be at the end of your pipeline, because the JPA Criteria API doesn't allow setting row offset or the maximum results on a subquery, or prior to a join.
+
+For another example, you can't sort in a subquery.
+
+Operations that apply to a JPA `TypedQuery` but not a `CriteriaQuery`, such as `setLockMode()`, `setParameter()`, etc., are not supported by the `QueryStream` API.
 
 Instead, invoke `QueryStream.toQuery()`, and then perform these operations directly on the returned `TypedQuery`.
 
