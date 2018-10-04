@@ -218,7 +218,7 @@ abstract class QueryStreamImpl<X,
     public QueryStream<X, S, C, C2, Q> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         if (predicateBuilder == null)
             throw new IllegalArgumentException("null predicateBuilder");
-        QueryStreamImpl.checkOffsetLimit(this, "filter() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "filter()");
         return this.withConfig((builder, query) -> {
             final S result = this.configure(builder, query);
             this.and(builder, query, predicateBuilder.apply(result));
@@ -258,9 +258,9 @@ abstract class QueryStreamImpl<X,
     }
 
     // This is used to prevent other stuff being applied after skip()/limit()
-    static void checkOffsetLimit(QueryStream<?, ?, ?, ?, ?> stream, String restriction) {
+    static void checkOffsetLimit(QueryStream<?, ?, ?, ?, ?> stream, String operation) {
         if (stream.getFirstResult() != -1 || stream.getMaxResults() != -1)
-            QueryStreamImpl.failOffsetLimit(restriction);
+            QueryStreamImpl.failOffsetLimit(operation + " must be performed prior to skip() or limit()");
     }
 
     static void failOffsetLimit(String restriction) {

@@ -71,7 +71,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
 
     @Override
     public SearchStream<X, S> distinct() {
-        QueryStreamImpl.checkOffsetLimit(this, "distinct() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "distinct()");
         return this.modQuery((builder, query) -> query.distinct(true));
     }
 
@@ -146,7 +146,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction) {
         if (orderListFunction == null)
             throw new IllegalArgumentException("null orderListFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "sorting must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "sorting");
         return this.withConfig((builder, query) -> {
             if (!(query instanceof CriteriaQuery)) {
                 throw new UnsupportedOperationException("sorry, can't sort a subquery because"
@@ -183,7 +183,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> groupByMulti(Function<? super S, ? extends List<Expression<?>>> groupFunction) {
         if (groupFunction == null)
             throw new IllegalArgumentException("null groupFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "grouping must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "grouping");
         return this.withConfig((builder, query) -> {
             final S selection = this.configure(builder, query);
             query.groupBy(groupFunction.apply(selection));
@@ -195,7 +195,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> having(Function<? super S, ? extends Expression<Boolean>> havingFunction) {
         if (havingFunction == null)
             throw new IllegalArgumentException("null havingFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "grouping must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "grouping");
         return this.withConfig((builder, query) -> {
             final S selection = this.configure(builder, query);
             query.having(havingFunction.apply(selection));

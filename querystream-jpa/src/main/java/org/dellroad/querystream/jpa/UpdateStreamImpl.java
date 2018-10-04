@@ -48,25 +48,25 @@ class UpdateStreamImpl<X>
 
     @Override
     public <Y> UpdateStream<X> set(Path<Y> attribute, Expression<? extends Y> value) {
-        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "set()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y, V extends Y> UpdateStream<X> set(Path<Y> attribute, V value) {
-        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "set()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, Expression<? extends Y> value) {
-        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "set()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y, V extends Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, V value) {
-        QueryStreamImpl.checkOffsetLimit(this, "set() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "set()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 

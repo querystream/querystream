@@ -31,28 +31,28 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
 
     @Override
     public DoubleValue average() {
-        QueryStreamImpl.checkOffsetLimit(this, "average() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "average()");
         return new DoubleValueImpl(this.entityManager,
           (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public DoubleValue max() {
-        QueryStreamImpl.checkOffsetLimit(this, "max() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "max()");
         return new DoubleValueImpl(this.entityManager,
           (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public DoubleValue min() {
-        QueryStreamImpl.checkOffsetLimit(this, "min() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "min()");
         return new DoubleValueImpl(this.entityManager,
           (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public DoubleValue sum() {
-        QueryStreamImpl.checkOffsetLimit(this, "sum() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "sum()");
         return new DoubleValueImpl(this.entityManager,
           (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
     }

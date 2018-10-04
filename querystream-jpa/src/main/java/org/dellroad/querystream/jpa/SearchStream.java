@@ -272,7 +272,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default <Y> PathStream<Y, Path<Y>> map(SingularAttribute<? super X, Y> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "map() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "map()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()), (builder, query) -> {
 
             // We always prefer having a From over a Path, because you can continue to join with it.
@@ -307,7 +307,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null type");
         if (exprFunction == null)
             throw new IllegalArgumentException("null exprFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "map() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "map()");
         return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
           (builder, query) -> exprFunction.apply(this.configure(builder, query)), -1, -1);
     }
@@ -324,7 +324,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default <E, C extends Collection<E>> ExprStream<C, Expression<C>> map(PluralAttribute<? super X, C, E> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "map() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "map()");
         // This is necessary due to https://github.com/javaee/jpa-spec/issues/108
         final PluralAttribute<X, C, E> attribute2 = (PluralAttribute<X, C, E>)attribute;
         return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
@@ -345,7 +345,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default <K, V, M extends Map<K, V>> ExprStream<M, Expression<M>> map(MapAttribute<? super X, K, V> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "map() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "map()");
         // This is necessary due to https://github.com/javaee/jpa-spec/issues/108
         final MapAttribute<X, K, V> attribute2 = (MapAttribute<X, K, V>)attribute;
         return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<>((Class<M>)attribute.getJavaType()),
@@ -366,7 +366,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null type");
         if (pathFunction == null)
             throw new IllegalArgumentException("null pathFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToPath() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToPath()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
           (builder, query) -> pathFunction.apply(this.configure(builder, query)), -1, -1);
     }
@@ -385,7 +385,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null type");
         if (fromFunction == null)
             throw new IllegalArgumentException("null fromFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToFrom() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToFrom()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
           (builder, query) -> fromFunction.apply(this.configure(builder, query)), -1, -1);
     }
@@ -399,7 +399,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default DoubleStream mapToDouble(SingularAttribute<? super X, ? extends Number> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToDouble() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToDouble()");
         return new DoubleStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toDouble(((Path<X>)this.configure(builder, query)).get(attribute)),  // cast must be valid...
           -1, -1);
@@ -414,7 +414,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default DoubleStream mapToDouble(Function<? super S, ? extends Expression<? extends Number>> doubleExprFunction) {
         if (doubleExprFunction == null)
             throw new IllegalArgumentException("null doubleExprFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToDouble() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToDouble()");
         return new DoubleStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toDouble(doubleExprFunction.apply(this.configure(builder, query))), -1, -1);
     }
@@ -428,7 +428,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default LongStream mapToLong(SingularAttribute<? super X, ? extends Number> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToLong() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToLong()");
         return new LongStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toLong(((Path<X>)this.configure(builder, query)).get(attribute)),  // cast must be valid...
           -1, -1);
@@ -443,7 +443,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default LongStream mapToLong(Function<? super S, ? extends Expression<? extends Number>> longExprFunction) {
         if (longExprFunction == null)
             throw new IllegalArgumentException("null longExprFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToLong() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToLong()");
         return new LongStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toLong(longExprFunction.apply(this.configure(builder, query))), -1, -1);
     }
@@ -457,7 +457,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default IntStream mapToInt(SingularAttribute<? super X, ? extends Number> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToInt() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToInt()");
         return new IntStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toInteger(((Path<X>)this.configure(builder, query)).get(attribute)),  // cast must be valid...
           -1, -1);
@@ -472,7 +472,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default IntStream mapToInt(Function<? super S, ? extends Expression<? extends Number>> intExprFunction) {
         if (intExprFunction == null)
             throw new IllegalArgumentException("null intExprFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToInt() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToInt()");
         return new IntStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toInteger(intExprFunction.apply(this.configure(builder, query))), -1, -1);
     }
@@ -498,7 +498,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null type");
         if (selectionFunction == null)
             throw new IllegalArgumentException("null selectionFunction");
-        QueryStreamImpl.checkOffsetLimit(this, "mapToSelection() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToSelection()");
         return new SearchStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
           (builder, query) -> selectionFunction.apply(this.configure(builder, query)), -1, -1);
     }
@@ -513,7 +513,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @return mapped stream
      */
     default <E> FromStream<E, CollectionJoin<X, E>> flatMap(CollectionAttribute<? super X, E> attribute) {
-        QueryStreamImpl.checkOffsetLimit(this, "flatMap() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "flatMap()");
         return this.join(attribute);
     }
 
@@ -525,7 +525,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @return mapped stream
      */
     default <E> FromStream<E, ListJoin<X, E>> flatMap(ListAttribute<? super X, E> attribute) {
-        QueryStreamImpl.checkOffsetLimit(this, "flatMap() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "flatMap()");
         return this.join(attribute);
     }
 
@@ -537,7 +537,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @return mapped stream
      */
     default <E> FromStream<E, SetJoin<X, E>> flatMap(SetAttribute<? super X, E> attribute) {
-        QueryStreamImpl.checkOffsetLimit(this, "flatMap() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "flatMap()");
         return this.join(attribute);
     }
 
@@ -551,7 +551,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default <K> PathStream<K, Path<K>> flatMapKeys(MapAttribute<? super X, K, ?> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "flatMapKeys() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "flatMapKeys()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getKeyJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, JoinType.INNER).key(),       // valid...
           -1, -1);
@@ -567,7 +567,7 @@ public interface SearchStream<X, S extends Selection<X>>
     default <V> PathStream<V, Path<V>> flatMapValues(MapAttribute<? super X, ?, V> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        QueryStreamImpl.checkOffsetLimit(this, "flatMapValues() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "flatMapValues()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, JoinType.INNER).value(),     // valid...
           -1, -1);
@@ -586,7 +586,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
-        QueryStreamImpl.checkOffsetLimit(this, "join() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
           -1, -1);
@@ -605,7 +605,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
-        QueryStreamImpl.checkOffsetLimit(this, "join() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
           -1, -1);
@@ -622,7 +622,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
-        QueryStreamImpl.checkOffsetLimit(this, "join() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
           -1, -1);
@@ -639,7 +639,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
-        QueryStreamImpl.checkOffsetLimit(this, "join() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
           -1, -1);
@@ -656,7 +656,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
-        QueryStreamImpl.checkOffsetLimit(this, "join() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
           -1, -1);

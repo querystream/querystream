@@ -39,28 +39,28 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
 
     @Override
     public DoubleValue average() {
-        QueryStreamImpl.checkOffsetLimit(this, "average() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "average()");
         return new DoubleValueImpl(this.entityManager,
           (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue max() {
-        QueryStreamImpl.checkOffsetLimit(this, "max() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "max()");
         return new LongValueImpl(this.entityManager,
           (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue min() {
-        QueryStreamImpl.checkOffsetLimit(this, "min() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "min()");
         return new LongValueImpl(this.entityManager,
           (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue sum() {
-        QueryStreamImpl.checkOffsetLimit(this, "sum() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "sum()");
         return new LongValueImpl(this.entityManager,
           (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
     }

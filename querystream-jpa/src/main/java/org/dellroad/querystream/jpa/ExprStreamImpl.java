@@ -51,14 +51,14 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
 
     @Override
     public LongValue count() {
-        QueryStreamImpl.checkOffsetLimit(this, "count() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "count()");
         return new LongValueImpl(this.entityManager,
           (builder, query) -> builder.count(this.configurer.configure(builder, query)), -1, -1);
     }
 
     @Override
     public LongValue countDistinct() {
-        QueryStreamImpl.checkOffsetLimit(this, "countDistinct() must be performed prior to skip() or limit()");
+        QueryStreamImpl.checkOffsetLimit(this, "countDistinct()");
         return new LongValueImpl(this.entityManager,
           (builder, query) -> builder.countDistinct(this.configurer.configure(builder, query)), -1, -1);
     }
