@@ -51,6 +51,15 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
     LongStream orderByMulti(Function<? super Expression<Long>, ? extends List<? extends Order>> orderListFunction);
 
     @Override
+    LongStream thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
+
+    @Override
+    LongStream thenOrderBy(Order... orders);
+
+    @Override
+    LongStream thenOrderBy(Function<? super Expression<Long>, ? extends Expression<?>> orderExprFunction, boolean asc);
+
+    @Override
     LongStream groupBy(Ref<?, ? extends Expression<?>> ref);
 
     @Override

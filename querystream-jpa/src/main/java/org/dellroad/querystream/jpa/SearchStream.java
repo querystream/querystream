@@ -133,7 +133,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Replaces any existing sort ordering.
      *
      * @param orders ordering(s), with higher precedence orderings first
-     * @return a new stream with specified ordering
+     * @return a new stream with specified ordering(s)
      * @throws IllegalArgumentException if {@code orders} is null
      */
     SearchStream<X, S> orderBy(Order... orders);
@@ -162,6 +162,57 @@ public interface SearchStream<X, S extends Selection<X>>
      * @throws IllegalArgumentException if {@code orderListFunction} is null
      */
     SearchStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction);
+
+    /**
+     * Order results using the specified property after existing sort.
+     *
+     * <p>
+     * Adds to any existing sort ordering.
+     *
+     * @param attribute associated property
+     * @param asc true for ascending, false for descending
+     * @return a new stream with specified additional ordering
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
+    SearchStream<X, S> thenOrderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
+
+    /**
+     * Order results using the specified expression reference after existing sort.
+     *
+     * <p>
+     * Adds to any existing sort ordering.
+     *
+     * @param ref previously bound expression reference
+     * @param asc true for ascending, false for descending
+     * @return a new stream with specified additional ordering
+     * @throws IllegalArgumentException if {@code ref} is null
+     */
+    SearchStream<X, S> thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
+
+    /**
+     * Order results using the specified {@link Order}s after existing sort.
+     *
+     * <p>
+     * Adds to any existing sort ordering.
+     *
+     * @param orders ordering(s), with higher precedence orderings first
+     * @return a new stream with specified additional ordering(s)
+     * @throws IllegalArgumentException if {@code orders} is null
+     */
+    SearchStream<X, S> thenOrderBy(Order... orders);
+
+    /**
+     * Order results using the {@link Expression} produced by the given {@link Function} after existing sort.
+     *
+     * <p>
+     * Adds to any existing sort ordering.
+     *
+     * @param orderExprFunction {@link Function} that produces an {@link Expression} to order on given an item expression
+     * @param asc true for ascending, false for descending
+     * @return a new stream with specified additional ordering
+     * @throws IllegalArgumentException if {@code orderExprFunction} is null
+     */
+    SearchStream<X, S> thenOrderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     /**
      * Apply grouping based on an expression refernce.

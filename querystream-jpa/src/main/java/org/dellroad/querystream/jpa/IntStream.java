@@ -56,6 +56,15 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
     IntStream orderByMulti(Function<? super Expression<Integer>, ? extends List<? extends Order>> orderListFunction);
 
     @Override
+    IntStream thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
+
+    @Override
+    IntStream thenOrderBy(Order... orders);
+
+    @Override
+    IntStream thenOrderBy(Function<? super Expression<Integer>, ? extends Expression<?>> orderExprFunction, boolean asc);
+
+    @Override
     IntStream groupBy(Ref<?, ? extends Expression<?>> ref);
 
     @Override

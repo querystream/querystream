@@ -113,6 +113,21 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     }
 
     @Override
+    public LongStream thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
+        return (LongStream)super.thenOrderBy(ref, asc);
+    }
+
+    @Override
+    public LongStream thenOrderBy(Order... orders) {
+        return (LongStream)super.thenOrderBy(orders);
+    }
+
+    @Override
+    public LongStream thenOrderBy(Function<? super Expression<Long>, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return (LongStream)super.thenOrderBy(orderExprFunction, asc);
+    }
+
+    @Override
     public LongStream groupBy(Ref<?, ? extends Expression<?>> ref) {
         return (LongStream)super.groupBy(ref);
     }

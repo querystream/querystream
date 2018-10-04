@@ -1,6 +1,7 @@
 Version Next
 
     - Added new methods withLockMode(), withFlushMode(), withHint(), etc.
+    - Added thenOrderBy() methods
 
 Version 1.0.0 Released September 23, 2018
 

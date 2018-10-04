@@ -105,6 +105,21 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     }
 
     @Override
+    public DoubleStream thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
+        return (DoubleStream)super.thenOrderBy(ref, asc);
+    }
+
+    @Override
+    public DoubleStream thenOrderBy(Order... orders) {
+        return (DoubleStream)super.thenOrderBy(orders);
+    }
+
+    @Override
+    public DoubleStream thenOrderBy(Function<? super Expression<Double>, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return (DoubleStream)super.thenOrderBy(orderExprFunction, asc);
+    }
+
+    @Override
     public DoubleStream groupBy(Ref<?, ? extends Expression<?>> ref) {
         return (DoubleStream)super.groupBy(ref);
     }

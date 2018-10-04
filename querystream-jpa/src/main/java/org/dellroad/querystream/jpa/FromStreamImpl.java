@@ -146,6 +146,26 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     }
 
     @Override
+    public FromStream<X, S> thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
+        return (FromStream<X, S>)super.thenOrderBy(ref, asc);
+    }
+
+    @Override
+    public FromStream<X, S> thenOrderBy(Order... orders) {
+        return (FromStream<X, S>)super.thenOrderBy(orders);
+    }
+
+    @Override
+    public FromStream<X, S> thenOrderBy(SingularAttribute<? super X, ?> attribute, boolean asc) {
+        return (FromStream<X, S>)super.thenOrderBy(attribute, asc);
+    }
+
+    @Override
+    public FromStream<X, S> thenOrderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return (FromStream<X, S>)super.thenOrderBy(orderExprFunction, asc);
+    }
+
+    @Override
     public FromStream<X, S> groupBy(Ref<?, ? extends Expression<?>> ref) {
         return (FromStream<X, S>)super.groupBy(ref);
     }

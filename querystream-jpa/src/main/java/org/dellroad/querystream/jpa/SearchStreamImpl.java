@@ -82,21 +82,42 @@ class SearchStreamImpl<X, S extends Selection<X>>
     public SearchStream<X, S> orderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
         if (ref == null)
             throw new IllegalArgumentException("null ref");
-        return this.orderBy(selection -> ref.get(), asc);
+        return this.orderBy(selection -> ref.get(), asc, false);
+    }
+
+    @Override
+    public SearchStream<X, S> thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
+        if (ref == null)
+            throw new IllegalArgumentException("null ref");
+        return this.orderBy(selection -> ref.get(), asc, true);
     }
 
     @Override
     public SearchStream<X, S> orderBy(Order... orders) {
         if (orders == null)
             throw new IllegalArgumentException("null orders");
-        return this.orderByMulti(selection -> Arrays.asList(orders));
+        return this.orderByMulti(selection -> Arrays.asList(orders), false);
+    }
+
+    @Override
+    public SearchStream<X, S> thenOrderBy(Order... orders) {
+        if (orders == null)
+            throw new IllegalArgumentException("null orders");
+        return this.orderByMulti(selection -> Arrays.asList(orders), true);
     }
 
     @Override
     public SearchStream<X, S> orderBy(SingularAttribute<? super X, ?> attribute, boolean asc) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        return this.orderBy(selection -> ((Path<X>)selection).get(attribute), asc);      // cast must be valid if attribute exists
+        return this.orderBy(selection -> ((Path<X>)selection).get(attribute), asc, false);  // cast is valid if attribute exists
+    }
+
+    @Override
+    public SearchStream<X, S> thenOrderBy(SingularAttribute<? super X, ?> attribute, boolean asc) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        return this.orderBy(selection -> ((Path<X>)selection).get(attribute), asc, true);   // cast is valid if attribute exists
     }
 
     @Override
@@ -112,7 +133,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
             return Arrays.asList(
               asc1 ? this.builder().asc(path.get(attribute1)) : this.builder().desc(path.get(attribute1)),
               asc2 ? this.builder().asc(path.get(attribute2)) : this.builder().desc(path.get(attribute2)));
-        });
+        }, false);
     }
 
     @Override
@@ -132,21 +153,34 @@ class SearchStreamImpl<X, S extends Selection<X>>
               asc1 ? this.builder().asc(path.get(attribute1)) : this.builder().desc(path.get(attribute1)),
               asc2 ? this.builder().asc(path.get(attribute2)) : this.builder().desc(path.get(attribute2)),
               asc3 ? this.builder().asc(path.get(attribute3)) : this.builder().desc(path.get(attribute3)));
-        });
+        }, false);
     }
 
     @Override
     public SearchStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return this.orderBy(orderExprFunction, asc, false);
+    }
+
+    @Override
+    public SearchStream<X, S> thenOrderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return this.orderBy(orderExprFunction, asc, true);
+    }
+
+    private SearchStream<X, S> orderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc, boolean add) {
         if (orderExprFunction == null)
             throw new IllegalArgumentException("null orderExprFunction");
         return this.orderByMulti(selection -> {
             final Expression<?> expr = orderExprFunction.apply(selection);
             return Collections.singletonList(asc ? this.builder().asc(expr) : this.builder().desc(expr));
-        });
+        }, add);
     }
 
     @Override
     public SearchStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction) {
+        return this.orderByMulti(orderListFunction, false);
+    }
+
+    private SearchStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction, boolean add) {
         if (orderListFunction == null)
             throw new IllegalArgumentException("null orderListFunction");
         QueryStreamImpl.checkOffsetLimit(this, "sorting");
@@ -155,8 +189,13 @@ class SearchStreamImpl<X, S extends Selection<X>>
                 throw new UnsupportedOperationException("sorry, can't sort a subquery because"
                   + " the JPA Criteria API doesn't support sorting in subqueries");
             }
+            final CriteriaQuery<?> criteriaQuery = (CriteriaQuery<?>)query;
             final S selection = this.configure(builder, query);
-            ((CriteriaQuery<?>)query).orderBy(new ArrayList<>(orderListFunction.apply(selection)));
+            final ArrayList<Order> newOrders = new ArrayList<>();
+            if (add)
+                newOrders.addAll(criteriaQuery.getOrderList());
+            newOrders.addAll(orderListFunction.apply(selection));
+            criteriaQuery.orderBy(newOrders);
             return selection;
         });
     }

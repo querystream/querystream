@@ -110,6 +110,26 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     }
 
     @Override
+    public RootStream<X> thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
+        return (RootStream<X>)super.thenOrderBy(ref, asc);
+    }
+
+    @Override
+    public RootStream<X> thenOrderBy(Order... orders) {
+        return (RootStream<X>)super.thenOrderBy(orders);
+    }
+
+    @Override
+    public RootStream<X> thenOrderBy(SingularAttribute<? super X, ?> attribute, boolean asc) {
+        return (RootStream<X>)super.thenOrderBy(attribute, asc);
+    }
+
+    @Override
+    public RootStream<X> thenOrderBy(Function<? super Root<X>, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return (RootStream<X>)super.thenOrderBy(orderExprFunction, asc);
+    }
+
+    @Override
     public RootStream<X> groupBy(Ref<?, ? extends Expression<?>> ref) {
         return (RootStream<X>)super.groupBy(ref);
     }

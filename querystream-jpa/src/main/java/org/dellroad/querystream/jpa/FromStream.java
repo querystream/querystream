@@ -59,6 +59,18 @@ public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
     FromStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction);
 
     @Override
+    FromStream<X, S> thenOrderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
+
+    @Override
+    FromStream<X, S> thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
+
+    @Override
+    FromStream<X, S> thenOrderBy(Order... orders);
+
+    @Override
+    FromStream<X, S> thenOrderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
+
+    @Override
     FromStream<X, S> groupBy(Ref<?, ? extends Expression<?>> ref);
 
     @Override

@@ -119,6 +119,21 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     }
 
     @Override
+    public IntStream thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc) {
+        return (IntStream)super.thenOrderBy(ref, asc);
+    }
+
+    @Override
+    public IntStream thenOrderBy(Order... orders) {
+        return (IntStream)super.thenOrderBy(orders);
+    }
+
+    @Override
+    public IntStream thenOrderBy(Function<? super Expression<Integer>, ? extends Expression<?>> orderExprFunction, boolean asc) {
+        return (IntStream)super.thenOrderBy(orderExprFunction, asc);
+    }
+
+    @Override
     public IntStream groupBy(Ref<?, ? extends Expression<?>> ref) {
         return (IntStream)super.groupBy(ref);
     }

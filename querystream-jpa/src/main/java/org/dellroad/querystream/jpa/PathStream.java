@@ -63,6 +63,18 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
     PathStream<X, S> orderByMulti(Function<? super S, ? extends List<? extends Order>> orderListFunction);
 
     @Override
+    PathStream<X, S> thenOrderBy(SingularAttribute<? super X, ?> attribute, boolean asc);
+
+    @Override
+    PathStream<X, S> thenOrderBy(Ref<?, ? extends Expression<?>> ref, boolean asc);
+
+    @Override
+    PathStream<X, S> thenOrderBy(Order... orders);
+
+    @Override
+    PathStream<X, S> thenOrderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
+
+    @Override
     PathStream<X, S> groupBy(Ref<?, ? extends Expression<?>> ref);
 
     @Override
