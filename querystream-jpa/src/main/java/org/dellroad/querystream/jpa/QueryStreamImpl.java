@@ -43,7 +43,7 @@ abstract class QueryStreamImpl<X,
   Q extends Query,
   QT extends QueryType<X, C, C2, Q>> implements QueryStream<X, S, C, C2, Q> {
 
-    static final ThreadLocal<QueryInfo> CURRENT_INFO = new ThreadLocal<>();
+    static final ThreadLocal<SubqueryInfo> CURRENT_SUBQUERY_INFO = new ThreadLocal<>();
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -148,7 +148,7 @@ abstract class QueryStreamImpl<X,
     public C2 toCriteriaQuery() {
         final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         final C2 query = this.queryType.createCriteriaQuery(builder);
-        return QueryStreamImpl.withQueryInfo(builder, query, () -> this.select(query, this.configure(builder, query)));
+        return QueryStreamImpl.withSubqueryInfo(builder, query, () -> this.select(query, this.configure(builder, query)));
     }
 
     @Override
@@ -268,37 +268,37 @@ abstract class QueryStreamImpl<X,
           + " only supports setting a row offset or row count limit on the outer Query that contains the CriteriaQuery");
     }
 
-// QueryInfo
+// SubqueryInfo
 
-    static QueryInfo getQueryInfo() {
-        final QueryInfo info = CURRENT_INFO.get();
+    static SubqueryInfo getSubqueryInfo() {
+        final SubqueryInfo info = CURRENT_SUBQUERY_INFO.get();
         if (info == null)
             throw new IllegalStateException("subquery not created in the context of a containing query");
         return info;
     }
 
-    static <T> T withQueryInfo(CriteriaBuilder builder, CommonAbstractCriteria query, Supplier<T> action) {
+    static <T> T withSubqueryInfo(CriteriaBuilder builder, CommonAbstractCriteria query, Supplier<T> action) {
         if (action == null)
             throw new IllegalArgumentException("null action");
-        final QueryInfo prev = CURRENT_INFO.get();
-        final QueryInfo info = new QueryInfo(builder, query);
-        CURRENT_INFO.set(info);
+        final SubqueryInfo prev = CURRENT_SUBQUERY_INFO.get();
+        final SubqueryInfo info = new SubqueryInfo(builder, query);
+        CURRENT_SUBQUERY_INFO.set(info);
         try {
             return action.get();
         } finally {
-            CURRENT_INFO.set(prev);
+            CURRENT_SUBQUERY_INFO.set(prev);
         }
     }
 
-    // Holds information about the current (sub)queries under construction. A stack of nested QueryInfo objects is available
+    // Holds information about the current (sub)queries under construction. A stack of nested SubqueryInfo objects is available
     // as each configurer executes during an invocation of toCriteriaQuery(); the top of the stack represents the current
     // (sub)query under construction; the bottom of the stack is the outermost query and is the only non-subquery.
-    static class QueryInfo {
+    static class SubqueryInfo {
 
         private final CriteriaBuilder builder;
         private final CommonAbstractCriteria query;
 
-        QueryInfo(CriteriaBuilder builder, CommonAbstractCriteria query) {
+        SubqueryInfo(CriteriaBuilder builder, CommonAbstractCriteria query) {
             if (builder == null)
                 throw new IllegalArgumentException("null builder");
             if (query == null)

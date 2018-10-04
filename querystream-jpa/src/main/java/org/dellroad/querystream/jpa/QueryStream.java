@@ -281,7 +281,7 @@ public interface QueryStream<X,
             if (root == null)
                 throw new IllegalArgumentException("null root");
             return new RootStreamImpl<>(this.entityManager, new SearchType<X>((Class<X>)root.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(root), -1, -1);
+              (builder, query) -> QueryStreamImpl.getSubqueryInfo().getSubquery().correlate(root), new QueryInfo());
         }
 
         /**
@@ -299,7 +299,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
+              (builder, query) -> QueryStreamImpl.getSubqueryInfo().getSubquery().correlate(join), new QueryInfo());
         }
 
         /**
@@ -317,7 +317,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
+              (builder, query) -> QueryStreamImpl.getSubqueryInfo().getSubquery().correlate(join), new QueryInfo());
         }
 
         /**
@@ -336,7 +336,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<V>((Class<V>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
+              (builder, query) -> QueryStreamImpl.getSubqueryInfo().getSubquery().correlate(join), new QueryInfo());
         }
 
         /**
@@ -354,7 +354,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
+              (builder, query) -> QueryStreamImpl.getSubqueryInfo().getSubquery().correlate(join), new QueryInfo());
         }
 
         /**
@@ -372,7 +372,7 @@ public interface QueryStream<X,
             if (join == null)
                 throw new IllegalArgumentException("null join");
             return new FromStreamImpl<>(this.entityManager, new SearchType<E>((Class<E>)join.getJavaType()),
-              (builder, query) -> QueryStreamImpl.getQueryInfo().getSubquery().correlate(join), -1, -1);
+              (builder, query) -> QueryStreamImpl.getSubqueryInfo().getSubquery().correlate(join), new QueryInfo());
         }
 
         /**

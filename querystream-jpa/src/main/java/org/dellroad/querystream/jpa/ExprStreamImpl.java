@@ -35,10 +35,10 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
 
     @Override
     public Subquery<X> asSubquery() {
-        final QueryInfo outer = QueryStreamImpl.getQueryInfo();
+        final SubqueryInfo outer = QueryStreamImpl.getSubqueryInfo();
         final CriteriaBuilder builder = outer.getBuilder();
         final Subquery<X> subquery = outer.getQuery().subquery(this.queryType.getType());
-        return subquery.select(QueryStreamImpl.withQueryInfo(builder, subquery,
+        return subquery.select(QueryStreamImpl.withSubqueryInfo(builder, subquery,
           () -> this.configurer.configure(builder, subquery)));
     }
 
@@ -46,7 +46,7 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
 
     @Override
     public Predicate exists() {
-        return QueryStreamImpl.getQueryInfo().getBuilder().exists(this.asSubquery());
+        return QueryStreamImpl.getSubqueryInfo().getBuilder().exists(this.asSubquery());
     }
 
     @Override
