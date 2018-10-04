@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -25,22 +28,22 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
 // Constructors
 
     PathStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
     public <Y extends X> PathStream<Y, ? extends Path<Y>> cast(Class<Y> type) {
         return new PathStreamImpl<Y, Path<Y>>(this.getEntityManager(), new SearchType<>(type),
-          (builder, query) -> builder.treat(this.configure(builder, query), type), this.firstResult, this.maxResults);
+          (builder, query) -> builder.treat(this.configure(builder, query), type), this.queryInfo);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     PathStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        return new PathStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        return new PathStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -51,7 +54,7 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     @Override
     PathValue<X, S> toValue(boolean forceLimit) {
         return new PathValueImpl<>(this.entityManager, this.queryType,
-          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+          this.configurer, forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -172,5 +175,35 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     @Override
     public PathStream<X, S> skip(int skip) {
         return (PathStream<X, S>)super.skip(skip);
+    }
+
+    @Override
+    public PathStream<X, S> withFlushMode(FlushModeType flushMode) {
+        return (PathStream<X, S>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public PathStream<X, S> withLockMode(LockModeType lockMode) {
+        return (PathStream<X, S>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public PathStream<X, S> withHint(String name, Object value) {
+        return (PathStream<X, S>)super.withHint(name, value);
+    }
+
+    @Override
+    public PathStream<X, S> withHints(Map<String, Object> hints) {
+        return (PathStream<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public PathStream<X, S> withLoadGraph(String name) {
+        return (PathStream<X, S>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public PathStream<X, S> withFetchGraph(String name) {
+        return (PathStream<X, S>)super.withFetchGraph(name);
     }
 }

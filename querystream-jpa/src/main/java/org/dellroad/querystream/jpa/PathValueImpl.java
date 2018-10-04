@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
@@ -22,16 +25,16 @@ class PathValueImpl<X, S extends Path<X>> extends PathStreamImpl<X, S> implement
 // Constructors
 
     PathValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // Subclass required methods
 
     @Override
     PathValue<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        return new PathValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        return new PathValueImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
 // Narrowing overrides (QueryStream)
@@ -60,5 +63,35 @@ class PathValueImpl<X, S extends Path<X>> extends PathStreamImpl<X, S> implement
     @Override
     public PathValue<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         return (PathValue<X, S>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public PathValue<X, S> withFlushMode(FlushModeType flushMode) {
+        return (PathValue<X, S>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public PathValue<X, S> withLockMode(LockModeType lockMode) {
+        return (PathValue<X, S>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public PathValue<X, S> withHint(String name, Object value) {
+        return (PathValue<X, S>)super.withHint(name, value);
+    }
+
+    @Override
+    public PathValue<X, S> withHints(Map<String, Object> hints) {
+        return (PathValue<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public PathValue<X, S> withLoadGraph(String name) {
+        return (PathValue<X, S>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public PathValue<X, S> withFetchGraph(String name) {
+        return (PathValue<X, S>)super.withFetchGraph(name);
     }
 }

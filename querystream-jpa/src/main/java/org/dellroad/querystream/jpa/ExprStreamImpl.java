@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
@@ -27,8 +30,8 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
 // Constructors
 
     ExprStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // Subqueries
@@ -53,22 +56,22 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     public LongValue count() {
         QueryStreamImpl.checkOffsetLimit(this, "count()");
         return new LongValueImpl(this.entityManager,
-          (builder, query) -> builder.count(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.count(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public LongValue countDistinct() {
         QueryStreamImpl.checkOffsetLimit(this, "countDistinct()");
         return new LongValueImpl(this.entityManager,
-          (builder, query) -> builder.countDistinct(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.countDistinct(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     ExprStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        return new ExprStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        return new ExprStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -79,7 +82,7 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     @Override
     ExprValue<X, S> toValue(boolean forceLimit) {
         return new ExprValueImpl<>(this.entityManager, this.queryType,
-          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+          this.configurer, forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -200,5 +203,35 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     @Override
     public ExprStream<X, S> skip(int skip) {
         return (ExprStream<X, S>)super.skip(skip);
+    }
+
+    @Override
+    public ExprStream<X, S> withFlushMode(FlushModeType flushMode) {
+        return (ExprStream<X, S>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public ExprStream<X, S> withLockMode(LockModeType lockMode) {
+        return (ExprStream<X, S>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public ExprStream<X, S> withHint(String name, Object value) {
+        return (ExprStream<X, S>)super.withHint(name, value);
+    }
+
+    @Override
+    public ExprStream<X, S> withHints(Map<String, Object> hints) {
+        return (ExprStream<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public ExprStream<X, S> withLoadGraph(String name) {
+        return (ExprStream<X, S>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public ExprStream<X, S> withFetchGraph(String name) {
+        return (ExprStream<X, S>)super.withFetchGraph(name);
     }
 }

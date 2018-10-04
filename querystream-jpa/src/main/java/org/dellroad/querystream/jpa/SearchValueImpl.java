@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
@@ -21,16 +24,16 @@ class SearchValueImpl<X, S extends Selection<X>> extends SearchStreamImpl<X, S> 
 // Constructors
 
     SearchValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // Subclass required methods
 
     @Override
     SearchValue<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        return new SearchValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        return new SearchValueImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
 // Narrowing overrides (QueryStream)
@@ -59,5 +62,35 @@ class SearchValueImpl<X, S extends Selection<X>> extends SearchStreamImpl<X, S> 
     @Override
     public SearchValue<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
         return (SearchValue<X, S>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public SearchValue<X, S> withFlushMode(FlushModeType flushMode) {
+        return (SearchValue<X, S>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public SearchValue<X, S> withLockMode(LockModeType lockMode) {
+        return (SearchValue<X, S>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public SearchValue<X, S> withHint(String name, Object value) {
+        return (SearchValue<X, S>)super.withHint(name, value);
+    }
+
+    @Override
+    public SearchValue<X, S> withHints(Map<String, Object> hints) {
+        return (SearchValue<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public SearchValue<X, S> withLoadGraph(String name) {
+        return (SearchValue<X, S>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public SearchValue<X, S> withFetchGraph(String name) {
+        return (SearchValue<X, S>)super.withFetchGraph(name);
     }
 }

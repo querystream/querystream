@@ -6,9 +6,12 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
@@ -91,4 +94,22 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
 
     @Override
     LongStream skip(int num);
+
+    @Override
+    LongStream withFlushMode(FlushModeType flushMode);
+
+    @Override
+    LongStream withLockMode(LockModeType lockMode);
+
+    @Override
+    LongStream withHint(String name, Object value);
+
+    @Override
+    LongStream withHints(Map<String, Object> hints);
+
+    @Override
+    LongStream withLoadGraph(String name);
+
+    @Override
+    LongStream withFetchGraph(String name);
 }

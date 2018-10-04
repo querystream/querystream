@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
@@ -25,8 +28,8 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
 // Constructors
 
     FromStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 /*
@@ -85,8 +88,8 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
 
     @Override
     FromStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        return new FromStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        return new FromStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -97,7 +100,7 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     @Override
     FromValue<X, S> toValue(boolean forceLimit) {
         return new FromValueImpl<>(this.entityManager, this.queryType,
-          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+          this.configurer, forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -218,5 +221,35 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     @Override
     public FromStream<X, S> skip(int skip) {
         return (FromStream<X, S>)super.skip(skip);
+    }
+
+    @Override
+    public FromStream<X, S> withFlushMode(FlushModeType flushMode) {
+        return (FromStream<X, S>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public FromStream<X, S> withLockMode(LockModeType lockMode) {
+        return (FromStream<X, S>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public FromStream<X, S> withHint(String name, Object value) {
+        return (FromStream<X, S>)super.withHint(name, value);
+    }
+
+    @Override
+    public FromStream<X, S> withHints(Map<String, Object> hints) {
+        return (FromStream<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public FromStream<X, S> withLoadGraph(String name) {
+        return (FromStream<X, S>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public FromStream<X, S> withFetchGraph(String name) {
+        return (FromStream<X, S>)super.withFetchGraph(name);
     }
 }

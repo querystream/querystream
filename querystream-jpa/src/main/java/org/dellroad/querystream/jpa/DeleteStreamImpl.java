@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Expression;
@@ -28,13 +31,14 @@ class DeleteStreamImpl<X>
         this(entityManager, new DeleteType<X>(type));
     }
 
+    // Separate constructor to avoid bogus error ("cannot reference queryType before supertype constructor has been called")
     private DeleteStreamImpl(EntityManager entityManager, DeleteType<X> queryType) {
-        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), -1, -1);
+        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), new QueryInfo());
     }
 
     private DeleteStreamImpl(EntityManager entityManager, DeleteType<X> queryType,
-      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // DeleteStream
@@ -48,8 +52,8 @@ class DeleteStreamImpl<X>
 
     @Override
     DeleteStream<X> create(EntityManager entityManager, DeleteType<X> queryType,
-      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        return new DeleteStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<CriteriaDelete<X>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        return new DeleteStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -92,5 +96,35 @@ class DeleteStreamImpl<X>
     @Override
     public DeleteStream<X> skip(int skip) {
         return (DeleteStream<X>)super.skip(skip);
+    }
+
+    @Override
+    public DeleteStream<X> withFlushMode(FlushModeType flushMode) {
+        return (DeleteStream<X>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public DeleteStream<X> withLockMode(LockModeType lockMode) {
+        return (DeleteStream<X>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public DeleteStream<X> withHint(String name, Object value) {
+        return (DeleteStream<X>)super.withHint(name, value);
+    }
+
+    @Override
+    public DeleteStream<X> withHints(Map<String, Object> hints) {
+        return (DeleteStream<X>)super.withHints(hints);
+    }
+
+    @Override
+    public DeleteStream<X> withLoadGraph(String name) {
+        return (DeleteStream<X>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public DeleteStream<X> withFetchGraph(String name) {
+        return (DeleteStream<X>)super.withFetchGraph(name);
     }
 }

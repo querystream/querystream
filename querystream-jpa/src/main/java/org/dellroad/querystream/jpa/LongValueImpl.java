@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
@@ -21,16 +24,16 @@ class LongValueImpl extends LongStreamImpl implements LongValue {
 // Constructors
 
     LongValueImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
-        super(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, QueryInfo queryInfo) {
+        super(entityManager, configurer, queryInfo);
     }
 
 // Subclass required methods
 
     @Override
     LongValue create(EntityManager entityManager, SearchType<Long> queryType,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
-        return new LongValueImpl(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, QueryInfo queryInfo) {
+        return new LongValueImpl(entityManager, configurer, queryInfo);
     }
 
 // Narrowing overrides (QueryStream)
@@ -59,5 +62,35 @@ class LongValueImpl extends LongStreamImpl implements LongValue {
     @Override
     public LongValue filter(Function<? super Expression<Long>, ? extends Expression<Boolean>> predicateBuilder) {
         return (LongValue)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public LongValue withFlushMode(FlushModeType flushMode) {
+        return (LongValue)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public LongValue withLockMode(LockModeType lockMode) {
+        return (LongValue)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public LongValue withHint(String name, Object value) {
+        return (LongValue)super.withHint(name, value);
+    }
+
+    @Override
+    public LongValue withHints(Map<String, Object> hints) {
+        return (LongValue)super.withHints(hints);
+    }
+
+    @Override
+    public LongValue withLoadGraph(String name) {
+        return (LongValue)super.withLoadGraph(name);
+    }
+
+    @Override
+    public LongValue withFetchGraph(String name) {
+        return (LongValue)super.withFetchGraph(name);
     }
 }

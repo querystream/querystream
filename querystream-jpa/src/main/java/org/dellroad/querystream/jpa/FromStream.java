@@ -6,9 +6,12 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Order;
@@ -101,4 +104,22 @@ public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
 
     @Override
     FromStream<X, S> skip(int num);
+
+    @Override
+    FromStream<X, S> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    FromStream<X, S> withLockMode(LockModeType lockMode);
+
+    @Override
+    FromStream<X, S> withHint(String name, Object value);
+
+    @Override
+    FromStream<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    FromStream<X, S> withLoadGraph(String name);
+
+    @Override
+    FromStream<X, S> withFetchGraph(String name);
 }

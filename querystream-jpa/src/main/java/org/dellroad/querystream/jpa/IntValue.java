@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
 
@@ -30,4 +33,22 @@ public interface IntValue extends ExprValue<Integer, Expression<Integer>>, IntSt
 
     @Override
     IntValue filter(Function<? super Expression<Integer>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    IntValue withFlushMode(FlushModeType flushMode);
+
+    @Override
+    IntValue withLockMode(LockModeType lockMode);
+
+    @Override
+    IntValue withHint(String name, Object value);
+
+    @Override
+    IntValue withHints(Map<String, Object> hints);
+
+    @Override
+    IntValue withLoadGraph(String name);
+
+    @Override
+    IntValue withFetchGraph(String name);
 }

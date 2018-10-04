@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Selection;
@@ -34,4 +37,22 @@ public interface PathValue<X, S extends Path<X>> extends ExprValue<X, S>, PathSt
 
     @Override
     PathValue<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    PathValue<X, S> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    PathValue<X, S> withLockMode(LockModeType lockMode);
+
+    @Override
+    PathValue<X, S> withHint(String name, Object value);
+
+    @Override
+    PathValue<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    PathValue<X, S> withLoadGraph(String name);
+
+    @Override
+    PathValue<X, S> withFetchGraph(String name);
 }

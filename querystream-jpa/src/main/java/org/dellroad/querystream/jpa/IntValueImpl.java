@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
@@ -21,16 +24,16 @@ class IntValueImpl extends IntStreamImpl implements IntValue {
 // Constructors
 
     IntValueImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
-        super(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, QueryInfo queryInfo) {
+        super(entityManager, configurer, queryInfo);
     }
 
 // Subclass required methods
 
     @Override
     IntValue create(EntityManager entityManager, SearchType<Integer> queryType,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
-        return new IntValueImpl(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, QueryInfo queryInfo) {
+        return new IntValueImpl(entityManager, configurer, queryInfo);
     }
 
 // Narrowing overrides (QueryStream)
@@ -59,5 +62,35 @@ class IntValueImpl extends IntStreamImpl implements IntValue {
     @Override
     public IntValue filter(Function<? super Expression<Integer>, ? extends Expression<Boolean>> predicateBuilder) {
         return (IntValue)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public IntValue withFlushMode(FlushModeType flushMode) {
+        return (IntValue)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public IntValue withLockMode(LockModeType lockMode) {
+        return (IntValue)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public IntValue withHint(String name, Object value) {
+        return (IntValue)super.withHint(name, value);
+    }
+
+    @Override
+    public IntValue withHints(Map<String, Object> hints) {
+        return (IntValue)super.withHints(hints);
+    }
+
+    @Override
+    public IntValue withLoadGraph(String name) {
+        return (IntValue)super.withLoadGraph(name);
+    }
+
+    @Override
+    public IntValue withFetchGraph(String name) {
+        return (IntValue)super.withFetchGraph(name);
     }
 }

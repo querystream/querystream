@@ -5,11 +5,14 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaUpdate;
@@ -30,13 +33,14 @@ class UpdateStreamImpl<X>
         this(entityManager, new UpdateType<X>(type));
     }
 
+    // Separate constructor to avoid bogus error ("cannot reference queryType before supertype constructor has been called")
     private UpdateStreamImpl(EntityManager entityManager, UpdateType<X> queryType) {
-        super(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), -1, -1);
+        super(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), new QueryInfo());
     }
 
     private UpdateStreamImpl(EntityManager entityManager, UpdateType<X> queryType,
-      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // UpdateStream
@@ -74,8 +78,8 @@ class UpdateStreamImpl<X>
 
     @Override
     UpdateStream<X> create(EntityManager entityManager, UpdateType<X> queryType,
-      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        return new UpdateStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<CriteriaUpdate<X>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        return new UpdateStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -123,5 +127,35 @@ class UpdateStreamImpl<X>
     @Override
     public UpdateStream<X> skip(int skip) {
         return (UpdateStream<X>)super.skip(skip);
+    }
+
+    @Override
+    public UpdateStream<X> withFlushMode(FlushModeType flushMode) {
+        return (UpdateStream<X>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public UpdateStream<X> withLockMode(LockModeType lockMode) {
+        return (UpdateStream<X>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public UpdateStream<X> withHint(String name, Object value) {
+        return (UpdateStream<X>)super.withHint(name, value);
+    }
+
+    @Override
+    public UpdateStream<X> withHints(Map<String, Object> hints) {
+        return (UpdateStream<X>)super.withHints(hints);
+    }
+
+    @Override
+    public UpdateStream<X> withLoadGraph(String name) {
+        return (UpdateStream<X>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public UpdateStream<X> withFetchGraph(String name) {
+        return (UpdateStream<X>)super.withFetchGraph(name);
     }
 }

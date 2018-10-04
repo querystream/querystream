@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
@@ -21,16 +24,16 @@ class DoubleValueImpl extends DoubleStreamImpl implements DoubleValue {
 // Constructors
 
     DoubleValueImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
-        super(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, QueryInfo queryInfo) {
+        super(entityManager, configurer, queryInfo);
     }
 
 // Subclass required methods
 
     @Override
     DoubleValue create(EntityManager entityManager, SearchType<Double> queryType,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
-        return new DoubleValueImpl(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, QueryInfo queryInfo) {
+        return new DoubleValueImpl(entityManager, configurer, queryInfo);
     }
 
 // Narrowing overrides (QueryStream)
@@ -59,5 +62,35 @@ class DoubleValueImpl extends DoubleStreamImpl implements DoubleValue {
     @Override
     public DoubleValue filter(Function<? super Expression<Double>, ? extends Expression<Boolean>> predicateBuilder) {
         return (DoubleValue)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public DoubleValue withFlushMode(FlushModeType flushMode) {
+        return (DoubleValue)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public DoubleValue withLockMode(LockModeType lockMode) {
+        return (DoubleValue)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public DoubleValue withHint(String name, Object value) {
+        return (DoubleValue)super.withHint(name, value);
+    }
+
+    @Override
+    public DoubleValue withHints(Map<String, Object> hints) {
+        return (DoubleValue)super.withHints(hints);
+    }
+
+    @Override
+    public DoubleValue withLoadGraph(String name) {
+        return (DoubleValue)super.withLoadGraph(name);
+    }
+
+    @Override
+    public DoubleValue withFetchGraph(String name) {
+        return (DoubleValue)super.withFetchGraph(name);
     }
 }

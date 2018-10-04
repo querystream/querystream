@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -23,8 +26,8 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
 // Constructors
 
     DoubleStreamImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
-        super(entityManager, new SearchType<Double>(Double.class), configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, QueryInfo queryInfo) {
+        super(entityManager, new SearchType<Double>(Double.class), configurer, queryInfo);
     }
 
 // Aggregation
@@ -33,36 +36,36 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     public DoubleValue average() {
         QueryStreamImpl.checkOffsetLimit(this, "average()");
         return new DoubleValueImpl(this.entityManager,
-          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public DoubleValue max() {
         QueryStreamImpl.checkOffsetLimit(this, "max()");
         return new DoubleValueImpl(this.entityManager,
-          (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.max(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public DoubleValue min() {
         QueryStreamImpl.checkOffsetLimit(this, "min()");
         return new DoubleValueImpl(this.entityManager,
-          (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.min(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public DoubleValue sum() {
         QueryStreamImpl.checkOffsetLimit(this, "sum()");
         return new DoubleValueImpl(this.entityManager,
-          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     DoubleStream create(EntityManager entityManager, SearchType<Double> queryType,
-      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, int firstResult, int maxResults) {
-        return new DoubleStreamImpl(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Double, ? extends Expression<Double>> configurer, QueryInfo queryInfo) {
+        return new DoubleStreamImpl(entityManager, configurer, queryInfo);
     }
 
     @Override
@@ -72,7 +75,8 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
 
     @Override
     DoubleValue toValue(boolean forceLimit) {
-        return new DoubleValueImpl(this.entityManager, this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+        return new DoubleValueImpl(this.entityManager,
+          this.configurer, forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -166,5 +170,35 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     @Override
     public DoubleStream skip(int skip) {
         return (DoubleStream)super.skip(skip);
+    }
+
+    @Override
+    public DoubleStream withFlushMode(FlushModeType flushMode) {
+        return (DoubleStream)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public DoubleStream withLockMode(LockModeType lockMode) {
+        return (DoubleStream)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public DoubleStream withHint(String name, Object value) {
+        return (DoubleStream)super.withHint(name, value);
+    }
+
+    @Override
+    public DoubleStream withHints(Map<String, Object> hints) {
+        return (DoubleStream)super.withHints(hints);
+    }
+
+    @Override
+    public DoubleStream withLoadGraph(String name) {
+        return (DoubleStream)super.withLoadGraph(name);
+    }
+
+    @Override
+    public DoubleStream withFetchGraph(String name) {
+        return (DoubleStream)super.withFetchGraph(name);
     }
 }

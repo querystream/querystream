@@ -5,12 +5,15 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CommonAbstractCriteria;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -45,33 +48,31 @@ abstract class QueryStreamImpl<X,
 
     static final ThreadLocal<SubqueryInfo> CURRENT_SUBQUERY_INFO = new ThreadLocal<>();
 
+    private static final String LOAD_GRAPH_HINT = "javax.persistence.loadgraph";
+    private static final String FETCH_GRAPH_HINT = "javax.persistence.fetchgraph";
+
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     final EntityManager entityManager;
     final QT queryType;
     final QueryConfigurer<C, X, ? extends S> configurer;
-    final int firstResult;
-    final int maxResults;
+    final QueryInfo queryInfo;
 
 // Constructors
 
-    QueryStreamImpl(EntityManager entityManager, QT queryType,
-      QueryConfigurer<C, X, ? extends S> configurer, int firstResult, int maxResults) {
+    QueryStreamImpl(EntityManager entityManager, QT queryType, QueryConfigurer<C, X, ? extends S> configurer, QueryInfo queryInfo) {
         if (entityManager == null)
             throw new IllegalArgumentException("null entityManager");
         if (queryType == null)
             throw new IllegalArgumentException("null queryType");
         if (configurer == null)
             throw new IllegalArgumentException("null configurer");
-        if (firstResult < -1)
-            throw new IllegalArgumentException("invalid firstResult");
-        if (maxResults < -1)
-            throw new IllegalArgumentException("invalid maxResults");
+        if (queryInfo == null)
+            throw new IllegalArgumentException("null queryInfo");
         this.entityManager = entityManager;
         this.queryType = queryType;
         this.configurer = configurer;
-        this.firstResult = firstResult;
-        this.maxResults = maxResults;
+        this.queryInfo = queryInfo;
     }
 
 // QueryType
@@ -95,7 +96,7 @@ abstract class QueryStreamImpl<X,
             final S selection = this.configure(builder, query);
             modifier.accept(builder, query);
             return selection;
-        }, this.firstResult, this.maxResults);
+        }, this.queryInfo);
     }
 
     /**
@@ -106,7 +107,7 @@ abstract class QueryStreamImpl<X,
     QueryStream<X, S, C, C2, Q> withConfig(QueryConfigurer<C, X, ? extends S> configurer) {
         if (configurer == null)
             throw new IllegalArgumentException("null configurer");
-        return this.create(this.entityManager, this.queryType, configurer, this.firstResult, this.maxResults);
+        return this.create(this.entityManager, this.queryType, configurer, this.queryInfo);
     }
 
 // Subclass required methods
@@ -115,7 +116,7 @@ abstract class QueryStreamImpl<X,
      * Create a new instance with the same type as this instance.
      */
     abstract QueryStream<X, S, C, C2, Q> create(EntityManager entityManager,
-      QT queryType, QueryConfigurer<C, X, ? extends S> configurer, int firstResult, int maxResults);
+      QT queryType, QueryConfigurer<C, X, ? extends S> configurer, QueryInfo queryInfo);
 
     /**
      * Apply selection criteria, if appropriate.
@@ -154,21 +155,63 @@ abstract class QueryStreamImpl<X,
     @Override
     public Q toQuery() {
         final Q query = this.queryType.createQuery(this.entityManager, this.toCriteriaQuery());
-        if (this.firstResult != -1)
-            query.setFirstResult(this.firstResult);
-        if (this.maxResults != -1)
-            query.setMaxResults(this.maxResults);
+        this.queryInfo.applyTo(query);
         return query;
     }
 
     @Override
     public int getFirstResult() {
-        return this.firstResult;
+        return this.queryInfo.getFirstResult();
     }
 
     @Override
     public int getMaxResults() {
-        return this.maxResults;
+        return this.queryInfo.getMaxResults();
+    }
+
+    @Override
+    public FlushModeType getFlushMode() {
+        return this.queryInfo.getFlushMode();
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> withFlushMode(FlushModeType flushMode) {
+        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withFlushMode(flushMode));
+    }
+
+    @Override
+    public LockModeType getLockMode() {
+        return this.queryInfo.getLockMode();
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> withLockMode(LockModeType lockMode) {
+        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withLockMode(lockMode));
+    }
+
+    @Override
+    public Map<String, Object> getHints() {
+        return this.queryInfo.getHints();
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> withHint(String name, Object value) {
+        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withHint(name, value));
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> withHints(Map<String, Object> hints) {
+        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withHints(hints));
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> withLoadGraph(String name) {
+        return this.withHint(LOAD_GRAPH_HINT, name);
+    }
+
+    @Override
+    public QueryStream<X, S, C, C2, Q> withFetchGraph(String name) {
+        return this.withHint(FETCH_GRAPH_HINT, name);
     }
 
 // Refs
@@ -237,24 +280,24 @@ abstract class QueryStreamImpl<X,
     public QueryStream<X, S, C, C2, Q> limit(int limit) {
         if (limit < 0)
             throw new IllegalArgumentException("limit < 0");
-        final int newMaxResults = this.maxResults != -1 ? Math.min(limit, this.maxResults) : limit;
+        final int newMaxResults = this.getMaxResults() != -1 ? Math.min(limit, this.getMaxResults()) : limit;
         return this.create(this.entityManager, this.queryType, (builder, query) -> {
             if (query instanceof Subquery)
                 QueryStreamImpl.failOffsetLimit("can't invoke limit() on a subquery");
             return this.configure(builder, query);
-        }, this.firstResult, newMaxResults);
+        }, this.queryInfo.withMaxResults(newMaxResults));
     }
 
     @Override
     public QueryStream<X, S, C, C2, Q> skip(int skip) {
         if (skip < 0)
             throw new IllegalArgumentException("skip < 0");
-        final int newFirstResult = this.firstResult != -1 ? this.firstResult + skip : skip;
+        final int newFirstResult = this.getFirstResult() != -1 ? this.getFirstResult() + skip : skip;
         return this.create(this.entityManager, this.queryType, (builder, query) -> {
             if (query instanceof Subquery)
                 QueryStreamImpl.failOffsetLimit("can't invoke skip() on a subquery");
             return this.configure(builder, query);
-        }, newFirstResult, this.maxResults);
+        }, this.queryInfo.withFirstResult(newFirstResult));
     }
 
     // This is used to prevent other stuff being applied after skip()/limit()

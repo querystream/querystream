@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
@@ -34,4 +37,22 @@ public interface RootValue<X> extends FromValue<X, Root<X>>, RootStream<X> {
 
     @Override
     RootValue<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    RootValue<X> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    RootValue<X> withLockMode(LockModeType lockMode);
+
+    @Override
+    RootValue<X> withHint(String name, Object value);
+
+    @Override
+    RootValue<X> withHints(Map<String, Object> hints);
+
+    @Override
+    RootValue<X> withLoadGraph(String name);
+
+    @Override
+    RootValue<X> withFetchGraph(String name);
 }

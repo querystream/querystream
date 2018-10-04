@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.JoinType;
@@ -38,7 +41,7 @@ public interface FromValue<X, S extends From<?, X>> extends PathValue<X, S>, Fro
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromValueImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
-           (builder, query) -> this.configure(builder, query).join(attribute, joinType), -1, -1);
+           (builder, query) -> this.configure(builder, query).join(attribute, joinType), QueryInfo.of(this));
     }
 
 // Narrowing overrides (QueryStream)
@@ -57,4 +60,22 @@ public interface FromValue<X, S extends From<?, X>> extends PathValue<X, S>, Fro
 
     @Override
     FromValue<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    FromValue<X, S> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    FromValue<X, S> withLockMode(LockModeType lockMode);
+
+    @Override
+    FromValue<X, S> withHint(String name, Object value);
+
+    @Override
+    FromValue<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    FromValue<X, S> withLoadGraph(String name);
+
+    @Override
+    FromValue<X, S> withFetchGraph(String name);
 }

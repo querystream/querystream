@@ -6,9 +6,12 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
@@ -136,4 +139,22 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
 
     @Override
     ExprStream<X, S> skip(int num);
+
+    @Override
+    ExprStream<X, S> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    ExprStream<X, S> withLockMode(LockModeType lockMode);
+
+    @Override
+    ExprStream<X, S> withHint(String name, Object value);
+
+    @Override
+    ExprStream<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    ExprStream<X, S> withLoadGraph(String name);
+
+    @Override
+    ExprStream<X, S> withFetchGraph(String name);
 }

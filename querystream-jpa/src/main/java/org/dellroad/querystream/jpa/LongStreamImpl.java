@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -23,8 +26,8 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
 // Constructors
 
     LongStreamImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
-        super(entityManager, new SearchType<Long>(Long.class), configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, QueryInfo queryInfo) {
+        super(entityManager, new SearchType<Long>(Long.class), configurer, queryInfo);
     }
 
 // Mapping
@@ -32,7 +35,7 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     @Override
     public DoubleStream asDoubleStream() {
         return new DoubleStreamImpl(this.getEntityManager(),
-          (builder, query) -> builder.toDouble(this.configure(builder, query)), this.firstResult, this.maxResults);
+          (builder, query) -> builder.toDouble(this.configure(builder, query)), this.queryInfo);
     }
 
 // Aggregation
@@ -41,36 +44,36 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     public DoubleValue average() {
         QueryStreamImpl.checkOffsetLimit(this, "average()");
         return new DoubleValueImpl(this.entityManager,
-          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), new QueryInfo());
     }
 
     @Override
     public LongValue max() {
         QueryStreamImpl.checkOffsetLimit(this, "max()");
         return new LongValueImpl(this.entityManager,
-          (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.max(this.configurer.configure(builder, query)), new QueryInfo());
     }
 
     @Override
     public LongValue min() {
         QueryStreamImpl.checkOffsetLimit(this, "min()");
         return new LongValueImpl(this.entityManager,
-          (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.min(this.configurer.configure(builder, query)), new QueryInfo());
     }
 
     @Override
     public LongValue sum() {
         QueryStreamImpl.checkOffsetLimit(this, "sum()");
         return new LongValueImpl(this.entityManager,
-          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), new QueryInfo());
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     LongStream create(EntityManager entityManager, SearchType<Long> queryType,
-      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, int firstResult, int maxResults) {
-        return new LongStreamImpl(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Long, ? extends Expression<Long>> configurer, QueryInfo queryInfo) {
+        return new LongStreamImpl(entityManager, configurer, queryInfo);
     }
 
     @Override
@@ -80,7 +83,8 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
 
     @Override
     LongValue toValue(boolean forceLimit) {
-        return new LongValueImpl(this.entityManager, this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+        return new LongValueImpl(this.entityManager, this.configurer,
+          forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -174,5 +178,35 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     @Override
     public LongStream skip(int skip) {
         return (LongStream)super.skip(skip);
+    }
+
+    @Override
+    public LongStream withFlushMode(FlushModeType flushMode) {
+        return (LongStream)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public LongStream withLockMode(LockModeType lockMode) {
+        return (LongStream)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public LongStream withHint(String name, Object value) {
+        return (LongStream)super.withHint(name, value);
+    }
+
+    @Override
+    public LongStream withHints(Map<String, Object> hints) {
+        return (LongStream)super.withHints(hints);
+    }
+
+    @Override
+    public LongStream withLoadGraph(String name) {
+        return (LongStream)super.withLoadGraph(name);
+    }
+
+    @Override
+    public LongStream withFetchGraph(String name) {
+        return (LongStream)super.withFetchGraph(name);
     }
 }

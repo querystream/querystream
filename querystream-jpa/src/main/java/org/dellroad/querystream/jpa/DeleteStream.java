@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Expression;
@@ -53,4 +56,22 @@ public interface DeleteStream<X> extends QueryStream<X, Root<X>, CriteriaDelete<
 
     @Override
     DeleteStream<X> skip(int num);
+
+    @Override
+    DeleteStream<X> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    DeleteStream<X> withLockMode(LockModeType lockMode);
+
+    @Override
+    DeleteStream<X> withHint(String name, Object value);
+
+    @Override
+    DeleteStream<X> withHints(Map<String, Object> hints);
+
+    @Override
+    DeleteStream<X> withLoadGraph(String name);
+
+    @Override
+    DeleteStream<X> withFetchGraph(String name);
 }

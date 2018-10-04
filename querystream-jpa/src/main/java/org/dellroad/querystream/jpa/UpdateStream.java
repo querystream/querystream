@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Expression;
@@ -64,4 +67,22 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
 
     @Override
     UpdateStream<X> skip(int num);
+
+    @Override
+    UpdateStream<X> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    UpdateStream<X> withLockMode(LockModeType lockMode);
+
+    @Override
+    UpdateStream<X> withHint(String name, Object value);
+
+    @Override
+    UpdateStream<X> withHints(Map<String, Object> hints);
+
+    @Override
+    UpdateStream<X> withLoadGraph(String name);
+
+    @Override
+    UpdateStream<X> withFetchGraph(String name);
 }

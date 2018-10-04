@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -23,8 +26,8 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
 // Constructors
 
     IntStreamImpl(EntityManager entityManager,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
-        super(entityManager, new SearchType<Integer>(Integer.class), configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, QueryInfo queryInfo) {
+        super(entityManager, new SearchType<Integer>(Integer.class), configurer, queryInfo);
     }
 
 // Mapping
@@ -32,13 +35,13 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     @Override
     public LongStream asLongStream() {
         return new LongStreamImpl(this.getEntityManager(),
-          (builder, query) -> builder.toLong(this.configure(builder, query)), this.firstResult, this.maxResults);
+          (builder, query) -> builder.toLong(this.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public DoubleStream asDoubleStream() {
         return new DoubleStreamImpl(this.getEntityManager(),
-          (builder, query) -> builder.toDouble(this.configure(builder, query)), this.firstResult, this.maxResults);
+          (builder, query) -> builder.toDouble(this.configure(builder, query)), this.queryInfo);
     }
 
 // Aggregation
@@ -47,36 +50,36 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     public DoubleValue average() {
         QueryStreamImpl.checkOffsetLimit(this, "average()");
         return new DoubleValueImpl(this.entityManager,
-          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.avg(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public IntValue max() {
         QueryStreamImpl.checkOffsetLimit(this, "max()");
         return new IntValueImpl(this.entityManager,
-          (builder, query) -> builder.max(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.max(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public IntValue min() {
         QueryStreamImpl.checkOffsetLimit(this, "min()");
         return new IntValueImpl(this.entityManager,
-          (builder, query) -> builder.min(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.min(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
     @Override
     public IntValue sum() {
         QueryStreamImpl.checkOffsetLimit(this, "sum()");
         return new IntValueImpl(this.entityManager,
-          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), -1, -1);
+          (builder, query) -> builder.sum(this.configurer.configure(builder, query)), this.queryInfo);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     IntStream create(EntityManager entityManager, SearchType<Integer> queryType,
-      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, int firstResult, int maxResults) {
-        return new IntStreamImpl(entityManager, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, Integer, ? extends Expression<Integer>> configurer, QueryInfo queryInfo) {
+        return new IntStreamImpl(entityManager, configurer, queryInfo);
     }
 
     @Override
@@ -86,7 +89,8 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
 
     @Override
     IntValue toValue(boolean forceLimit) {
-        return new IntValueImpl(this.entityManager, this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+        return new IntValueImpl(this.entityManager, this.configurer,
+          forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -180,5 +184,35 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     @Override
     public IntStream skip(int skip) {
         return (IntStream)super.skip(skip);
+    }
+
+    @Override
+    public IntStream withFlushMode(FlushModeType flushMode) {
+        return (IntStream)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public IntStream withLockMode(LockModeType lockMode) {
+        return (IntStream)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public IntStream withHint(String name, Object value) {
+        return (IntStream)super.withHint(name, value);
+    }
+
+    @Override
+    public IntStream withHints(Map<String, Object> hints) {
+        return (IntStream)super.withHints(hints);
+    }
+
+    @Override
+    public IntStream withLoadGraph(String name) {
+        return (IntStream)super.withLoadGraph(name);
+    }
+
+    @Override
+    public IntStream withFetchGraph(String name) {
+        return (IntStream)super.withFetchGraph(name);
     }
 }

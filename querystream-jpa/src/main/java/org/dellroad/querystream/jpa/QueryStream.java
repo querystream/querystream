@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CommonAbstractCriteria;
@@ -62,9 +65,11 @@ public interface QueryStream<X,
      * Build a criteria API query based on this instance.
      *
      * <p>
-     * Note that due to limitations of the JPA Criteria API, the returned query object lacks the row offset and limit
-     * returned by {@link #getFirstResult} and {@link #getMaxResults}, as this information can only be configured
-     * on the fully formed {@link Query} (which is returned by {@link #toQuery}).
+     * Note that due to limitations of the JPA Criteria API, the returned query object lacks information that is configured
+     * on the {@link Query} object and not the {@link CriteriaQuery} object (for example, {@linkplain #getLockMode lock mode},
+     * {@linkplain #withHint hints}, row {@linkplain #getFirstResult offset} anad {@linkplain #getMaxResults limit}, etc.);
+     * such information can only be configured on the fully formed {@link Query}. Use {@link #toQuery} instead of this method
+     * to also include that information.
      *
      * @return new Criteria API query corresponding to this instance
      * @see #toQuery
@@ -82,6 +87,8 @@ public interface QueryStream<X,
      * Get the row offset associated with this query.
      *
      * @return row offset, or -1 if there is none configured
+     * @see #skip
+     * @see Query#setFirstResult
      */
     int getFirstResult();
 
@@ -89,8 +96,93 @@ public interface QueryStream<X,
      * Get the row limit associated with this query.
      *
      * @return row limit, or -1 if there is none configured
+     * @see #limit
+     * @see Query#setMaxResults
      */
     int getMaxResults();
+
+    /**
+     * Get the {@link FlushModeType} associated with this query.
+     *
+     * @return flush mode, or null if none set (i.e., use {@link EntityManager} setting)
+     * @see Query#setFlushMode
+     */
+    FlushModeType getFlushMode();
+
+    /**
+     * Set the {@link FlushModeType} associated with this query.
+     *
+     * @param flushMode new flush mode
+     * @see Query#setFlushMode
+     * @throws IllegalArgumentException if {@code flushMode} is null
+     */
+    QueryStream<X, S, C, C2, Q> withFlushMode(FlushModeType flushMode);
+
+    /**
+     * Get the {@link LockModeType} associated with this query.
+     *
+     * @return lock mode, or null if none set
+     * @see Query#setLockMode
+     */
+    LockModeType getLockMode();
+
+    /**
+     * Set the {@link LockModeType} associated with this query.
+     *
+     * @param lockMode new lock mode
+     * @see Query#setLockMode
+     * @throws IllegalArgumentException if {@code lockMode} is null
+     */
+    QueryStream<X, S, C, C2, Q> withLockMode(LockModeType lockMode);
+
+    /**
+     * Get any hints associated with this query.
+     *
+     * @see Query#setHint
+     * @return immutable map of hints
+     */
+    Map<String, Object> getHints();
+
+    /**
+     * Associate a hint with this query.
+     *
+     * @param name name of hint
+     * @param value value of hint
+     * @see Query#setHint
+     * @throws IllegalArgumentException if {@code lockMode} is null
+     */
+    QueryStream<X, S, C, C2, Q> withHint(String name, Object value);
+
+    /**
+     * Associate hints with this query.
+     *
+     * @param hints hints to add
+     * @see Query#setHint
+     * @throws IllegalArgumentException if {@code hints} is null
+     */
+    QueryStream<X, S, C, C2, Q> withHints(Map<String, Object> hints);
+
+    /**
+     * Configure a load graph for this query.
+     *
+     * <p>
+     * Equivalent to {@link #withHint withHint}{@code ("javax.persistence.loadgraph", name)}.
+     *
+     * @param name name of load graph
+     * @throws IllegalArgumentException if {@code name} is invalid
+     */
+    QueryStream<X, S, C, C2, Q> withLoadGraph(String name);
+
+    /**
+     * Configure a fetch graph for this query.
+     *
+     * <p>
+     * Equivalent to {@link #withHint withHint}{@code ("javax.persistence.fetchgraph", name)}.
+     *
+     * @param name name of fetch graph
+     * @throws IllegalArgumentException if {@code name} is invalid
+     */
+    QueryStream<X, S, C, C2, Q> withFetchGraph(String name);
 
 // Refs
 

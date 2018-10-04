@@ -6,10 +6,13 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -29,12 +32,12 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
 
     // Separate constructor to avoid bogus error ("cannot reference queryType before supertype constructor has been called")
     private RootStreamImpl(EntityManager entityManager, SearchType<X> queryType) {
-        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), -1, -1);
+        this(entityManager, queryType, (builder, query) -> query.from(queryType.getType()), new QueryInfo());
     }
 
     RootStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // Narrowing overrides (PathStreamImpl)
@@ -42,15 +45,15 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public <Y extends X> RootStream<Y> cast(Class<Y> type) {
         return new RootStreamImpl<Y>(this.getEntityManager(), new SearchType<>(type),
-          (builder, query) -> builder.treat(this.configure(builder, query), type), this.firstResult, this.maxResults);
+          (builder, query) -> builder.treat(this.configure(builder, query), type), this.queryInfo);
     }
 
 // Narrowing overrides (SearchStreamImpl)
 
     @Override
     RootStream<X> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        return new RootStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        return new RootStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -61,7 +64,7 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     RootValue<X> toValue(boolean forceLimit) {
         return new RootValueImpl<>(this.entityManager, this.queryType,
-          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+          this.configurer, forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
     @Override
@@ -182,5 +185,35 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public RootStream<X> skip(int skip) {
         return (RootStream<X>)super.skip(skip);
+    }
+
+    @Override
+    public RootStream<X> withFlushMode(FlushModeType flushMode) {
+        return (RootStream<X>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public RootStream<X> withLockMode(LockModeType lockMode) {
+        return (RootStream<X>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public RootStream<X> withHint(String name, Object value) {
+        return (RootStream<X>)super.withHint(name, value);
+    }
+
+    @Override
+    public RootStream<X> withHints(Map<String, Object> hints) {
+        return (RootStream<X>)super.withHints(hints);
+    }
+
+    @Override
+    public RootStream<X> withLoadGraph(String name) {
+        return (RootStream<X>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public RootStream<X> withFetchGraph(String name) {
+        return (RootStream<X>)super.withFetchGraph(name);
     }
 }

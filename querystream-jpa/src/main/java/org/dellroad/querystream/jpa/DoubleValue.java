@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
 
@@ -30,4 +33,22 @@ public interface DoubleValue extends ExprValue<Double, Expression<Double>>, Doub
 
     @Override
     DoubleValue filter(Function<? super Expression<Double>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    DoubleValue withFlushMode(FlushModeType flushMode);
+
+    @Override
+    DoubleValue withLockMode(LockModeType lockMode);
+
+    @Override
+    DoubleValue withHint(String name, Object value);
+
+    @Override
+    DoubleValue withHints(Map<String, Object> hints);
+
+    @Override
+    DoubleValue withLoadGraph(String name);
+
+    @Override
+    DoubleValue withFetchGraph(String name);
 }

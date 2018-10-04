@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Path;
@@ -101,4 +103,22 @@ public interface ExprValue<X, S extends Expression<X>> extends SearchValue<X, S>
 
     @Override
     ExprValue<X, S> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    ExprValue<X, S> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    ExprValue<X, S> withLockMode(LockModeType lockMode);
+
+    @Override
+    ExprValue<X, S> withHint(String name, Object value);
+
+    @Override
+    ExprValue<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    ExprValue<X, S> withLoadGraph(String name);
+
+    @Override
+    ExprValue<X, S> withFetchGraph(String name);
 }

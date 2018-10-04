@@ -5,9 +5,12 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
 
@@ -30,4 +33,22 @@ public interface LongValue extends ExprValue<Long, Expression<Long>>, LongStream
 
     @Override
     LongValue filter(Function<? super Expression<Long>, ? extends Expression<Boolean>> predicateBuilder);
+
+    @Override
+    LongValue withFlushMode(FlushModeType flushMode);
+
+    @Override
+    LongValue withLockMode(LockModeType lockMode);
+
+    @Override
+    LongValue withHint(String name, Object value);
+
+    @Override
+    LongValue withHints(Map<String, Object> hints);
+
+    @Override
+    LongValue withLoadGraph(String name);
+
+    @Override
+    LongValue withFetchGraph(String name);
 }

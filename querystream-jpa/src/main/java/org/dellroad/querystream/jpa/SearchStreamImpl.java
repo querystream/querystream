@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -34,16 +37,16 @@ class SearchStreamImpl<X, S extends Selection<X>>
 // Constructors
 
     SearchStreamImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // Superclass overrides
 
     @Override
     SearchStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, int firstResult, int maxResults) {
-        return new SearchStreamImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
+        return new SearchStreamImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
     @Override
@@ -64,7 +67,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
 
     SearchValue<X, S> toValue(boolean forceLimit) {
         return new SearchValueImpl<>(this.entityManager, this.queryType,
-          this.configurer, this.firstResult, forceLimit ? 1 : this.maxResults);
+          this.configurer, forceLimit ? this.queryInfo.withMaxResults(1) : this.queryInfo);
     }
 
 // CriteriaQuery stuff
@@ -277,5 +280,35 @@ class SearchStreamImpl<X, S extends Selection<X>>
     @Override
     public SearchStream<X, S> skip(int skip) {
         return (SearchStream<X, S>)super.skip(skip);
+    }
+
+    @Override
+    public SearchStream<X, S> withFlushMode(FlushModeType flushMode) {
+        return (SearchStream<X, S>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public SearchStream<X, S> withLockMode(LockModeType lockMode) {
+        return (SearchStream<X, S>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public SearchStream<X, S> withHint(String name, Object value) {
+        return (SearchStream<X, S>)super.withHint(name, value);
+    }
+
+    @Override
+    public SearchStream<X, S> withHints(Map<String, Object> hints) {
+        return (SearchStream<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public SearchStream<X, S> withLoadGraph(String name) {
+        return (SearchStream<X, S>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public SearchStream<X, S> withFetchGraph(String name) {
+        return (SearchStream<X, S>)super.withFetchGraph(name);
     }
 }

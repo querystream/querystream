@@ -5,10 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
@@ -22,16 +25,16 @@ class RootValueImpl<X> extends RootStreamImpl<X> implements RootValue<X> {
 // Constructors
 
     RootValueImpl(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        super(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        super(entityManager, queryType, configurer, queryInfo);
     }
 
 // Subclass required methods
 
     @Override
     RootValue<X> create(EntityManager entityManager, SearchType<X> queryType,
-      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, int firstResult, int maxResults) {
-        return new RootValueImpl<>(entityManager, queryType, configurer, firstResult, maxResults);
+      QueryConfigurer<AbstractQuery<?>, X, ? extends Root<X>> configurer, QueryInfo queryInfo) {
+        return new RootValueImpl<>(entityManager, queryType, configurer, queryInfo);
     }
 
 // Narrowing overrides (QueryStream)
@@ -60,5 +63,35 @@ class RootValueImpl<X> extends RootStreamImpl<X> implements RootValue<X> {
     @Override
     public RootValue<X> filter(Function<? super Root<X>, ? extends Expression<Boolean>> predicateBuilder) {
         return (RootValue<X>)super.filter(predicateBuilder);
+    }
+
+    @Override
+    public RootValue<X> withFlushMode(FlushModeType flushMode) {
+        return (RootValue<X>)super.withFlushMode(flushMode);
+    }
+
+    @Override
+    public RootValue<X> withLockMode(LockModeType lockMode) {
+        return (RootValue<X>)super.withLockMode(lockMode);
+    }
+
+    @Override
+    public RootValue<X> withHint(String name, Object value) {
+        return (RootValue<X>)super.withHint(name, value);
+    }
+
+    @Override
+    public RootValue<X> withHints(Map<String, Object> hints) {
+        return (RootValue<X>)super.withHints(hints);
+    }
+
+    @Override
+    public RootValue<X> withLoadGraph(String name) {
+        return (RootValue<X>)super.withLoadGraph(name);
+    }
+
+    @Override
+    public RootValue<X> withFetchGraph(String name) {
+        return (RootValue<X>)super.withFetchGraph(name);
     }
 }

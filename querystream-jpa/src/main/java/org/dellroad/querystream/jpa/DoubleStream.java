@@ -6,9 +6,12 @@
 package org.dellroad.querystream.jpa;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
@@ -87,4 +90,22 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
 
     @Override
     DoubleStream skip(int num);
+
+    @Override
+    DoubleStream withFlushMode(FlushModeType flushMode);
+
+    @Override
+    DoubleStream withLockMode(LockModeType lockMode);
+
+    @Override
+    DoubleStream withHint(String name, Object value);
+
+    @Override
+    DoubleStream withHints(Map<String, Object> hints);
+
+    @Override
+    DoubleStream withLoadGraph(String name);
+
+    @Override
+    DoubleStream withFetchGraph(String name);
 }

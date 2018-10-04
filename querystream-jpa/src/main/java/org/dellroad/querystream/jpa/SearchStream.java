@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CollectionJoin;
@@ -291,7 +293,7 @@ public interface SearchStream<X, S extends Selection<X>>
                 break;
             }
             return joinable && path instanceof From ? ((From<?, X>)path).join(attribute) : path.get(attribute);
-        }, -1, -1);
+        }, new QueryInfo());
     }
 
     /**
@@ -309,7 +311,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null exprFunction");
         QueryStreamImpl.checkOffsetLimit(this, "map()");
         return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
-          (builder, query) -> exprFunction.apply(this.configure(builder, query)), -1, -1);
+          (builder, query) -> exprFunction.apply(this.configure(builder, query)), new QueryInfo());
     }
 
     /**
@@ -329,7 +331,7 @@ public interface SearchStream<X, S extends Selection<X>>
         final PluralAttribute<X, C, E> attribute2 = (PluralAttribute<X, C, E>)attribute;
         return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
           (builder, query) -> ((Path<X>)this.configure(builder, query)).get(attribute2),  // cast must be valid if attribute exists
-          -1, -1);
+          new QueryInfo());
     }
 
     /**
@@ -350,7 +352,7 @@ public interface SearchStream<X, S extends Selection<X>>
         final MapAttribute<X, K, V> attribute2 = (MapAttribute<X, K, V>)attribute;
         return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<>((Class<M>)attribute.getJavaType()),
           (builder, query) -> ((Path<X>)this.configure(builder, query)).get(attribute2),  // cast must be valid if attribute exists
-          -1, -1);
+          new QueryInfo());
     }
 
     /**
@@ -368,7 +370,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null pathFunction");
         QueryStreamImpl.checkOffsetLimit(this, "mapToPath()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
-          (builder, query) -> pathFunction.apply(this.configure(builder, query)), -1, -1);
+          (builder, query) -> pathFunction.apply(this.configure(builder, query)), new QueryInfo());
     }
 
     /**
@@ -387,7 +389,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null fromFunction");
         QueryStreamImpl.checkOffsetLimit(this, "mapToFrom()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
-          (builder, query) -> fromFunction.apply(this.configure(builder, query)), -1, -1);
+          (builder, query) -> fromFunction.apply(this.configure(builder, query)), new QueryInfo());
     }
 
     /**
@@ -402,7 +404,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "mapToDouble()");
         return new DoubleStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toDouble(((Path<X>)this.configure(builder, query)).get(attribute)),  // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     /**
@@ -416,7 +418,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null doubleExprFunction");
         QueryStreamImpl.checkOffsetLimit(this, "mapToDouble()");
         return new DoubleStreamImpl(this.getEntityManager(),
-          (builder, query) -> builder.toDouble(doubleExprFunction.apply(this.configure(builder, query))), -1, -1);
+          (builder, query) -> builder.toDouble(doubleExprFunction.apply(this.configure(builder, query))), new QueryInfo());
     }
 
     /**
@@ -431,7 +433,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "mapToLong()");
         return new LongStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toLong(((Path<X>)this.configure(builder, query)).get(attribute)),  // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     /**
@@ -445,7 +447,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null longExprFunction");
         QueryStreamImpl.checkOffsetLimit(this, "mapToLong()");
         return new LongStreamImpl(this.getEntityManager(),
-          (builder, query) -> builder.toLong(longExprFunction.apply(this.configure(builder, query))), -1, -1);
+          (builder, query) -> builder.toLong(longExprFunction.apply(this.configure(builder, query))), new QueryInfo());
     }
 
     /**
@@ -460,7 +462,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "mapToInt()");
         return new IntStreamImpl(this.getEntityManager(),
           (builder, query) -> builder.toInteger(((Path<X>)this.configure(builder, query)).get(attribute)),  // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     /**
@@ -474,7 +476,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null intExprFunction");
         QueryStreamImpl.checkOffsetLimit(this, "mapToInt()");
         return new IntStreamImpl(this.getEntityManager(),
-          (builder, query) -> builder.toInteger(intExprFunction.apply(this.configure(builder, query))), -1, -1);
+          (builder, query) -> builder.toInteger(intExprFunction.apply(this.configure(builder, query))), new QueryInfo());
     }
 
     /**
@@ -500,7 +502,7 @@ public interface SearchStream<X, S extends Selection<X>>
             throw new IllegalArgumentException("null selectionFunction");
         QueryStreamImpl.checkOffsetLimit(this, "mapToSelection()");
         return new SearchStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
-          (builder, query) -> selectionFunction.apply(this.configure(builder, query)), -1, -1);
+          (builder, query) -> selectionFunction.apply(this.configure(builder, query)), new QueryInfo());
     }
 
 // Flat Mapping
@@ -554,7 +556,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "flatMapKeys()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getKeyJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, JoinType.INNER).key(),       // valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     /**
@@ -570,7 +572,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "flatMapValues()");
         return new PathStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, JoinType.INNER).value(),     // valid...
-          -1, -1);
+          new QueryInfo());
     }
 
 // Singluar joins
@@ -589,7 +591,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
 // Plural Joins
@@ -608,7 +610,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     default <E> FromStream<E, ListJoin<X, E>> join(ListAttribute<? super X, E> attribute) {
@@ -625,7 +627,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     default <E> FromStream<E, SetJoin<X, E>> join(SetAttribute<? super X, E> attribute) {
@@ -642,7 +644,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
     default <K, V> FromStream<V, MapJoin<X, K, V>> join(MapAttribute<? super X, K, V> attribute) {
@@ -659,7 +661,7 @@ public interface SearchStream<X, S extends Selection<X>>
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
           (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
-          -1, -1);
+          new QueryInfo());
     }
 
 // Narrowing overrides (QueryStream)
@@ -687,4 +689,22 @@ public interface SearchStream<X, S extends Selection<X>>
 
     @Override
     SearchStream<X, S> skip(int num);
+
+    @Override
+    SearchStream<X, S> withFlushMode(FlushModeType flushMode);
+
+    @Override
+    SearchStream<X, S> withLockMode(LockModeType lockMode);
+
+    @Override
+    SearchStream<X, S> withHint(String name, Object value);
+
+    @Override
+    SearchStream<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    SearchStream<X, S> withLoadGraph(String name);
+
+    @Override
+    SearchStream<X, S> withFetchGraph(String name);
 }
