@@ -66,10 +66,10 @@ public interface QueryStream<X,
      *
      * <p>
      * Note that due to limitations of the JPA Criteria API, the returned query object lacks information that is configured
-     * on the {@link Query} object and not the {@link CriteriaQuery} object (for example, {@linkplain #getLockMode lock mode},
-     * {@linkplain #withHint hints}, row {@linkplain #getFirstResult offset} anad {@linkplain #getMaxResults limit}, etc.);
-     * such information can only be configured on the fully formed {@link Query}. Use {@link #toQuery} instead of this method
-     * to also include that information.
+     * on the {@link Query} object and not the {@link javax.persistence.criteria.CriteriaQuery} object (for example,
+     * {@linkplain #getLockMode lock mode}, {@linkplain #withHint hints}, row {@linkplain #getFirstResult offset} and
+     * {@linkplain #getMaxResults limit}, etc.); such information can only be configured on the fully formed {@link Query}.
+     * Use {@link #toQuery} instead of this method to also include that information.
      *
      * @return new Criteria API query corresponding to this instance
      * @see #toQuery
@@ -113,6 +113,7 @@ public interface QueryStream<X,
      * Set the {@link FlushModeType} associated with this query.
      *
      * @param flushMode new flush mode
+     * @return new stream with the specified flush mode configured
      * @see Query#setFlushMode
      * @throws IllegalArgumentException if {@code flushMode} is null
      */
@@ -130,6 +131,7 @@ public interface QueryStream<X,
      * Set the {@link LockModeType} associated with this query.
      *
      * @param lockMode new lock mode
+     * @return new stream with the specified lock mode configured
      * @see Query#setLockMode
      * @throws IllegalArgumentException if {@code lockMode} is null
      */
@@ -138,6 +140,7 @@ public interface QueryStream<X,
     /**
      * Get any hints associated with this query.
      *
+     * @return configured hints, if any, otherwise an empty map
      * @see Query#setHint
      * @return immutable map of hints
      */
@@ -148,6 +151,7 @@ public interface QueryStream<X,
      *
      * @param name name of hint
      * @param value value of hint
+     * @return new stream with the specified hint configured
      * @see Query#setHint
      * @throws IllegalArgumentException if {@code lockMode} is null
      */
@@ -157,6 +161,7 @@ public interface QueryStream<X,
      * Associate hints with this query.
      *
      * @param hints hints to add
+     * @return new stream with the specified hints configured
      * @see Query#setHint
      * @throws IllegalArgumentException if {@code hints} is null
      */
@@ -169,6 +174,7 @@ public interface QueryStream<X,
      * Equivalent to {@link #withHint withHint}{@code ("javax.persistence.loadgraph", name)}.
      *
      * @param name name of load graph
+     * @return new stream with the specified load graph configured
      * @throws IllegalArgumentException if {@code name} is invalid
      */
     QueryStream<X, S, C, C2, Q> withLoadGraph(String name);
@@ -180,6 +186,7 @@ public interface QueryStream<X,
      * Equivalent to {@link #withHint withHint}{@code ("javax.persistence.fetchgraph", name)}.
      *
      * @param name name of fetch graph
+     * @return new stream with the specified fetch graph configured
      * @throws IllegalArgumentException if {@code name} is invalid
      */
     QueryStream<X, S, C, C2, Q> withFetchGraph(String name);
