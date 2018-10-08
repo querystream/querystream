@@ -304,16 +304,29 @@ public interface QueryStream<X,
      * Instances are created via {@link QueryStream#newBuilder QueryStream.newBuilder()}.
      *
      * <p>
-     * The three main methods in this class are:
+     * For convenience, this class also implements {@link CriteriaBuilder}.
+     * The primary methods in this class (i.e., not inherited from {@link CriteriaBuilder}) are:
      * <ul>
      *  <li>{@link #stream stream()} - Create a {@link SearchStream} for search queries.</li>
-     *  <li>{@link #substream(Root) substream()} - Create a {@link SearchStream} for use as a correlated subquery.</li>
      *  <li>{@link #stream deleteStream()} - Create a {@link DeleteStream} for bulk delete queries.</li>
      *  <li>{@link #stream updateStream()} - Create a {@link UpdateStream} for bulk update queries.</li>
+     *  <li>{@link #getEntityManager} - Get the {@link EntityManager} associated with this instance.</li>
      * </ul>
      *
      * <p>
-     * For convenience, this class also implements {@link CriteriaBuilder}.
+     * In addition, the following methods create {@link SearchStream}s for use in correlated subqueries:
+     * <ul>
+     *  <li>{@link #substream(Root)} - Create a correlated subquery {@link SearchStream} from a {@link Root}.</li>
+     *  <li>{@link #substream(Join)} - Create a correlated subquery {@link SearchStream} from a {@link Join}.</li>
+     *  <li>{@link #substream(SetJoin)} - Create a correlated subquery {@link SearchStream} from a {@link SetJoin}.</li>
+     *  <li>{@link #substream(MapJoin)} - Create a correlated subquery {@link SearchStream} from a {@link MapJoin}.</li>
+     *  <li>{@link #substream(ListJoin)} - Create a correlated subquery {@link SearchStream} from a {@link ListJoin}.</li>
+     *  <li>{@link #substream(CollectionJoin)}
+     *      - Create a correlated subquery {@link SearchStream} from a {@link CollectionJoin}.</li>
+     * </ul>
+     *
+     * <p>
+     * See {@link #substream(Root) substream()} for an example of using substreams.
      */
     final class Builder extends ForwardingCriteriaBuilder {
 
@@ -364,19 +377,18 @@ public interface QueryStream<X,
          * <p>
          * The returned {@link RootStream} cannot be materialized directly via {@link RootStream#toQuery toQuery()}
          * or {@link RootStream#toCriteriaQuery toCriteriaQuery()}; instead, it can only be used indirectly as a
-         * subquery.
+         * correlated subquery.
          *
          * <p>
          * Here's an example that returns the names of teachers who have one or more newly enrolled students:
          * <pre>
-         *  List&lt;String&gt; names =
-         *    qb.stream(Teacher.class)
-         *      .filter(teacher -&gt; qb.exists(
-         *         qb.substream(teacher)
-         *           .map(Teacher_.students)
-         *           .filter(Student_.newlyEnrolled)))
-         *      .map(Teacher_.name)
-         *      .getResultList();
+         *  List&lt;String&gt; names = qb.stream(Teacher.class)
+         *    .filter(teacher -&gt; qb.exists(
+         *       qb.substream(teacher)
+         *         .map(Teacher_.students)
+         *         .filter(Student_.newlyEnrolled)))
+         *    .map(Teacher_.name)
+         *    .getResultList();
          * </pre>
          *
          * @param root correlated root for subquery
