@@ -206,12 +206,18 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public QueryStream<X, S, C, C2, Q> withLoadGraph(String name) {
-        return this.withHint(LOAD_GRAPH_HINT, name);
+        return this.withEntityGraph(LOAD_GRAPH_HINT, name);
     }
 
     @Override
     public QueryStream<X, S, C, C2, Q> withFetchGraph(String name) {
-        return this.withHint(FETCH_GRAPH_HINT, name);
+        return this.withEntityGraph(FETCH_GRAPH_HINT, name);
+    }
+
+    private QueryStream<X, S, C, C2, Q> withEntityGraph(String hintName, String graphName) {
+        if (graphName == null)
+            throw new IllegalArgumentException("null entity graph name");
+        return this.withHint(hintName, this.entityManager.getEntityGraph(graphName));
     }
 
 // Refs
