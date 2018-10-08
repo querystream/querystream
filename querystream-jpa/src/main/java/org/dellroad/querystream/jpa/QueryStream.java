@@ -27,6 +27,7 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.QueryType;
 import org.dellroad.querystream.jpa.querytype.SearchType;
+import org.dellroad.querystream.jpa.util.ForwardingCriteriaBuilder;
 
 /**
  * Builder for JPA criteria queries, based on configuration through a {@link java.util.stream.Stream}-like API.

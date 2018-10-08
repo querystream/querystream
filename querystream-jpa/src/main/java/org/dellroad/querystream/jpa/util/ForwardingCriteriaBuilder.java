@@ -3,7 +3,7 @@
  * Copyright (C) 2018 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.querystream.jpa;
+package org.dellroad.querystream.jpa.util;
 
 import java.util.Collection;
 import java.util.Map;
@@ -30,11 +30,17 @@ import javax.persistence.criteria.SetJoin;
 import javax.persistence.criteria.Subquery;
 
 /**
- * {@link CriteriaBuilder} that forwards all methods to a delegate {@linkplain #getCriteriaBuilder provided} by the subclass,
- * and also adds some "fail fast" error checking.
+ * {@link CriteriaBuilder} that forwards all methods to a delegate {@linkplain #getCriteriaBuilder provided} by the subclass.
+ *
+ * <p>
+ * This class also adds some "fail fast" error checking for null values so that errors occur immediately, instead of
+ * later (and more mysteriously) during query execution.
  */
-abstract class ForwardingCriteriaBuilder implements CriteriaBuilder {
+public abstract class ForwardingCriteriaBuilder implements CriteriaBuilder {
 
+    /**
+     * Get the delegate {@link CriteriaBuilder} to whom all methods should be forwarded.
+     */
     protected abstract CriteriaBuilder getCriteriaBuilder();
 
     @Override
