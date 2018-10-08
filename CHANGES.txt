@@ -1,6 +1,7 @@
 Version 1.1.1
 
     - Fixed bugs in withLoadGraph() and withFetchGraph()
+    - Added QueryStream.Builder.getEntityManager()
 
 Version 1.1.0 Released October 4, 2018
 

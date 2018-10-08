@@ -328,6 +328,15 @@ public interface QueryStream<X,
         }
 
         /**
+         * Get the {@link EntityManager} associated with this instance.
+         *
+         * @return associated {@link EntityManager}
+         */
+        public EntityManager getEntityManager() {
+            return this.entityManager;
+        }
+
+        /**
          * Get the {@link CriteriaBuilder} associated with this instance.
          *
          * @return {@link CriteriaBuilder} created from this instance's {@link EntityManager}
