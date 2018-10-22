@@ -39,7 +39,7 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
      * Convert this instance into an "exists" subquery that can be used within an intermediate step of an outer query.
      *
      * @return boolean single-valued stream determining the existence of any items in this stream
-     * @throws IllegalStateException if not invoked during a terminal operation on an outer query
+     * @throws IllegalStateException if invoked on a stream which is not being used as a subquery
      */
     Predicate exists();
 
