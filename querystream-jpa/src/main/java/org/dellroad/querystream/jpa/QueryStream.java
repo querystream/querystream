@@ -384,10 +384,11 @@ public interface QueryStream<X,
          * Here's an example that returns the names of teachers who have one or more newly enrolled students:
          * <pre>
          *  List&lt;String&gt; names = qb.stream(Teacher.class)
-         *    .filter(teacher -&gt; qb.exists(
+         *    .filter(teacher -&gt;
          *       qb.substream(teacher)
          *         .map(Teacher_.students)
-         *         .filter(Student_.newlyEnrolled)))
+         *         .filter(Student_.newlyEnrolled)
+         *         .exists()))
          *    .map(Teacher_.name)
          *    .getResultList();
          * </pre>
