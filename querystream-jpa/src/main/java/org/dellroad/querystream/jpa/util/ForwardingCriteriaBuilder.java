@@ -40,6 +40,8 @@ public abstract class ForwardingCriteriaBuilder implements CriteriaBuilder {
 
     /**
      * Get the delegate {@link CriteriaBuilder} to whom all methods should be forwarded.
+     *
+     * @return the underlying {@link CriteriaBuilder}
      */
     protected abstract CriteriaBuilder getCriteriaBuilder();
 
