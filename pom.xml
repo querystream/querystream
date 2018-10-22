@@ -8,7 +8,7 @@
     <groupId>org.dellroad</groupId>
     <artifactId>querystream</artifactId>
     <name>QueryStream</name>
-    <version>1.1.1</version>
+    <version>1.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Build JPA Criteria queries using a Stream-like API</description>
     <url>https://github.com/archiecobbs/querystream</url>
