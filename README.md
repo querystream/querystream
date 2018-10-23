@@ -8,9 +8,9 @@ Each step in a `QueryStream` pipeline modifies the construction of an internal [
 
 When you're ready to execute the pipeline:
 
-  * Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html); or
-  * Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html); or
-  * Invoke `QueryStream.getResultList()` to do #1 and #2 then execute the query
+  1. Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html); or
+  1. Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html); or
+  1. Invoke `QueryStream.getResultList()` to do #1 and #2 then execute the query
 
 ## Example
 
@@ -104,6 +104,8 @@ Some queries are known to return a single value. The [SearchValue](http://querys
     }
 ```
 
+Other similar methods are `min()`, `max()`, `sum()`, and `findFirst()`.
+
 ## References
 
 [Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref.html) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`'ing the reference at an earlier step.
@@ -114,7 +116,7 @@ See the `getHighPayrollManagers()` example above for how it works. The main thin
 
 ## Subqueries
 
-Any stream can be converted into a subquery using `asSubquery()` or `exists()`.
+QueryStream makes using subqueries easier. A stream can be used as a subquery via `asSubquery()` or `exists()`.
 
 To find all managers for whom there exists a direct report making over $100,000:
 
@@ -129,7 +131,7 @@ To find all managers for whom there exists a direct report making over $100,000:
     }
 ```
 
-Note the subquery correlation was done implicitly using `CriteriaBuilder.equal()`; you can clean this up a bit with an explicit correlation using `substream()`:
+Note the subquery correlation was done "manually" using `CriteriaBuilder.equal()`; you can clean this up a bit with an explicit correlation using `substream()`:
 
 ```java
     public List<Employee> findManagersWithSixFigureDirectReport() {
@@ -215,17 +217,34 @@ Here's an example that finds all managers paired with the average salary of thei
 
 Use `skip()` and `limit()` to set the row offset and the maximum number of results.
 
+## `CriteriaQuery` vs `TypedQuery` Operations
+
+Normally with JPA you first configure a `CriteriaQuery`, then use it to create a `TypedQuery`, and then do additional configuration on the `TypedQuery`. You must apply configuration to the appropriate object for that configuration.
+
+For example, `where()` is a `CriteriaQuery` method, but `setLockMode()` is a `TypedQuery` method.
+
+`QueryStream` pipelines allow you to configure both the `CriteriaQuery` and the `TypedQuery`, but you should be aware of these caveats:
+
+  * Any `TypedQuery` configuration must come at the end of the pipeline (after any subqueries or joins)
+  * If you invoke `QueryStream.toCriteriaQuery()`, the returned object does not retain any `TypedQuery` configuration (instead, invoke `QueryStream.toQuery()`).
+
+The `QueryStream` methods that configure the `TypedQuery` are:
+
+ * `QueryStream.skip()`
+ * `QueryStream.limit()`
+ * `QueryStream.withFlushMode()`
+ * `QueryStream.withLockMode()`
+ * `QueryStream.withFetchGraph()`
+ * `QueryStream.withLoadGraph()`
+ * `QueryStream.withHint()` and `QueryStream.withHints()`
+
 ## Unsupported Operations
 
 In some cases, limitations in the JPA Criteria API impose certain restrictions on what you can do.
 
-For example, `skip()` and `limit()` must be at the end of your pipeline, because the JPA Criteria API doesn't allow setting row offset or the maximum results on a subquery, or prior to a join.
+For example, `skip()` and `limit()` must be at the end of your pipeline, because the JPA Criteria API doesn't allow setting row offset or the maximum results on a subquery or prior to a join.
 
 For another example, you can't sort in a subquery.
-
-Operations that apply to a JPA `TypedQuery` but not a `CriteriaQuery`, such as `setLockMode()`, `setParameter()`, etc., are not supported by the `QueryStream` API.
-
-Instead, invoke `QueryStream.toQuery()`, and then perform these operations directly on the returned `TypedQuery`.
 
 ### Installation
 
