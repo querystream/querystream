@@ -1,3 +1,7 @@
+Version 1.1.2
+
+    - Added convenience method QueryStream.getResultStream()
+
 Version 1.1.1 Released October 22, 2018
 
     - Fixed bugs in withLoadGraph() and withFetchGraph()

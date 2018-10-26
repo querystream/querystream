@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
@@ -52,9 +53,23 @@ public interface SearchStream<X, S extends Selection<X>>
      * Delegates to {@link TypedQuery#getResultList} and can throw any exception thrown by that method.
      *
      * @return result of executed query
+     * @see TypedQuery#getResultList
      */
     default List<X> getResultList() {
         return this.toQuery().getResultList();
+    }
+
+    /**
+     * Build and evaluate a JPA query based on this instance and return the result stream.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @return result of executed query
+     * @see TypedQuery#getResultStream
+     */
+    default Stream<X> getResultStream() {
+        return this.toQuery().getResultStream();
     }
 
 // CriteriaQuery stuff
