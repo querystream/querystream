@@ -309,8 +309,8 @@ public interface QueryStream<X,
      * The primary methods in this class (i.e., not inherited from {@link CriteriaBuilder}) are:
      * <ul>
      *  <li>{@link #stream stream()} - Create a {@link SearchStream} for search queries.</li>
-     *  <li>{@link #stream deleteStream()} - Create a {@link DeleteStream} for bulk delete queries.</li>
-     *  <li>{@link #stream updateStream()} - Create a {@link UpdateStream} for bulk update queries.</li>
+     *  <li>{@link #deleteStream deleteStream()} - Create a {@link DeleteStream} for bulk delete queries.</li>
+     *  <li>{@link #updateStream updateStream()} - Create a {@link UpdateStream} for bulk update queries.</li>
      *  <li>{@link #getEntityManager} - Get the {@link EntityManager} associated with this instance.</li>
      * </ul>
      *
