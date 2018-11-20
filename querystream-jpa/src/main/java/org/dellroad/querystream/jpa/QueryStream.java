@@ -228,8 +228,8 @@ public interface QueryStream<X,
      * using {@link Join#on Join.on()}.
      *
      * @param peeker peeker into stream
-     * @throws IllegalArgumentException if {@code peeker} is null
      * @return new stream that peeks into this stream
+     * @throws IllegalArgumentException if {@code peeker} is null
      */
     QueryStream<X, S, C, C2, Q> peek(Consumer<? super S> peeker);
 
@@ -243,6 +243,7 @@ public interface QueryStream<X,
      *
      * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
      * @return new filtered stream
+     * @throws IllegalArgumentException if {@code predicateBuilder} is null
      */
     QueryStream<X, S, C, C2, Q> filter(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
 
@@ -254,6 +255,7 @@ public interface QueryStream<X,
      *
      * @param attribute boolean property
      * @return new filtered stream
+     * @throws IllegalArgumentException if {@code attribute} is null
      */
     QueryStream<X, S, C, C2, Q> filter(SingularAttribute<? super X, Boolean> attribute);
 
