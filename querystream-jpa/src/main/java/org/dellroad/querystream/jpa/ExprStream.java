@@ -38,8 +38,12 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
     /**
      * Convert this instance into an "exists" subquery that can be used within an intermediate step of an outer query.
      *
+     * <p>
+     * Note: to perform the equivalent of an "exists" operation on the outermost query, use {@link #isEmpty}.
+     *
      * @return boolean single-valued stream determining the existence of any items in this stream
      * @throws IllegalStateException if invoked on a stream which is not being used as a subquery
+     * @see #isEmpty
      */
     Predicate exists();
 

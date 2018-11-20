@@ -248,6 +248,55 @@ class SearchStreamImpl<X, S extends Selection<X>>
 // Streamy stuff
 
     @Override
+    public boolean allMatch(SingularAttribute<? super X, Boolean> attribute) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        QueryStreamImpl.checkOffsetLimit(this, "allMatch()");
+        return !this.withConfig((builder, query) -> {
+            final S selection = this.configure(builder, query);
+            this.and(builder, query, builder.not(((Path<X>)selection).get(attribute))); // cast must be valid if attribute exists
+            return selection;
+        }).getResultStream().findAny().isPresent();
+    }
+
+    @Override
+    public boolean allMatch(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
+        if (predicateBuilder == null)
+            throw new IllegalArgumentException("null predicateBuilder");
+        QueryStreamImpl.checkOffsetLimit(this, "allMatch()");
+        return !this.withConfig((builder, query) -> {
+            final S selection = this.configure(builder, query);
+            this.and(builder, query, builder.not(predicateBuilder.apply(selection)));
+            return selection;
+        }).getResultStream().findAny().isPresent();
+    }
+
+    @Override
+    public boolean anyMatch(SingularAttribute<? super X, Boolean> attribute) {
+        return this.filter(attribute).getResultStream().findAny().isPresent();
+    }
+
+    @Override
+    public boolean anyMatch(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
+        return this.filter(predicateBuilder).getResultStream().findAny().isPresent();
+    }
+
+    @Override
+    public boolean noneMatch(SingularAttribute<? super X, Boolean> attribute) {
+        return !this.anyMatch(attribute);
+    }
+
+    @Override
+    public boolean noneMatch(Function<? super S, ? extends Expression<Boolean>> predicateBuilder) {
+        return !this.anyMatch(predicateBuilder);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return !this.getResultStream().findAny().isPresent();
+    }
+
+    @Override
     public SearchValue<X, S> findAny() {
         return this instanceof SearchValue ? (SearchValue<X, S>)this : this.toValue(true);
     }

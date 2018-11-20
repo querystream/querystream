@@ -275,7 +275,7 @@ abstract class QueryStreamImpl<X,
         });
     }
 
-    private void and(CriteriaBuilder builder, C query, Expression<Boolean> expression) {
+    void and(CriteriaBuilder builder, C query, Expression<Boolean> expression) {
         final Predicate oldRestriction = query.getRestriction();
         this.queryType.where(query, oldRestriction != null ? builder.and(oldRestriction, expression) : expression);
     }

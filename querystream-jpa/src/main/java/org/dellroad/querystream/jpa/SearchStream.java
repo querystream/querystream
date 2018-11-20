@@ -292,6 +292,86 @@ public interface SearchStream<X, S extends Selection<X>>
 // Streamy stuff
 
     /**
+     * Execute this query and return true if the given property is true for every resulting item.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @param attribute boolean property
+     * @return true if all results have the given property true
+     */
+    boolean allMatch(SingularAttribute<? super X, Boolean> attribute);
+
+    /**
+     * Execute this query and return true if the predicate returned by the given function is true for every resulting item.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
+     * @return true if all results have the computed expression true
+     */
+    boolean allMatch(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    /**
+     * Execute this query and return true if any results are found for which the given property is true.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @param attribute boolean property
+     * @return true if one or more results have the given property true
+     */
+    boolean anyMatch(SingularAttribute<? super X, Boolean> attribute);
+
+    /**
+     * Execute this query and return true if any results are found for which the predicate returned by the given function is true.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
+     * @return true if one or more results have the computed expression true
+     */
+    boolean anyMatch(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    /**
+     * Execute this query and return true if no results are found for which the given property is true.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @param attribute boolean property
+     * @return true if no results have the given property true
+     */
+    boolean noneMatch(SingularAttribute<? super X, Boolean> attribute);
+
+    /**
+     * Execute this query and return true if no result are found for which the predicate returned by the given function is true.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
+     * @return true if no results have the computed expression true
+     */
+    boolean noneMatch(Function<? super S, ? extends Expression<Boolean>> predicateBuilder);
+
+    /**
+     * Execute this query and return true if no results are found.
+     *
+     * <p>
+     * Note: to perform an "exists" operation in a subquery, use {@link ExprStream#exists}.
+     *
+     * <p>
+     * Delegates to {@link TypedQuery#getResultStream} and can throw any exception thrown by that method.
+     *
+     * @return true if no results are found, false if one or more results are found
+     * @see ExprStream#exists
+     */
+    boolean isEmpty();
+
+    /**
      * Find any instance in the stream.
      *
      * @return single-valued stream containg any instance in this stream (or {@code NULL} if this stream is empty)

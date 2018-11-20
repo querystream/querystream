@@ -1,5 +1,6 @@
 Version 1.1.2
 
+    - Added methods: allMatch(), anyMatch(), noneMatch(), isEmpty()
     - Added convenience method QueryStream.getResultStream()
 
 Version 1.1.1 Released October 22, 2018
