@@ -10,7 +10,7 @@ When you're ready to execute the pipeline:
 
   1. Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html); or
   1. Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html); or
-  1. Invoke `QueryStream.getResultList()` to do #1 and #2 then execute the query
+  1. Invoke `QueryStream.getResultList()` or `QueryStream.stream()` to do #1 and #2 execute the query
 
 ## Example
 
