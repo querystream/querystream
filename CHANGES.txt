@@ -1,4 +1,4 @@
-Version Next
+Version 1.1.3 Released January 9, 2019
 
     - Added UpdateStream.set() taking an expression builder function.
 
