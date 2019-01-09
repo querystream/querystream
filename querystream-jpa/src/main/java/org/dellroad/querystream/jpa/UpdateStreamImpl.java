@@ -85,6 +85,27 @@ class UpdateStreamImpl<X>
         return this.modQuery((query, selection) -> query.set(attribute, value));
     }
 
+    @Override
+    public <Y> UpdateStream<X> set(Path<Y> path, Function<? super Root<X>, ? extends Expression<? extends Y>> expressionBuilder) {
+        if (path == null)
+            throw new IllegalArgumentException("null path");
+        if (expressionBuilder == null)
+            throw new IllegalArgumentException("null expressionBuilder");
+        QueryStreamImpl.checkOffsetLimit(this, "set()");
+        return this.modQuery((query, selection) -> query.set(path, expressionBuilder.apply(selection)));
+    }
+
+    @Override
+    public <Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute,
+      Function<? super Root<X>, ? extends Expression<? extends Y>> expressionBuilder) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        if (expressionBuilder == null)
+            throw new IllegalArgumentException("null expressionBuilder");
+        QueryStreamImpl.checkOffsetLimit(this, "set()");
+        return this.modQuery((query, selection) -> query.set(attribute, expressionBuilder.apply(selection)));
+    }
+
 // Subclass required methods
 
     @Override

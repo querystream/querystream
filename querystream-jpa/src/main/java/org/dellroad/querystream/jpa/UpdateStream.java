@@ -79,6 +79,35 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
      */
     <Y, V extends Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, V value);
 
+    /**
+     * Set the property described by the specified {@link Path} using the value expression returned by the given function.
+     *
+     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
+     * @return new filtered stream
+     *
+     * @param path the property to be set
+     * @param expressionBuilder function returning a JPA expression for the value to set
+     * @return new modified stream
+     * @throws IllegalArgumentException if {@code path} is null
+     * @throws IllegalArgumentException if {@code expressionBuilder} is null
+     */
+    <Y> UpdateStream<X> set(Path<Y> path, Function<? super Root<X>, ? extends Expression<? extends Y>> expressionBuilder);
+
+    /**
+     * Set the property described by the specified attribute using the value expression returned by the given function.
+     *
+     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
+     * @return new filtered stream
+     *
+     * @param attribute entity attribute to be set
+     * @param expressionBuilder function returning a JPA expression for the value to set
+     * @return new modified stream
+     * @throws IllegalArgumentException if {@code attribute} is null
+     * @throws IllegalArgumentException if {@code expressionBuilder} is null
+     */
+    <Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute,
+      Function<? super Root<X>, ? extends Expression<? extends Y>> expressionBuilder);
+
 // Narrowing overrides
 
     @Override
