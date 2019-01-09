@@ -51,25 +51,37 @@ class UpdateStreamImpl<X>
     }
 
     @Override
-    public <Y> UpdateStream<X> set(Path<Y> attribute, Expression<? extends Y> value) {
+    public <Y> UpdateStream<X> set(Path<Y> path, Expression<? extends Y> value) {
+        if (path == null)
+            throw new IllegalArgumentException("null path");
+        if (value == null)
+            throw new IllegalArgumentException("null value expression");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
-        return this.modQuery((builder, query) -> query.set(attribute, value));
+        return this.modQuery((builder, query) -> query.set(path, value));
     }
 
     @Override
-    public <Y, V extends Y> UpdateStream<X> set(Path<Y> attribute, V value) {
+    public <Y, V extends Y> UpdateStream<X> set(Path<Y> path, V value) {
+        if (path == null)
+            throw new IllegalArgumentException("null path");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
-        return this.modQuery((builder, query) -> query.set(attribute, value));
+        return this.modQuery((builder, query) -> query.set(path, value));
     }
 
     @Override
     public <Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, Expression<? extends Y> value) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        if (value == null)
+            throw new IllegalArgumentException("null value expression");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }
 
     @Override
     public <Y, V extends Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, V value) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
         return this.modQuery((builder, query) -> query.set(attribute, value));
     }

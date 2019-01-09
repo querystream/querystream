@@ -37,12 +37,46 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
 
 // Setters
 
-    <Y> UpdateStream<X> set(Path<Y> attribute, Expression<? extends Y> value);
+    /**
+     * Set the property described by the specified {@link Path} to the value described by the specified expression.
+     *
+     * @param path the property to be set
+     * @param value JPA expression for the value to set
+     * @return new modified stream
+     * @throws IllegalArgumentException if {@code path} is null
+     * @throws IllegalArgumentException if {@code value} is null
+     */
+    <Y> UpdateStream<X> set(Path<Y> path, Expression<? extends Y> value);
 
-    <Y, V extends Y> UpdateStream<X> set(Path<Y> attribute, V value);
+    /**
+     * Set the property described by the specified {@link Path} to the specified value.
+     *
+     * @param path the property to be set
+     * @param value the value to set
+     * @return new modified stream
+     * @throws IllegalArgumentException if {@code path} is null
+     */
+    <Y, V extends Y> UpdateStream<X> set(Path<Y> path, V value);
 
+    /**
+     * Set the property described by the specified attribute to the value described by the specified expression.
+     *
+     * @param attribute entity attribute to be set
+     * @param value JPA expression for the value to set
+     * @return new modified stream
+     * @throws IllegalArgumentException if {@code attribute} is null
+     * @throws IllegalArgumentException if {@code value} is null
+     */
     <Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, Expression<? extends Y> value);
 
+    /**
+     * Set the property described by the specified attribute to the specified value.
+     *
+     * @param attribute entity attribute to be set
+     * @param value the value to set
+     * @return new modified stream
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
     <Y, V extends Y> UpdateStream<X> set(SingularAttribute<? super X, Y> attribute, V value);
 
 // Narrowing overrides
