@@ -19,7 +19,6 @@ import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.AbstractQuery;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -75,7 +74,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     @Override
     public SearchStream<X, S> distinct() {
         QueryStreamImpl.checkOffsetLimit(this, "distinct()");
-        return this.modQuery((builder, query) -> query.distinct(true));
+        return this.modQuery((query, selection) -> query.distinct(true));
     }
 
     @Override
@@ -330,7 +329,7 @@ class SearchStreamImpl<X, S extends Selection<X>>
     }
 
     @Override
-    SearchStream<X, S> modQuery(BiConsumer<? super CriteriaBuilder, ? super AbstractQuery<?>> modifier) {
+    SearchStream<X, S> modQuery(BiConsumer<? super AbstractQuery<?>, ? super S> modifier) {
         return (SearchStream<X, S>)super.modQuery(modifier);
     }
 

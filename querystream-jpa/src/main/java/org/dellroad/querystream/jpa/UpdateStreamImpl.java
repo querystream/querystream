@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
@@ -57,7 +56,7 @@ class UpdateStreamImpl<X>
         if (value == null)
             throw new IllegalArgumentException("null value expression");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
-        return this.modQuery((builder, query) -> query.set(path, value));
+        return this.modQuery((query, selection) -> query.set(path, value));
     }
 
     @Override
@@ -65,7 +64,7 @@ class UpdateStreamImpl<X>
         if (path == null)
             throw new IllegalArgumentException("null path");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
-        return this.modQuery((builder, query) -> query.set(path, value));
+        return this.modQuery((query, selection) -> query.set(path, value));
     }
 
     @Override
@@ -75,7 +74,7 @@ class UpdateStreamImpl<X>
         if (value == null)
             throw new IllegalArgumentException("null value expression");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
-        return this.modQuery((builder, query) -> query.set(attribute, value));
+        return this.modQuery((query, selection) -> query.set(attribute, value));
     }
 
     @Override
@@ -83,7 +82,7 @@ class UpdateStreamImpl<X>
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         QueryStreamImpl.checkOffsetLimit(this, "set()");
-        return this.modQuery((builder, query) -> query.set(attribute, value));
+        return this.modQuery((query, selection) -> query.set(attribute, value));
     }
 
 // Subclass required methods
@@ -107,7 +106,7 @@ class UpdateStreamImpl<X>
     }
 
     @Override
-    UpdateStream<X> modQuery(BiConsumer<? super CriteriaBuilder, ? super CriteriaUpdate<X>> modifier) {
+    UpdateStream<X> modQuery(BiConsumer<? super CriteriaUpdate<X>, ? super Root<X>> modifier) {
         return (UpdateStream<X>)super.modQuery(modifier);
     }
 

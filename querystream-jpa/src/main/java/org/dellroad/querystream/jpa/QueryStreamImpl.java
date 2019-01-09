@@ -89,12 +89,12 @@ abstract class QueryStreamImpl<X,
      *
      * @param modifier additional query modification
      */
-    QueryStream<X, S, C, C2, Q> modQuery(BiConsumer<? super CriteriaBuilder, ? super C> modifier) {
+    QueryStream<X, S, C, C2, Q> modQuery(BiConsumer<? super C, ? super S> modifier) {
         if (modifier == null)
             throw new IllegalArgumentException("null modifier");
         return this.create(this.entityManager, this.queryType, (builder, query) -> {
             final S selection = this.configure(builder, query);
-            modifier.accept(builder, query);
+            modifier.accept(query, selection);
             return selection;
         }, this.queryInfo);
     }
