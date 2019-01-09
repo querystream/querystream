@@ -42,6 +42,7 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
      *
      * @param path the property to be set
      * @param value JPA expression for the value to set
+     * @param <Y> property type
      * @return new modified stream
      * @throws IllegalArgumentException if {@code path} is null
      * @throws IllegalArgumentException if {@code value} is null
@@ -53,6 +54,8 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
      *
      * @param path the property to be set
      * @param value the value to set
+     * @param <Y> property type
+     * @param <V> value type
      * @return new modified stream
      * @throws IllegalArgumentException if {@code path} is null
      */
@@ -63,6 +66,7 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
      *
      * @param attribute entity attribute to be set
      * @param value JPA expression for the value to set
+     * @param <Y> property type
      * @return new modified stream
      * @throws IllegalArgumentException if {@code attribute} is null
      * @throws IllegalArgumentException if {@code value} is null
@@ -74,6 +78,8 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
      *
      * @param attribute entity attribute to be set
      * @param value the value to set
+     * @param <Y> property type
+     * @param <V> value type
      * @return new modified stream
      * @throws IllegalArgumentException if {@code attribute} is null
      */
@@ -82,11 +88,9 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
     /**
      * Set the property described by the specified {@link Path} using the value expression returned by the given function.
      *
-     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
-     * @return new filtered stream
-     *
      * @param path the property to be set
      * @param expressionBuilder function returning a JPA expression for the value to set
+     * @param <Y> property type
      * @return new modified stream
      * @throws IllegalArgumentException if {@code path} is null
      * @throws IllegalArgumentException if {@code expressionBuilder} is null
@@ -96,11 +100,9 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
     /**
      * Set the property described by the specified attribute using the value expression returned by the given function.
      *
-     * @param predicateBuilder function mapping this stream's item to a boolean {@link Expression}
-     * @return new filtered stream
-     *
      * @param attribute entity attribute to be set
      * @param expressionBuilder function returning a JPA expression for the value to set
+     * @param <Y> property type
      * @return new modified stream
      * @throws IllegalArgumentException if {@code attribute} is null
      * @throws IllegalArgumentException if {@code expressionBuilder} is null
