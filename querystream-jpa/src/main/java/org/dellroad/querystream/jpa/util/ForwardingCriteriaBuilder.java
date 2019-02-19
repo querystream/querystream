@@ -33,6 +33,9 @@ import javax.persistence.criteria.Subquery;
  * {@link CriteriaBuilder} that forwards all methods to a delegate {@linkplain #getCriteriaBuilder provided} by the subclass.
  *
  * <p>
+ * Subclasses must override {@link #getCriteriaBuilder} to provide the delegate.
+ *
+ * <p>
  * This class also adds some "fail fast" error checking for null values so that errors occur immediately, instead of
  * later (and more mysteriously) during query execution.
  */
