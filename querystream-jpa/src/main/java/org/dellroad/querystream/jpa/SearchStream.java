@@ -230,7 +230,7 @@ public interface SearchStream<X, S extends Selection<X>>
     SearchStream<X, S> thenOrderBy(Function<? super S, ? extends Expression<?>> orderExprFunction, boolean asc);
 
     /**
-     * Apply grouping based on an expression refernce.
+     * Apply grouping based on an expression reference.
      *
      * <p>
      * Adds to any previously specified groupings.
