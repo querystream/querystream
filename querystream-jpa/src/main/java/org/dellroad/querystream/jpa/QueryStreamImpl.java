@@ -260,7 +260,11 @@ abstract class QueryStreamImpl<X,
     public QueryStream<X, S, C, C2, Q> filter(SingularAttribute<? super X, Boolean> attribute) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        return this.filter(e -> ((Path<X>)e).get(attribute));    // cast must be valid if attribute exists
+        return this.withConfig((builder, query) -> {
+            final S result = this.configure(builder, query);
+            this.and(builder, query, builder.isTrue(((Path<X>)result).get(attribute))); // cast must be valid if attribute exists
+            return result;
+        });
     }
 
     @Override
