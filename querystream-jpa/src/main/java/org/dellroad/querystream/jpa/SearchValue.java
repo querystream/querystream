@@ -53,6 +53,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      * otherwise throw an exception provided by the given {@link Supplier}.
      *
      * @param supplier creator of exception
+     * @param <T> exception type
      * @return result of executed query
      * @throws T if there is no result
      */
@@ -72,7 +73,6 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      *
      * @param supplier creator of exception
      * @return result of executed query
-     * @throws T if there is no result
      * @throws IllegalArgumentException if {@code supplier} is null
      */
     default X orElseGet(Supplier<? extends X> supplier) {
