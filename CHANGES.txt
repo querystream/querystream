@@ -1,4 +1,4 @@
-Version Next
+Version 1.1.4 Released April 30, 2019
 
     - Added workaround for Hibernate bug HHH-11877
     - Added SearchValue methods orElseGet(), orElseThrow(), etc.
