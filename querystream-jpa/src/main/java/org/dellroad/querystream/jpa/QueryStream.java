@@ -193,6 +193,7 @@ public interface QueryStream<X,
      *
      * @param parameter the parameter to set
      * @param value parameter value
+     * @param <T> parameter value type
      * @return new stream with the specified parameter value set
      * @throws IllegalArgumentException if {@code parameter} is null
      * @see Query#setParameter(javax.persistence.Parameter, Object)

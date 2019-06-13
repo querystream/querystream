@@ -26,8 +26,8 @@ public class DateParamBinding extends TemporalParamBinding<Date> {
      * @param temporalType temporal type for {@code value}
      * @throws IllegalArgumentException if {@code parameter} or {@code temporalType} is null
      */
-    public DateParamBinding(final Parameter<Date> parameter, final Date date, final TemporalType temporalType) {
-        super(parameter, date, temporalType);
+    public DateParamBinding(final Parameter<Date> parameter, final Date value, final TemporalType temporalType) {
+        super(parameter, value, temporalType);
     }
 
     @Override

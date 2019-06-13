@@ -34,6 +34,8 @@ public class ParamBinding<T> {
 
     /**
      * Get the parameter.
+     *
+     * @return parameter to be bound
      */
     public Parameter<T> getParameter() {
         return this.parameter;
@@ -41,6 +43,8 @@ public class ParamBinding<T> {
 
     /**
      * Get the parameter value.
+     *
+     * @return value to be bound to parameter
      */
     public T getValue() {
         return this.value;

@@ -26,8 +26,8 @@ public class CalendarParamBinding extends TemporalParamBinding<Calendar> {
      * @param temporalType temporal type for {@code value}
      * @throws IllegalArgumentException if {@code parameter} or {@code temporalType} is null
      */
-    public CalendarParamBinding(final Parameter<Calendar> parameter, final Calendar date, final TemporalType temporalType) {
-        super(parameter, date, temporalType);
+    public CalendarParamBinding(final Parameter<Calendar> parameter, final Calendar value, final TemporalType temporalType) {
+        super(parameter, value, temporalType);
     }
 
     @Override

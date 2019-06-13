@@ -21,6 +21,8 @@ abstract class TemporalParamBinding<T> extends ParamBinding<T> {
 
     /**
      * Get the {@link TemporalType}.
+     *
+     * @return temporal type to use when binding parameter value
      */
     public TemporalType getTemporalType() {
         return this.temporalType;
