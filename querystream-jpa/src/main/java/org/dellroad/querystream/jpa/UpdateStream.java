@@ -5,13 +5,18 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
@@ -144,6 +149,18 @@ public interface UpdateStream<X> extends QueryStream<X, Root<X>, CriteriaUpdate<
 
     @Override
     UpdateStream<X> withHints(Map<String, Object> hints);
+
+    @Override
+    <T> UpdateStream<X> withParam(Parameter<T> parameter, T value);
+
+    @Override
+    UpdateStream<X> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
+
+    @Override
+    UpdateStream<X> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
+
+    @Override
+    UpdateStream<X> withParams(Set<ParamBinding<?>> params);
 
     @Override
     UpdateStream<X> withLoadGraph(String name);

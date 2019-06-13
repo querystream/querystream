@@ -5,14 +5,19 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -225,6 +230,26 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public RootStream<X> withHints(Map<String, Object> hints) {
         return (RootStream<X>)super.withHints(hints);
+    }
+
+    @Override
+    public <T> RootStream<X> withParam(Parameter<T> parameter, T value) {
+        return (RootStream<X>)super.withParam(parameter, value);
+    }
+
+    @Override
+    public RootStream<X> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
+        return (RootStream<X>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public RootStream<X> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
+        return (RootStream<X>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public RootStream<X> withParams(Set<ParamBinding<?>> params) {
+        return (RootStream<X>)super.withParams(params);
     }
 
     @Override

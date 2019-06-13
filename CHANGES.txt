@@ -1,3 +1,7 @@
+Version Next
+
+    - Added SearchStream.withParam() and related methods
+
 Version 1.1.4 Released April 30, 2019
 
     - Added workaround for Hibernate bug HHH-11877

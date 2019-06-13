@@ -7,9 +7,12 @@ package org.dellroad.querystream.jpa;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -17,6 +20,8 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaQuery;
@@ -387,6 +392,26 @@ class SearchStreamImpl<X, S extends Selection<X>>
     @Override
     public SearchStream<X, S> withHints(Map<String, Object> hints) {
         return (SearchStream<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public <T> SearchStream<X, S> withParam(Parameter<T> parameter, T value) {
+        return (SearchStream<X, S>)super.withParam(parameter, value);
+    }
+
+    @Override
+    public SearchStream<X, S> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
+        return (SearchStream<X, S>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public SearchStream<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
+        return (SearchStream<X, S>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public SearchStream<X, S> withParams(Set<ParamBinding<?>> params) {
+        return (SearchStream<X, S>)super.withParams(params);
     }
 
     @Override

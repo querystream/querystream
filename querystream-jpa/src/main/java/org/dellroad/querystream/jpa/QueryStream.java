@@ -5,14 +5,19 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CommonAbstractCriteria;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -67,10 +72,13 @@ public interface QueryStream<X,
      *
      * <p>
      * Note that due to limitations of the JPA Criteria API, the returned query object lacks information that is configured
-     * on the {@link Query} object and not the {@link javax.persistence.criteria.CriteriaQuery} object (for example,
-     * {@linkplain #getLockMode lock mode}, {@linkplain #withHint hints}, row {@linkplain #getFirstResult offset} and
-     * {@linkplain #getMaxResults limit}, etc.); such information can only be configured on the fully formed {@link Query}.
-     * Use {@link #toQuery} instead of this method to also include that information.
+     * on the {@link Query} object and not the {@link javax.persistence.criteria.CriteriaQuery} object, including
+     * {@linkplain #getLockMode lock mode}, {@linkplain #withHint hints}, {@linkplain #withParam parameters},
+     * row {@linkplain #getFirstResult offset} and {@linkplain #getMaxResults limit}, etc.
+     *
+     * <p>
+     * This information can only be configured on the fully formed {@link Query}; use {@link #toQuery} instead of this
+     * method to also include that information.
      *
      * @return new Criteria API query corresponding to this instance
      * @see #toQuery
@@ -162,11 +170,78 @@ public interface QueryStream<X,
      * Associate hints with this query.
      *
      * @param hints hints to add
-     * @return new stream with the specified hints configured
+     * @return new stream with the specified hints added
      * @see Query#setHint
      * @throws IllegalArgumentException if {@code hints} is null
      */
     QueryStream<X, S, C, C2, Q> withHints(Map<String, Object> hints);
+
+    /**
+     * Get any parameter bindings associated with this query.
+     *
+     * @return configured parameter bindings, if any, otherwise an empty set
+     * @return immutable set of parameter bindings
+     * @see Query#setParameter(javax.persistence.Parameter, Object)
+     */
+    Set<ParamBinding<?>> getParams();
+
+    /**
+     * Bind the value of a query parameter.
+     *
+     * <p>
+     * Replaces any previous binding of the same parameter.
+     *
+     * @param parameter the parameter to set
+     * @param value parameter value
+     * @return new stream with the specified parameter value set
+     * @throws IllegalArgumentException if {@code parameter} is null
+     * @see Query#setParameter(javax.persistence.Parameter, Object)
+     */
+    <T> QueryStream<X, S, C, C2, Q> withParam(Parameter<T> parameter, T value);
+
+    /**
+     * Bind the value of a query parameter of type {@link Date}.
+     *
+     * <p>
+     * Replaces any previous binding of the same parameter.
+     *
+     * @param parameter the parameter to set
+     * @param value parameter value
+     * @param temporalType temporal type for {@code value}
+     * @return new stream with the specified parameter value set
+     * @throws IllegalArgumentException if {@code parameter} or {@code temporalType} is null
+     * @see Query#setParameter(javax.persistence.Parameter, Date, TemporalType)
+     */
+    QueryStream<X, S, C, C2, Q> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
+
+    /**
+     * Bind the value of a query parameter of type {@link Calendar}.
+     *
+     * <p>
+     * Replaces any previous binding of the same parameter.
+     *
+     * @param parameter the parameter to set
+     * @param value parameter value
+     * @param temporalType temporal type for {@code value}
+     * @return new stream with the specified parameter value set
+     * @throws IllegalArgumentException if {@code parameter} or {@code temporalType} is null
+     * @see Query#setParameter(javax.persistence.Parameter, Calendar, TemporalType)
+     */
+    QueryStream<X, S, C, C2, Q> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
+
+    /**
+     * Associate parameter bindings with this query.
+     *
+     * <p>
+     * Replaces any previous bindings of the same parameters.
+     *
+     * @param params bindings to add
+     * @return new stream with the specified parameter bindings added
+     * @throws IllegalArgumentException if {@code params} is null
+     * @throws IllegalArgumentException if {@code params} contains duplicate bindings for the same parameter
+     * @see Query#setParameter(javax.persistence.Parameter, Object)
+     */
+    QueryStream<X, S, C, C2, Q> withParams(Set<ParamBinding<?>> params);
 
     /**
      * Configure a load graph for this query.

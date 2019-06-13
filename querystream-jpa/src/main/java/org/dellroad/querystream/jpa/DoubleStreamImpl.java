@@ -5,14 +5,19 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -205,6 +210,26 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     @Override
     public DoubleStream withHints(Map<String, Object> hints) {
         return (DoubleStream)super.withHints(hints);
+    }
+
+    @Override
+    public <T> DoubleStream withParam(Parameter<T> parameter, T value) {
+        return (DoubleStream)super.withParam(parameter, value);
+    }
+
+    @Override
+    public DoubleStream withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
+        return (DoubleStream)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public DoubleStream withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
+        return (DoubleStream)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public DoubleStream withParams(Set<ParamBinding<?>> params) {
+        return (DoubleStream)super.withParams(params);
     }
 
     @Override

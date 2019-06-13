@@ -5,13 +5,18 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
@@ -126,6 +131,18 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
 
     @Override
     RootStream<X> withHints(Map<String, Object> hints);
+
+    @Override
+    <T> RootStream<X> withParam(Parameter<T> parameter, T value);
+
+    @Override
+    RootStream<X> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
+
+    @Override
+    RootStream<X> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
+
+    @Override
+    RootStream<X> withParams(Set<ParamBinding<?>> params);
 
     @Override
     RootStream<X> withLoadGraph(String name);

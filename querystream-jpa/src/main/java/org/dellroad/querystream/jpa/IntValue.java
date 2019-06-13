@@ -5,12 +5,17 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
 
@@ -45,6 +50,18 @@ public interface IntValue extends ExprValue<Integer, Expression<Integer>>, IntSt
 
     @Override
     IntValue withHints(Map<String, Object> hints);
+
+    @Override
+    <T> IntValue withParam(Parameter<T> parameter, T value);
+
+    @Override
+    IntValue withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
+
+    @Override
+    IntValue withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
+
+    @Override
+    IntValue withParams(Set<ParamBinding<?>> params);
 
     @Override
     IntValue withLoadGraph(String name);

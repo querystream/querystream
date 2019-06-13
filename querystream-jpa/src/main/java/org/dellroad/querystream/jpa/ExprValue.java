@@ -5,13 +5,18 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Path;
@@ -115,6 +120,18 @@ public interface ExprValue<X, S extends Expression<X>> extends SearchValue<X, S>
 
     @Override
     ExprValue<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    <T> ExprValue<X, S> withParam(Parameter<T> parameter, T value);
+
+    @Override
+    ExprValue<X, S> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
+
+    @Override
+    ExprValue<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
+
+    @Override
+    ExprValue<X, S> withParams(Set<ParamBinding<?>> params);
 
     @Override
     ExprValue<X, S> withLoadGraph(String name);

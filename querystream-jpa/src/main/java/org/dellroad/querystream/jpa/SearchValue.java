@@ -5,8 +5,11 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -14,6 +17,8 @@ import java.util.function.Supplier;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
@@ -177,6 +182,18 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
 
     @Override
     SearchValue<X, S> withHints(Map<String, Object> hints);
+
+    @Override
+    <T> SearchValue<X, S> withParam(Parameter<T> parameter, T value);
+
+    @Override
+    SearchValue<X, S> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
+
+    @Override
+    SearchValue<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
+
+    @Override
+    SearchValue<X, S> withParams(Set<ParamBinding<?>> params);
 
     @Override
     SearchValue<X, S> withLoadGraph(String name);

@@ -5,14 +5,19 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -215,6 +220,26 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     @Override
     public PathStream<X, S> withHints(Map<String, Object> hints) {
         return (PathStream<X, S>)super.withHints(hints);
+    }
+
+    @Override
+    public <T> PathStream<X, S> withParam(Parameter<T> parameter, T value) {
+        return (PathStream<X, S>)super.withParam(parameter, value);
+    }
+
+    @Override
+    public PathStream<X, S> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
+        return (PathStream<X, S>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public PathStream<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
+        return (PathStream<X, S>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public PathStream<X, S> withParams(Set<ParamBinding<?>> params) {
+        return (PathStream<X, S>)super.withParams(params);
     }
 
     @Override

@@ -5,14 +5,19 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
@@ -116,6 +121,26 @@ class DeleteStreamImpl<X>
     @Override
     public DeleteStream<X> withHints(Map<String, Object> hints) {
         return (DeleteStream<X>)super.withHints(hints);
+    }
+
+    @Override
+    public <T> DeleteStream<X> withParam(Parameter<T> parameter, T value) {
+        return (DeleteStream<X>)super.withParam(parameter, value);
+    }
+
+    @Override
+    public DeleteStream<X> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
+        return (DeleteStream<X>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public DeleteStream<X> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
+        return (DeleteStream<X>)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public DeleteStream<X> withParams(Set<ParamBinding<?>> params) {
+        return (DeleteStream<X>)super.withParams(params);
     }
 
     @Override

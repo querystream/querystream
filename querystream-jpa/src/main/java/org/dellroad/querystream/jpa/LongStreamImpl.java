@@ -5,14 +5,19 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
@@ -213,6 +218,26 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     @Override
     public LongStream withHints(Map<String, Object> hints) {
         return (LongStream)super.withHints(hints);
+    }
+
+    @Override
+    public <T> LongStream withParam(Parameter<T> parameter, T value) {
+        return (LongStream)super.withParam(parameter, value);
+    }
+
+    @Override
+    public LongStream withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
+        return (LongStream)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public LongStream withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
+        return (LongStream)super.withParam(parameter, value, temporalType);
+    }
+
+    @Override
+    public LongStream withParams(Set<ParamBinding<?>> params) {
+        return (LongStream)super.withParams(params);
     }
 
     @Override
