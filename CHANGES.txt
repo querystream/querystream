@@ -1,6 +1,6 @@
-Version Next
+Version 1.1.5 Released June 13, 2019
 
-    - Added SearchStream.withParam() and related methods
+    - Added SearchStream.withParam() and related parameter methods
 
 Version 1.1.4 Released April 30, 2019
 
