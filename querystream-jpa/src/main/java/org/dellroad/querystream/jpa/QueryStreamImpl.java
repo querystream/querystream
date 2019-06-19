@@ -105,14 +105,23 @@ abstract class QueryStreamImpl<X,
     }
 
     /**
-     * Create an instance equivalent to this one but with a completely new query configuration.
+     * Create an instance equivalent to this one but with a new {@link QueryConfigurer}.
      *
-     * @param extender additional query configuration
+     * @param configurer new query configuration
      */
     QueryStream<X, S, C, C2, Q> withConfig(QueryConfigurer<C, X, ? extends S> configurer) {
         if (configurer == null)
             throw new IllegalArgumentException("null configurer");
         return this.create(this.entityManager, this.queryType, configurer, this.queryInfo);
+    }
+
+    /**
+     * Create an instance equivalent to this one but with a new {@link QueryInfo}.
+     *
+     * @param queryInfo new query info
+     */
+    QueryStream<X, S, C, C2, Q> withQueryInfo(QueryInfo queryInfo) {
+        return this.create(this.entityManager, this.queryType, this.configurer, queryInfo);
     }
 
 // Subclass required methods
@@ -181,7 +190,7 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public QueryStream<X, S, C, C2, Q> withFlushMode(FlushModeType flushMode) {
-        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withFlushMode(flushMode));
+        return this.withQueryInfo(this.queryInfo.withFlushMode(flushMode));
     }
 
     @Override
@@ -191,7 +200,7 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public QueryStream<X, S, C, C2, Q> withLockMode(LockModeType lockMode) {
-        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withLockMode(lockMode));
+        return this.withQueryInfo(this.queryInfo.withLockMode(lockMode));
     }
 
     @Override
@@ -201,12 +210,12 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public QueryStream<X, S, C, C2, Q> withHint(String name, Object value) {
-        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withHint(name, value));
+        return this.withQueryInfo(this.queryInfo.withHint(name, value));
     }
 
     @Override
     public QueryStream<X, S, C, C2, Q> withHints(Map<String, Object> hints) {
-        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withHints(hints));
+        return this.withQueryInfo(this.queryInfo.withHints(hints));
     }
 
     @Override
@@ -216,24 +225,22 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public <T> QueryStream<X, S, C, C2, Q> withParam(Parameter<T> parameter, T value) {
-        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withParam(parameter, value));
+        return this.withQueryInfo(this.queryInfo.withParam(parameter, value));
     }
 
     @Override
     public QueryStream<X, S, C, C2, Q> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType) {
-        return this.create(this.entityManager, this.queryType,
-          this.configurer, this.queryInfo.withParam(parameter, value, temporalType));
+        return this.withQueryInfo(this.queryInfo.withParam(parameter, value, temporalType));
     }
 
     @Override
     public QueryStream<X, S, C, C2, Q> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
-        return this.create(this.entityManager, this.queryType,
-          this.configurer, this.queryInfo.withParam(parameter, value, temporalType));
+        return this.withQueryInfo(this.queryInfo.withParam(parameter, value, temporalType));
     }
 
     @Override
     public QueryStream<X, S, C, C2, Q> withParams(Set<ParamBinding<?>> params) {
-        return this.create(this.entityManager, this.queryType, this.configurer, this.queryInfo.withParams(params));
+        return this.withQueryInfo(this.queryInfo.withParams(params));
     }
 
     @Override
@@ -358,7 +365,7 @@ abstract class QueryStreamImpl<X,
     static SubqueryInfo getSubqueryInfo() {
         final SubqueryInfo info = CURRENT_SUBQUERY_INFO.get();
         if (info == null)
-            throw new IllegalStateException("subquery not created in the context of a containing query");
+            throw new IllegalStateException("subquery must be created in the context of a containing query");
         return info;
     }
 
@@ -375,9 +382,10 @@ abstract class QueryStreamImpl<X,
         }
     }
 
-    // Holds information about the current (sub)queries under construction. A stack of nested SubqueryInfo objects is available
-    // as each configurer executes during an invocation of toCriteriaQuery(); the top of the stack represents the current
-    // (sub)query under construction; the bottom of the stack is the outermost query and is the only non-subquery.
+    // Holds the current Criteria API query object under construction while a stream is being realized by toCriteriaQuery().
+    // Because we sometimes create separate Subquery objects, there is actually a stack of these SubqueryInfo objects. The
+    // bottom of the stack contains a type C2 object, while all the others contain Subquery objects. For details, see methods
+    // QueryStreamImpl.withSubqueryInfo() and ExprStreamImpl.asSubquery().
     static class SubqueryInfo {
 
         private final CriteriaBuilder builder;
@@ -401,9 +409,11 @@ abstract class QueryStreamImpl<X,
         }
 
         public Subquery<?> getSubquery() {
-            if (!(this.query instanceof Subquery))
+            try {
+                return (Subquery<?>)this.query;
+            } catch (ClassCastException e) {
                 throw new IllegalArgumentException("streams built with QueryBuilder.substream() can only be used in subqueries");
-            return (Subquery<?>)this.query;
+            }
         }
     }
 }
