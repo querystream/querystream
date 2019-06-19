@@ -11,7 +11,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.persistence.FlushModeType;
@@ -23,6 +25,9 @@ import javax.persistence.TemporalType;
 /**
  * Captures the information applied to the {@link javax.persistence.Query} instead of the
  * {@link javax.persistence.criteria.CriteriaQuery}.
+ *
+ * <p>
+ * Instances are more or less immutable.
  */
 class QueryInfo {
 
@@ -32,6 +37,8 @@ class QueryInfo {
     private final LockModeType lockMode;                        // may be null
     private final Map<String, Object> hints;                    // may be null
     private final Map<Parameter<?>, ParamBinding<?>> params;    // may be null
+
+// Constructors
 
     QueryInfo() {
         this(-1, -1, null, null, null, null);
@@ -51,9 +58,13 @@ class QueryInfo {
         this.params = params;
     }
 
+// Kludgey hack
+
     public static QueryInfo of(QueryStream<?, ?, ?, ?, ?> stream) {
         return ((QueryStreamImpl<?, ?, ?, ?, ?, ?>)stream).queryInfo;
     }
+
+// Configure the given query from this instance
 
     public void applyTo(Query query) {
         if (this.firstResult != -1)
@@ -70,6 +81,59 @@ class QueryInfo {
         }
         if (this.params != null)
             this.params.values().forEach(param -> param.applyTo(query));
+    }
+
+    /**
+     * Merge a QueryInfo produced in a subquery into this instance, checking for conflicts.
+     *
+     * @param that subquery's {@link QueryInfo}
+     * @throws IllegalArgumentException if {@code that} is null
+     */
+    public QueryInfo withMergedInfo(QueryInfo that) {
+        if (that == null)
+            throw new IllegalArgumentException("null that");
+        if (that.firstResult != -1)
+            QueryStreamImpl.failJpaRestriction("can't invoke skip() on a subquery");
+        if (that.maxResults != -1)
+            QueryStreamImpl.failJpaRestriction("can't invoke limit() on a subquery");
+        if (that.flushMode != null && !Objects.equals(this.flushMode, that.flushMode)) {
+            throw new IllegalArgumentException("conflicting JPA flush mode specified on query ("
+              + this.flushMode + ") and nested subquery (" + that.flushMode + ")");
+        }
+        if (that.lockMode != null && !Objects.equals(this.lockMode, that.lockMode)) {
+            throw new IllegalArgumentException("conflicting JPA lock mode specified on query ("
+              + this.lockMode + ") and nested subquery (" + that.lockMode + ")");
+        }
+        return new QueryInfo(this.firstResult, this.maxResults, this.flushMode, this.lockMode,
+          this.merge("value", name -> "hint \"" + name + "\"", this.hints, that.hints),
+          this.merge("binding", ParamBinding::describeParameter, this.params, that.params));
+    }
+
+    private <K, V> Map<K, V> merge(String valueName,
+      Function<? super K, String> keyDescriber, Map<K, V> thisMap, Map<K, V> thatMap) {
+        if (thisMap == null && thatMap == null)
+            return null;
+        if (thisMap == null)
+            return new HashMap<>(thatMap);
+        if (thatMap == null)
+            return new HashMap<>(thisMap);
+        final Map<K, V> newMap = new HashMap<>(thisMap);
+        for (Map.Entry<K, V> entry : thatMap.entrySet()) {
+            K key = entry.getKey();
+            if (!thisMap.containsKey(key)) {
+                newMap.put(key, entry.getValue());
+                continue;
+            }
+            final V thisValue = thisMap.get(key);
+            final V thatValue = entry.getValue();
+            final Object keyDesc = key instanceof String ? "\"" + key + "\"" : key;
+            if (!Objects.equals(thisValue, thatValue)) {
+                throw new IllegalArgumentException("conflicting " + valueName + " specified for "
+                  + keyDescriber.apply(key) + " on outer query (" + thisValue + ") and nested subquery (" + thatValue + ")");
+            }
+            newMap.put(key, thisValue);
+        }
+        return newMap;
     }
 
 // Limits

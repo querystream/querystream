@@ -51,7 +51,8 @@ abstract class QueryStreamImpl<X,
   Q extends Query,
   QT extends QueryType<X, C, C2, Q>> implements QueryStream<X, S, C, C2, Q> {
 
-    static final ThreadLocal<SubqueryInfo> CURRENT_SUBQUERY_INFO = new ThreadLocal<>();
+    private static final ThreadLocal<QueryInfo> CURRENT_QUERY_INFO = new ThreadLocal<>();
+    private static final ThreadLocal<SubqueryInfo> CURRENT_SUBQUERY_INFO = new ThreadLocal<>();
 
     private static final String LOAD_GRAPH_HINT = "javax.persistence.loadgraph";
     private static final String FETCH_GRAPH_HINT = "javax.persistence.fetchgraph";
@@ -168,9 +169,18 @@ abstract class QueryStreamImpl<X,
 
     @Override
     public Q toQuery() {
-        final Q query = this.queryType.createQuery(this.entityManager, this.toCriteriaQuery());
-        this.queryInfo.applyTo(query);
-        return query;
+
+        // Create a merged QueryInfo object into which we can merge this and all subquery QueryInfo's
+        final QueryInfo previous = CURRENT_QUERY_INFO.get();
+        CURRENT_QUERY_INFO.set(this.queryInfo);
+        final Q query;
+        try {
+            query = this.queryType.createQuery(this.entityManager, this.toCriteriaQuery());
+            CURRENT_QUERY_INFO.get().applyTo(query);                // apply merged QueryInfo configuration to the query
+            return query;
+        } finally {
+            CURRENT_QUERY_INFO.set(previous);
+        }
     }
 
     @Override
@@ -330,11 +340,7 @@ abstract class QueryStreamImpl<X,
         if (limit < 0)
             throw new IllegalArgumentException("limit < 0");
         final int newMaxResults = this.getMaxResults() != -1 ? Math.min(limit, this.getMaxResults()) : limit;
-        return this.create(this.entityManager, this.queryType, (builder, query) -> {
-            if (query instanceof Subquery)
-                QueryStreamImpl.failOffsetLimit("can't invoke limit() on a subquery");
-            return this.configure(builder, query);
-        }, this.queryInfo.withMaxResults(newMaxResults));
+        return this.withQueryInfo(this.queryInfo.withMaxResults(newMaxResults));
     }
 
     @Override
@@ -342,22 +348,29 @@ abstract class QueryStreamImpl<X,
         if (skip < 0)
             throw new IllegalArgumentException("skip < 0");
         final int newFirstResult = this.getFirstResult() != -1 ? this.getFirstResult() + skip : skip;
-        return this.create(this.entityManager, this.queryType, (builder, query) -> {
-            if (query instanceof Subquery)
-                QueryStreamImpl.failOffsetLimit("can't invoke skip() on a subquery");
-            return this.configure(builder, query);
-        }, this.queryInfo.withFirstResult(newFirstResult));
+        return this.withQueryInfo(this.queryInfo.withFirstResult(newFirstResult));
     }
 
-    // This is used to prevent other stuff being applied after skip()/limit()
+    // This is used to prevent other stuff that would affect the returned results being applied after skip()/limit()
     static void checkOffsetLimit(QueryStream<?, ?, ?, ?, ?> stream, String operation) {
         if (stream.getFirstResult() != -1 || stream.getMaxResults() != -1)
-            QueryStreamImpl.failOffsetLimit(operation + " must be performed prior to skip() or limit()");
+            QueryStreamImpl.failJpaRestriction(operation + " must be performed prior to skip() or limit()");
     }
 
-    static void failOffsetLimit(String restriction) {
-        throw new UnsupportedOperationException("sorry, " + restriction + " because the JPA Criteria API"
-          + " only supports setting a row offset or row count limit on the outer Query that contains the CriteriaQuery");
+    static void failJpaRestriction(String restriction) {
+        throw new UnsupportedOperationException("sorry, " + restriction + " because the JPA Criteria API allows certain"
+          + " information to be configured only on a Query object, not on a CriteriaQuery or Subquery");
+    }
+
+// QueryInfo Merging
+
+    // Merge the QueryInfo information from a subquery into the "global" QueryInfo we will use for the outermost query
+    static void mergeQueryInfo(QueryInfo innerQueryInfo) {
+        if (innerQueryInfo == null)
+            throw new IllegalArgumentException("null innerQueryInfo");
+        final QueryInfo outerQueryInfo = CURRENT_QUERY_INFO.get();
+        if (outerQueryInfo != null)
+            CURRENT_QUERY_INFO.set(outerQueryInfo.withMergedInfo(innerQueryInfo));
     }
 
 // SubqueryInfo

@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.dellroad.querystream.jpa.test.Employee;
@@ -184,7 +185,7 @@ public class QueryTest extends TestSupport {
             this.qb.substream(root).toQuery();
             assert false : "expected exception";
         } catch (IllegalArgumentException e) {
-            // expected
+            this.log.debug("got expected " + e);
         }
     }
 
@@ -245,6 +246,8 @@ public class QueryTest extends TestSupport {
 //          .orElse(null), null);
     }
 
+// Illegal operations after skip() or limit()
+
     @Test(dataProvider = "badSkipLimitUsageFunctions")
     @Transactional
     public void testBadSkipLimitUsage(Function<RootStream<Employee>, ? extends SearchStream<?, ?>> function) throws Exception {
@@ -270,6 +273,95 @@ public class QueryTest extends TestSupport {
         return funcs.stream()
           .map(func -> new Object[] { func })
           .toArray(Object[][]::new);
+    }
+
+// Illegal Subquery operations
+
+    @Test(dataProvider = "badSubqueryFunctions")
+    @Transactional
+    public void testBadSubqueryUsage(Function<RootStream<Employee>, ? extends ExprStream<?, ?>> function) throws Exception {
+        try {
+            this.qb.stream(Employee.class)
+              .filter(e -> function.apply(this.qb.substream(e)).exists())
+              .toQuery();
+            assert false;
+        } catch (UnsupportedOperationException e) {
+            this.log.debug("got expected " + e);
+        }
+    }
+
+    // Stuff that you can't do within a subquery
+    @DataProvider(name = "badSubqueryFunctions")
+    public Object[][] genBadSubqueryFunctions() throws Exception {
+        final List<Function<RootStream<Employee>, ? extends ExprStream<?, ?>>> funcs = new ArrayList<>();
+        funcs.add(s -> s.limit(10));
+        funcs.add(s -> s.skip(10));
+        return funcs.stream()
+          .map(func -> new Object[] { func })
+          .toArray(Object[][]::new);
+    }
+
+// Check QueryInfo from subquery merging with outer query
+
+    @Test
+    public void testSubqueryNonconflictingParam() throws Exception {
+        final ParameterExpression<String> nameParam = this.qb.parameter(String.class, "name");
+        final ParameterExpression<Float> salaryParam = this.qb.parameter(Float.class, "salary");
+        this.qb.stream(Employee.class)
+          .filter(e -> this.qb.substream(e)
+                        .flatMap(Employee_.directReports)
+                        .filter(e2 -> this.qb.equal(e2.get(Employee_.salary), salaryParam))
+                        .withParam(salaryParam, 123.4f)
+                        .exists())
+          .filter(e -> this.qb.equal(e.get(Employee_.name), nameParam))
+          .withParam(nameParam, "Jeff")
+          .toQuery();
+    }
+
+    @Test
+    public void testSubqueryConflictingParam() throws Exception {
+        try {
+            final ParameterExpression<String> nameParam = this.qb.parameter(String.class, "name");
+            this.qb.stream(Employee.class)
+              .filter(e -> qb.substream(e)
+                            .withParam(nameParam, "Fred")                       // set parameter to "Fred" in inner subquery
+                            .exists())
+              .filter(e -> qb.equal(e.get(Employee_.name), nameParam))
+              .withParam(nameParam, "Jeff")                                     // set parameter to "Jeff" in outer query
+              .toQuery();
+            assert false : "expected exception";
+        } catch (IllegalArgumentException e) {
+            this.log.debug("got expected " + e);
+        }
+    }
+
+    @Test
+    public void testSubquerySameParam() throws Exception {
+        final ParameterExpression<String> nameParam = this.qb.parameter(String.class, "name");
+        this.qb.stream(Employee.class)
+          .filter(e -> qb.substream(e)
+                        .flatMap(Employee_.directReports)
+                        .filter(e2 -> this.qb.equal(e2.get(Employee_.name), nameParam))
+                        .withParam(nameParam, "Fred")                       // set parameter to "Fred" in inner subquery
+                        .exists())
+          .filter(e -> qb.equal(e.get(Employee_.name), nameParam))
+          .withParam(nameParam, "Fred")                                     // set parameter to "Fred" in outer query
+          .toQuery();
+    }
+
+    @Test
+    public void testSubquerySameParam2() throws Exception {
+        final ParameterExpression<String> nameParam1 = this.qb.parameter(String.class, "name");
+        final ParameterExpression<String> nameParam2 = this.qb.parameter(String.class, "name");
+        this.qb.stream(Employee.class)
+          .filter(e -> qb.substream(e)
+                        .flatMap(Employee_.directReports)
+                        .filter(e2 -> this.qb.equal(e2.get(Employee_.name), nameParam1))
+                        .withParam(nameParam1, "Fred")                      // set parameter to "Fred" in inner subquery
+                        .exists())
+          .filter(e -> qb.equal(e.get(Employee_.name), nameParam2))
+          .withParam(nameParam2, "Fred")                                    // set parameter to "Fred" in outer query
+          .toQuery();
     }
 
 // TestCase

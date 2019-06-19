@@ -46,8 +46,10 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
         final SubqueryInfo outer = QueryStreamImpl.getSubqueryInfo();
         final CriteriaBuilder builder = outer.getBuilder();
         final Subquery<X> subquery = outer.getQuery().subquery(this.queryType.getType());
-        return subquery.select(QueryStreamImpl.withSubqueryInfo(builder, subquery,
+        final Subquery<X> subquery2 = subquery.select(QueryStreamImpl.withSubqueryInfo(builder, subquery,
           () -> this.configurer.configure(builder, subquery)));
+        QueryStreamImpl.mergeQueryInfo(this.queryInfo);         // propagage any parameters, etc., up to the outer query
+        return subquery2;
     }
 
 // Aggregation
