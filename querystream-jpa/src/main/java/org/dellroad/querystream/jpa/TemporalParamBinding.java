@@ -27,4 +27,28 @@ abstract class TemporalParamBinding<T> extends ParamBinding<T> {
     public TemporalType getTemporalType() {
         return this.temporalType;
     }
+
+// Object
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj))
+            return false;
+        final TemporalParamBinding<?> that = (TemporalParamBinding<?>)obj;
+        return this.temporalType.equals(that.temporalType);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() ^ this.temporalType.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName()
+          + "[parameter=" + ParamBinding.describeParameter(this.getParameter())
+          + ",value=" + this.getValue()
+          + ",type=" + this.getTemporalType()
+          + "]";
+    }
 }

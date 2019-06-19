@@ -5,6 +5,8 @@
 
 package org.dellroad.querystream.jpa;
 
+import java.util.Objects;
+
 import javax.persistence.Parameter;
 import javax.persistence.Query;
 
@@ -64,5 +66,40 @@ public class ParamBinding<T> {
 
     void doApplyTo(Query query) {
         query.setParameter(this.getParameter(), this.getValue());
+    }
+
+// Object
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+        final ParamBinding<?> that = (ParamBinding<?>)obj;
+        return this.parameter.equals(that.parameter) && Objects.equals(this.value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.parameter.hashCode() ^ Objects.hashCode(this.value);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName()
+          + "[parameter=" + ParamBinding.describeParameter(this.parameter)
+          + ",value=" + this.value
+          + "]";
+    }
+
+    static String describeParameter(Parameter<?> parameter) {
+        String result = "parameter \"" + parameter.getName() + "\"";
+        try {
+            result += " of type " + parameter.getParameterType().getSimpleName();
+        } catch (IllegalStateException | NullPointerException e) {
+            // ignore
+        }
+        return result;
     }
 }
