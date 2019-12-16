@@ -155,6 +155,11 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     }
 
     @Override
+    public DoubleValue findSingle() {
+        return (DoubleValue)super.findSingle();
+    }
+
+    @Override
     public <R> DoubleStream addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (DoubleStream)super.addRoot(ref, type);
     }

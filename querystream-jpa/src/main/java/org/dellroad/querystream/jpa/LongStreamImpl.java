@@ -163,6 +163,11 @@ class LongStreamImpl extends ExprStreamImpl<Long, Expression<Long>> implements L
     }
 
     @Override
+    public LongValue findSingle() {
+        return (LongValue)super.findSingle();
+    }
+
+    @Override
     public <R> LongStream addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (LongStream)super.addRoot(ref, type);
     }

@@ -310,6 +310,11 @@ class SearchStreamImpl<X, S extends Selection<X>>
         return this instanceof SearchValue ? (SearchValue<X, S>)this : this.toValue(true);
     }
 
+    @Override
+    public SearchValue<X, S> findSingle() {
+        return this.toValue(false);
+    }
+
 // Binding
 
     @Override

@@ -94,6 +94,9 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
     @Override
     RootValue<X> findFirst();
 
+    @Override
+    RootValue<X> findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override

@@ -169,6 +169,11 @@ class IntStreamImpl extends ExprStreamImpl<Integer, Expression<Integer>> impleme
     }
 
     @Override
+    public IntValue findSingle() {
+        return (IntValue)super.findSingle();
+    }
+
+    @Override
     public <R> IntStream addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (IntStream)super.addRoot(ref, type);
     }

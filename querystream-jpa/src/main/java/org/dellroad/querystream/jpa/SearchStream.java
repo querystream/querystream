@@ -390,6 +390,32 @@ public interface SearchStream<X, S extends Selection<X>>
      */
     SearchValue<X, S> findFirst();
 
+    /**
+     * Find the only instance in the stream.
+     *
+     * <p>
+     * Invoke this method only when you know that the result stream contains at most one value, e.g., when searching
+     * for an object by its value in a field with a unique constraint. If the stream actually contains multiple values,
+     * then invoking any of the "single value" {@link SearchValue} methods such as {@link SearchValue#value value()} or
+     * {@link SearchValue#toOptional toOptional()} will generate a {@link javax.persistence.NonUniqueResultException}.
+     *
+     * <p>
+     * Using this method is preferable to using {@link #findFirst} or {@link #findAny} for the same purpose, because it
+     * not only actually verifies the uniqueness assumption, but it also makes that assumption clearer in the code.
+     *
+     * <p>
+     * Example:
+     * <pre>
+     *  final User user = qb.stream(User.class)
+     *    .filter(u -&gt; qb.equal(u.get(User_.username), username))
+     *    .findSingle()
+     *    .orElseThrow(NoSuchUserException::new);
+     * </pre>
+     *
+     * @return single-valued stream containg the only instance in this stream (or {@code NULL} if this stream is empty)
+     */
+    SearchValue<X, S> findSingle();
+
 // Binding
 
     /**

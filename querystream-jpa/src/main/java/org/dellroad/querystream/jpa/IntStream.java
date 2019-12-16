@@ -87,6 +87,9 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
     @Override
     IntValue findFirst();
 
+    @Override
+    IntValue findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override

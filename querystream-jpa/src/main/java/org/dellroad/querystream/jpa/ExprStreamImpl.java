@@ -190,6 +190,11 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     }
 
     @Override
+    public ExprValue<X, S> findSingle() {
+        return (ExprValue<X, S>)super.findSingle();
+    }
+
+    @Override
     public <R> ExprStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (ExprStream<X, S>)super.addRoot(ref, type);
     }

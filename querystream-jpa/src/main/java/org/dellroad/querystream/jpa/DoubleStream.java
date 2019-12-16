@@ -81,6 +81,9 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
     @Override
     DoubleValue findFirst();
 
+    @Override
+    DoubleValue findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override

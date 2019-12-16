@@ -85,6 +85,9 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
     @Override
     LongValue findFirst();
 
+    @Override
+    LongValue findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override

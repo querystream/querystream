@@ -206,6 +206,11 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     }
 
     @Override
+    public FromValue<X, S> findSingle() {
+        return (FromValue<X, S>)super.findSingle();
+    }
+
+    @Override
     public <R> FromStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (FromStream<X, S>)super.addRoot(ref, type);
     }

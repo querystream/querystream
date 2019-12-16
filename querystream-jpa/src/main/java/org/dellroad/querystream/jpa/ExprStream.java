@@ -135,6 +135,9 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
     @Override
     ExprValue<X, S> findFirst();
 
+    @Override
+    ExprValue<X, S> findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override

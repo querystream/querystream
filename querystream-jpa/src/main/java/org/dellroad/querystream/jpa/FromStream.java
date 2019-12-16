@@ -96,6 +96,9 @@ public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
     @Override
     FromValue<X, S> findFirst();
 
+    @Override
+    FromValue<X, S> findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override

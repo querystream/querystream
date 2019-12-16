@@ -160,6 +160,11 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     }
 
     @Override
+    public PathValue<X, S> findSingle() {
+        return (PathValue<X, S>)super.findSingle();
+    }
+
+    @Override
     public <R> PathStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (PathStream<X, S>)super.addRoot(ref, type);
     }

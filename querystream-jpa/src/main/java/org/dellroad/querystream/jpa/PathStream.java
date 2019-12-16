@@ -100,6 +100,9 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
     @Override
     PathValue<X, S> findFirst();
 
+    @Override
+    PathValue<X, S> findSingle();
+
 // Narrowing overrides (QueryStream)
 
     @Override
