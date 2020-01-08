@@ -52,7 +52,7 @@
         <dellroad-stuff.version>2.2.2</dellroad-stuff.version>
         <findbugs.version>3.0.1</findbugs.version>
         <h2.version>1.4.196</h2.version>
-        <hibernate.validator.version>6.0.7.Final</hibernate.validator.version>
+        <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
         <hibernate.version>5.2.13.Final</hibernate.version>
         <javax.el.version>3.0.1-b08</javax.el.version>
         <javax.persistence.version>2.2</javax.persistence.version>
