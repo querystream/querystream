@@ -598,5 +598,66 @@ public interface QueryStream<X,
         public <X> UpdateStream<X> updateStream(Class<X> type) {
             return new UpdateStreamImpl<>(this.entityManager, type);
         }
+
+        /**
+         * Access the current query under construction.
+         *
+         * <p>
+         * This method provides a way to access the current {@link javax.persistence.criteria.CriteriaQuery},
+         * {@link javax.persistence.criteria.CriteriaUpdate}, {@link javax.persistence.criteria.CriteriaDelete},
+         * or {@link javax.persistence.criteria.Subquery} currently being constructed.
+         *
+         * <p>
+         * This is useful (for example) when implementing a {@link #filter(Function)} function using the traditional
+         * JPA Criteria API and you need to create a {@link javax.persistence.criteria.Subquery}:
+         * <pre>
+         *  List&lt;String&gt; names = qb.stream(Teacher.class)
+         *    .filter(teacher -&gt; {
+         *       Subquery&lt;Student&gt; subquery = qb.currentQuery().subquery(Student.class);
+         *       // configure Student subquery...
+         *       return qb.exists(subquery);
+         *    })
+         *    .map(Teacher_.name)
+         *    .getResultList();
+         * </pre>
+         *
+         * <p>
+         * This method does not work outside of the context of a query being constructed.
+         *
+         * <p>
+         * In the case of nested {@linkplain #substream substream(s)}, then the inner-most query is returned:
+         * <pre>
+         *  List&lt;String&gt; names = qb.stream(Teacher.class)
+         *    .filter(teacher -&gt; {
+         *       // here qb.currentQuery() would return CriteriaQuery&lt;Teacher&gt;
+         *       return qb.substream(teacher)
+         *         .map(Teacher_.students)
+         *         .filter(student -&gt; {
+         *           // here qb.currentQuery() returns CriteriaQuery&lt;Student&gt;
+         *           Subquery&lt;Test&gt; subquery = qb.currentQuery().subquery(Test.class);
+         *           // configure Test subquery...
+         *           return qb.exists(subquery);
+         *         })
+         *         .exists();
+         *    })
+         *    .map(Teacher_.name)
+         *    .getResultList();
+         *  // here qb.currentQuery() will throw IllegalStateException
+         *  qb.currentQuery();      // this will throw IllegalStateException
+         * </pre>
+         *
+         * <p>
+         * The returned query object should not be modified.
+         *
+         * @return the current Criteria API query under construction
+         * @throws IllegalStateException if invoked outside of query construction
+         */
+        public CommonAbstractCriteria currentQuery() {
+            try {
+                return QueryStreamImpl.getCurrentQuery().getQuery();
+            } catch (IllegalStateException e) {
+                throw new IllegalStateException("there is no query currently under construction");
+            }
+        }
     }
 }

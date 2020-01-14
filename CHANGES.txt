@@ -1,6 +1,7 @@
 Version Next
 
     - Added SearchStream.findSingle()
+    - Added QueryStream.Builder.currentQuery()
 
 Version 1.1.6 Released June 19 2019
 
