@@ -26,7 +26,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Selection;
-import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.QueryType;
@@ -51,8 +50,8 @@ abstract class QueryStreamImpl<X,
   Q extends Query,
   QT extends QueryType<X, C, C2, Q>> implements QueryStream<X, S, C, C2, Q> {
 
-    private static final ThreadLocal<QueryInfo> CURRENT_QUERY_INFO = new ThreadLocal<>();
-    private static final ThreadLocal<SubqueryInfo> CURRENT_SUBQUERY_INFO = new ThreadLocal<>();
+    private static final ThreadLocal<QueryInfo> THREAD_QUERY_INFO = new ThreadLocal<>();
+    private static final ThreadLocal<CurrentQuery> THREAD_CURRENT_QUERY = new ThreadLocal<>();
 
     private static final String LOAD_GRAPH_HINT = "javax.persistence.loadgraph";
     private static final String FETCH_GRAPH_HINT = "javax.persistence.fetchgraph";
@@ -164,22 +163,22 @@ abstract class QueryStreamImpl<X,
     public C2 toCriteriaQuery() {
         final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         final C2 query = this.queryType.createCriteriaQuery(builder);
-        return QueryStreamImpl.withSubqueryInfo(builder, query, () -> this.select(query, this.configure(builder, query)));
+        return QueryStreamImpl.withCurrentQuery(builder, query, () -> this.select(query, this.configure(builder, query)));
     }
 
     @Override
     public Q toQuery() {
 
         // Create a merged QueryInfo object into which we can merge this and all subquery QueryInfo's
-        final QueryInfo previous = CURRENT_QUERY_INFO.get();
-        CURRENT_QUERY_INFO.set(this.queryInfo);
+        final QueryInfo previous = THREAD_QUERY_INFO.get();
+        THREAD_QUERY_INFO.set(this.queryInfo);
         final Q query;
         try {
             query = this.queryType.createQuery(this.entityManager, this.toCriteriaQuery());
-            CURRENT_QUERY_INFO.get().applyTo(query);                // apply merged QueryInfo configuration to the query
+            THREAD_QUERY_INFO.get().applyTo(query);                 // apply merged QueryInfo configuration to the query
             return query;
         } finally {
-            CURRENT_QUERY_INFO.set(previous);
+            THREAD_QUERY_INFO.set(previous);
         }
     }
 
@@ -368,65 +367,30 @@ abstract class QueryStreamImpl<X,
     static void mergeQueryInfo(QueryInfo innerQueryInfo) {
         if (innerQueryInfo == null)
             throw new IllegalArgumentException("null innerQueryInfo");
-        final QueryInfo outerQueryInfo = CURRENT_QUERY_INFO.get();
+        final QueryInfo outerQueryInfo = THREAD_QUERY_INFO.get();
         if (outerQueryInfo != null)
-            CURRENT_QUERY_INFO.set(outerQueryInfo.withMergedInfo(innerQueryInfo));
+            THREAD_QUERY_INFO.set(outerQueryInfo.withMergedInfo(innerQueryInfo));
     }
 
-// SubqueryInfo
+// CurrentQuery
 
-    static SubqueryInfo getSubqueryInfo() {
-        final SubqueryInfo info = CURRENT_SUBQUERY_INFO.get();
+    static CurrentQuery getCurrentQuery() {
+        final CurrentQuery info = THREAD_CURRENT_QUERY.get();
         if (info == null)
             throw new IllegalStateException("subquery must be created in the context of a containing query");
         return info;
     }
 
-    static <T> T withSubqueryInfo(CriteriaBuilder builder, CommonAbstractCriteria query, Supplier<T> action) {
+    static <T> T withCurrentQuery(CriteriaBuilder builder, CommonAbstractCriteria query, Supplier<T> action) {
         if (action == null)
             throw new IllegalArgumentException("null action");
-        final SubqueryInfo prev = CURRENT_SUBQUERY_INFO.get();
-        final SubqueryInfo info = new SubqueryInfo(builder, query);
-        CURRENT_SUBQUERY_INFO.set(info);
+        final CurrentQuery prev = THREAD_CURRENT_QUERY.get();
+        final CurrentQuery info = new CurrentQuery(builder, query);
+        THREAD_CURRENT_QUERY.set(info);
         try {
             return action.get();
         } finally {
-            CURRENT_SUBQUERY_INFO.set(prev);
-        }
-    }
-
-    // Holds the current Criteria API query object under construction while a stream is being realized by toCriteriaQuery().
-    // Because we sometimes create separate Subquery objects, there is actually a stack of these SubqueryInfo objects. The
-    // bottom of the stack contains a type C2 object, while all the others contain Subquery objects. For details, see methods
-    // QueryStreamImpl.withSubqueryInfo() and ExprStreamImpl.asSubquery().
-    static class SubqueryInfo {
-
-        private final CriteriaBuilder builder;
-        private final CommonAbstractCriteria query;
-
-        SubqueryInfo(CriteriaBuilder builder, CommonAbstractCriteria query) {
-            if (builder == null)
-                throw new IllegalArgumentException("null builder");
-            if (query == null)
-                throw new IllegalArgumentException("null query");
-            this.builder = builder;
-            this.query = query;
-        }
-
-        public CriteriaBuilder getBuilder() {
-            return this.builder;
-        }
-
-        public CommonAbstractCriteria getQuery() {
-            return this.query;
-        }
-
-        public Subquery<?> getSubquery() {
-            try {
-                return (Subquery<?>)this.query;
-            } catch (ClassCastException e) {
-                throw new IllegalArgumentException("streams built with QueryBuilder.substream() can only be used in subqueries");
-            }
+            THREAD_CURRENT_QUERY.set(prev);
         }
     }
 }
