@@ -444,6 +444,15 @@ public interface SearchStream<X, S extends Selection<X>>
     /**
      * Map this stream to an associated property.
      *
+     * <p>
+     * Unlike {@link #join(SingularAttribute) join()}, this method allows mapping to arbitrary, non-entity properties.
+     *
+     * <p>
+     * If the property is an entity, then this method works just like an inner {@link #join(SingularAttribute) join()}.
+     * In particular, the associated entity must exist. For that reason, and also because {@link #join(SingularAttribute) join()}
+     * returns the more specific type {@link FromStream}, {@link #join(SingularAttribute) join()} is preferred over this
+     * method when the associated property is an entity.
+     *
      * @param attribute associated property
      * @param <Y> property type
      * @return mapped stream
