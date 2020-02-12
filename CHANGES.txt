@@ -1,13 +1,13 @@
-Version Next
+Version 1.1.8 Released February 12, 2020
 
     - Added SearchStream.fetch()
 
-Version 1.1.7 Released January 14 2020
+Version 1.1.7 Released January 14, 2020
 
     - Added SearchStream.findSingle()
     - Added QueryStream.Builder.currentQuery()
 
-Version 1.1.6 Released June 19 2019
+Version 1.1.6 Released June 19, 2019
 
     - Allow Query-level info (hints, params, etc.) on subqueries to propagate up
 
