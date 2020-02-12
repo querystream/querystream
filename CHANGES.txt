@@ -1,3 +1,7 @@
+Version Next
+
+    - Added SearchStream.fetch()
+
 Version 1.1.7 Released January 14 2020
 
     - Added SearchStream.findSingle()

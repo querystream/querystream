@@ -21,11 +21,13 @@ import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.Subquery;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -197,6 +199,26 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     @Override
     public <R> ExprStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (ExprStream<X, S>)super.addRoot(ref, type);
+    }
+
+    @Override
+    public ExprStream<X, S> fetch(SingularAttribute<? super X, ?> attribute) {
+        return (ExprStream<X, S>)super.fetch(attribute);
+    }
+
+    @Override
+    public ExprStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType) {
+        return (ExprStream<X, S>)super.fetch(attribute, joinType);
+    }
+
+    @Override
+    public ExprStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute) {
+        return (ExprStream<X, S>)super.fetch(attribute);
+    }
+
+    @Override
+    public ExprStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType) {
+        return (ExprStream<X, S>)super.fetch(attribute, joinType);
     }
 
 // Narrowing overrides (QueryStreamImpl)

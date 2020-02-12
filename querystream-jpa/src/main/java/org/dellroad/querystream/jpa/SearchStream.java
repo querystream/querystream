@@ -850,6 +850,62 @@ public interface SearchStream<X, S extends Selection<X>>
           new QueryInfo());
     }
 
+// Fetches
+
+    /**
+     * Add a singular fetch join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #fetch(SingularAttribute, JoinType) fetch(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified inner fetch join
+     * @throws IllegalArgumentException if {@link attribute} is null
+     */
+    SearchStream<X, S> fetch(SingularAttribute<? super X, ?> attribute);
+
+    /**
+     * Add a singular fetch join to this stream.
+     *
+     * <p>
+     * Unlike {@link #join(SingularAttribute) join()}, this method does not change the stream's content type.
+     * In other words, this method is used simply to pre-fetch an association, to avoid having to fetch it again
+     * later for each individual element in the stream.
+     *
+     * @param attribute associated property
+     * @param joinType join type
+     * @return a new stream with specified fetch join
+     * @throws IllegalArgumentException if either parameter is null
+     */
+    SearchStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType);
+
+    /**
+     * Add a plural fetch join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #fetch(PluralAttribute, JoinType) fetch(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified inner fetch join
+     * @throws IllegalArgumentException if {@link attribute} is null
+     */
+    SearchStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute);
+
+    /**
+     * Add a plural fetch join to this stream.
+     *
+     * <p>
+     * Unlike {@link #join(PluralAttribute) join()}, this method does not change the stream's content type.
+     * In other words, this method is used simply to pre-fetch an association, to avoid having to fetch it again
+     * later for each individual element in the stream.
+     *
+     * @param attribute associated property
+     * @param joinType join type
+     * @return a new stream with specified fetch join
+     * @throws IllegalArgumentException if either parameter is null
+     */
+    SearchStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType);
+
 // Narrowing overrides (QueryStream)
 
     @Override

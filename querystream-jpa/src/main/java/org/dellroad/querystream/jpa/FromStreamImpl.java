@@ -21,9 +21,11 @@ import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -95,6 +97,11 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     FromStream<X, S> create(EntityManager entityManager, SearchType<X> queryType,
       QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer, QueryInfo queryInfo) {
         return new FromStreamImpl<>(entityManager, queryType, configurer, queryInfo);
+    }
+
+    @Override
+    FromStream<X, S> withConfig(QueryConfigurer<AbstractQuery<?>, X, ? extends S> configurer) {
+        return (FromStream<X, S>)super.withConfig(configurer);
     }
 
     @Override
@@ -213,6 +220,45 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     @Override
     public <R> FromStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (FromStream<X, S>)super.addRoot(ref, type);
+    }
+
+// Fetches
+
+    @Override
+    public FromStream<X, S> fetch(SingularAttribute<? super X, ?> attribute) {
+        return this.fetch(attribute, JoinType.INNER);
+    }
+
+    @Override
+    public FromStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        if (joinType == null)
+            throw new IllegalArgumentException("null joinType");
+        return this.withConfig((builder, query) -> {
+            final S selection = this.configure(builder, query);
+            selection.fetch(attribute, joinType);
+            return selection;
+        });
+    }
+
+    @Override
+    public FromStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute) {
+        return this.fetch(attribute, JoinType.INNER);
+    }
+
+    @Override
+    public FromStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        if (joinType == null)
+            throw new IllegalArgumentException("null joinType");
+        QueryStreamImpl.checkOffsetLimit(this, "plural fetch()");
+        return this.withConfig((builder, query) -> {
+            final S selection = this.configure(builder, query);
+            selection.fetch(attribute, joinType);
+            return selection;
+        });
     }
 
 // Narrowing overrides (QueryStreamImpl)

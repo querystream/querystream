@@ -18,10 +18,12 @@ import javax.persistence.LockModeType;
 import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -102,6 +104,18 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
 
     @Override
     PathValue<X, S> findSingle();
+
+    @Override
+    PathStream<X, S> fetch(SingularAttribute<? super X, ?> attribute);
+
+    @Override
+    PathStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType);
+
+    @Override
+    PathStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute);
+
+    @Override
+    PathStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType);
 
 // Narrowing overrides (QueryStream)
 

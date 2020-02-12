@@ -20,9 +20,11 @@ import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -177,6 +179,26 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     @Override
     public <R> RootStream<X> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (RootStream<X>)super.addRoot(ref, type);
+    }
+
+    @Override
+    public RootStream<X> fetch(SingularAttribute<? super X, ?> attribute) {
+        return (RootStream<X>)super.fetch(attribute);
+    }
+
+    @Override
+    public RootStream<X> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType) {
+        return (RootStream<X>)super.fetch(attribute, joinType);
+    }
+
+    @Override
+    public RootStream<X> fetch(PluralAttribute<? super X, ?, ?> attribute) {
+        return (RootStream<X>)super.fetch(attribute);
+    }
+
+    @Override
+    public RootStream<X> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType) {
+        return (RootStream<X>)super.fetch(attribute, joinType);
     }
 
 // Narrowing overrides (QueryStreamImpl)

@@ -19,9 +19,11 @@ import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -98,6 +100,18 @@ public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
 
     @Override
     FromValue<X, S> findSingle();
+
+    @Override
+    FromStream<X, S> fetch(SingularAttribute<? super X, ?> attribute);
+
+    @Override
+    FromStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType);
+
+    @Override
+    FromStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute);
+
+    @Override
+    FromStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType);
 
 // Narrowing overrides (QueryStream)
 

@@ -18,9 +18,11 @@ import javax.persistence.LockModeType;
 import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -152,4 +154,16 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
 
     @Override
     RootStream<X> withFetchGraph(String name);
+
+    @Override
+    RootStream<X> fetch(SingularAttribute<? super X, ?> attribute);
+
+    @Override
+    RootStream<X> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType);
+
+    @Override
+    RootStream<X> fetch(PluralAttribute<? super X, ?, ?> attribute);
+
+    @Override
+    RootStream<X> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType);
 }

@@ -18,11 +18,13 @@ import javax.persistence.LockModeType;
 import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.Subquery;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -137,6 +139,18 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
 
     @Override
     ExprValue<X, S> findSingle();
+
+    @Override
+    ExprStream<X, S> fetch(SingularAttribute<? super X, ?> attribute);
+
+    @Override
+    ExprStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType);
+
+    @Override
+    ExprStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute);
+
+    @Override
+    ExprStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType);
 
 // Narrowing overrides (QueryStream)
 

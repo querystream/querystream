@@ -26,10 +26,12 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -329,6 +331,36 @@ class SearchStreamImpl<X, S extends Selection<X>>
             ref.bind(query.from(type));
             return selection;
         });
+    }
+
+// Fetches
+
+    @Override
+    public SearchStream<X, S> fetch(SingularAttribute<? super X, ?> attribute) {
+        return this.fetch(attribute, JoinType.INNER);
+    }
+
+    @Override
+    public SearchStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        if (joinType == null)
+            throw new IllegalArgumentException("null joinType");
+        throw new UnsupportedOperationException();      // this should never happen if "attribute" is really valid
+    }
+
+    @Override
+    public SearchStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute) {
+        return this.fetch(attribute, JoinType.INNER);
+    }
+
+    @Override
+    public SearchStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType) {
+        if (attribute == null)
+            throw new IllegalArgumentException("null attribute");
+        if (joinType == null)
+            throw new IllegalArgumentException("null joinType");
+        throw new UnsupportedOperationException();      // this should never happen if "attribute" is really valid
     }
 
 // Narrowing overrides (QueryStreamImpl)

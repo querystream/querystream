@@ -20,10 +20,12 @@ import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -167,6 +169,26 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     @Override
     public <R> PathStream<X, S> addRoot(Ref<R, ? super Root<R>> ref, Class<R> type) {
         return (PathStream<X, S>)super.addRoot(ref, type);
+    }
+
+    @Override
+    public PathStream<X, S> fetch(SingularAttribute<? super X, ?> attribute) {
+        return (PathStream<X, S>)super.fetch(attribute);
+    }
+
+    @Override
+    public PathStream<X, S> fetch(SingularAttribute<? super X, ?> attribute, JoinType joinType) {
+        return (PathStream<X, S>)super.fetch(attribute, joinType);
+    }
+
+    @Override
+    public PathStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute) {
+        return (PathStream<X, S>)super.fetch(attribute);
+    }
+
+    @Override
+    public PathStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute, JoinType joinType) {
+        return (PathStream<X, S>)super.fetch(attribute, joinType);
     }
 
 // Narrowing overrides (QueryStreamImpl)
