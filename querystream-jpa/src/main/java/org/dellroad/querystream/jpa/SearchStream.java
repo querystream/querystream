@@ -860,7 +860,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @return a new stream with specified inner fetch join
-     * @throws IllegalArgumentException if {@link attribute} is null
+     * @throws IllegalArgumentException if {@code attribute} is null
      */
     SearchStream<X, S> fetch(SingularAttribute<? super X, ?> attribute);
 
@@ -887,7 +887,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @return a new stream with specified inner fetch join
-     * @throws IllegalArgumentException if {@link attribute} is null
+     * @throws IllegalArgumentException if {@code attribute} is null
      */
     SearchStream<X, S> fetch(PluralAttribute<? super X, ?, ?> attribute);
 
@@ -895,7 +895,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Add a plural fetch join to this stream.
      *
      * <p>
-     * Unlike {@link #join(PluralAttribute) join()}, this method does not change the stream's content type.
+     * Unlike {@link #join(SingularAttribute) join()}, this method does not change the stream's content type.
      * In other words, this method is used simply to pre-fetch an association, to avoid having to fetch it again
      * later for each individual element in the stream.
      *
