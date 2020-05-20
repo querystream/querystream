@@ -22,6 +22,7 @@ import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CommonAbstractCriteria;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.From;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.MapJoin;
@@ -402,6 +403,8 @@ public interface QueryStream<X,
      *  <li>{@link #substream(ListJoin)} - Create a correlated subquery {@link SearchStream} from a {@link ListJoin}.</li>
      *  <li>{@link #substream(CollectionJoin)}
      *      - Create a correlated subquery {@link SearchStream} from a {@link CollectionJoin}.</li>
+     *  <li>{@link #substream(From)}
+     *      - Create a correlated subquery {@link SearchStream} from a {@link From} when a more specific type is unknown.</li>
      * </ul>
      *
      * <p>
@@ -482,6 +485,40 @@ public interface QueryStream<X,
                 throw new IllegalArgumentException("null root");
             return new RootStreamImpl<>(this.entityManager, new SearchType<X>((Class<X>)root.getJavaType()),
               (builder, query) -> QueryStreamImpl.getCurrentQuery().getSubquery().correlate(root), new QueryInfo());
+        }
+
+        /**
+         * Create a {@link SearchStream} for use as a subquery, using the specified {@link From}.
+         *
+         * <p>
+         * This method inspects the type of {@code from} and then delegates to the {@code substream()} variant
+         * corresponding to whether {@code from} is really a {@link Root}, {@link SetJoin}, {@link MapJoin}, etc.
+         * You can use this method when you don't have more specific type information about {@code from}.
+         *
+         * @param from correlated join object for subquery
+         * @param <X> source type
+         * @param <Y> target type
+         * @return new subquery search stream
+         * @throws IllegalArgumentException if {@code join} is null
+         * @see #substream(Root)
+         */
+        @SuppressWarnings("unchecked")
+        public <X, Y> FromStream<Y, ? extends From<X, Y>> substream(From<X, Y> from) {
+            if (from == null)
+                throw new IllegalArgumentException("null join");
+            if (from instanceof Root)
+                return (FromStream<Y, ? extends From<X, Y>>)this.substream((Root<Y>)from);
+            if (from instanceof SetJoin)
+                return this.substream((SetJoin<X, Y>)from);
+            if (from instanceof ListJoin)
+                return this.substream((ListJoin<X, Y>)from);
+            if (from instanceof MapJoin)
+                return this.substream((MapJoin<X, ?, Y>)from);
+            if (from instanceof CollectionJoin)
+                return this.substream((CollectionJoin<X, Y>)from);
+            if (from instanceof Join)
+                return this.substream((Join<X, Y>)from);
+            throw new UnsupportedOperationException("substream() from " + from.getClass().getName());
         }
 
         /**
