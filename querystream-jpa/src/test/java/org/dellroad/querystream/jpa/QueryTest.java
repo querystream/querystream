@@ -429,7 +429,7 @@ public class QueryTest extends TestSupport {
     @AfterClass
     public void shutdown() throws Exception {
         this.log.info("SHUTDOWN: closing application context");
-        this.context.destroy();
+        this.context.close();
         this.context = null;
     }
 
