@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -61,7 +60,7 @@ public interface LongValue extends ExprValue<Long, Expression<Long>>, LongStream
     LongValue withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    LongValue withParams(Set<ParamBinding<?>> params);
+    LongValue withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     LongValue withLoadGraph(String name);

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -165,7 +164,7 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
     PathStream<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    PathStream<X, S> withParams(Set<ParamBinding<?>> params);
+    PathStream<X, S> withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     PathStream<X, S> withLoadGraph(String name);

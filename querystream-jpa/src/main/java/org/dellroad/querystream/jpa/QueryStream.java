@@ -243,7 +243,7 @@ public interface QueryStream<X,
      * @throws IllegalArgumentException if {@code params} contains duplicate bindings for the same parameter
      * @see Query#setParameter(javax.persistence.Parameter, Object)
      */
-    QueryStream<X, S, C, C2, Q> withParams(Set<ParamBinding<?>> params);
+    QueryStream<X, S, C, C2, Q> withParams(Iterable<? extends ParamBinding<?>> params);
 
     /**
      * Configure a load graph for this query.

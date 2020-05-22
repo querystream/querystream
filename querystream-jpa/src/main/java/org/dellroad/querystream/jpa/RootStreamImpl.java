@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -275,7 +274,7 @@ class RootStreamImpl<X> extends FromStreamImpl<X, Root<X>> implements RootStream
     }
 
     @Override
-    public RootStream<X> withParams(Set<ParamBinding<?>> params) {
+    public RootStream<X> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (RootStream<X>)super.withParams(params);
     }
 

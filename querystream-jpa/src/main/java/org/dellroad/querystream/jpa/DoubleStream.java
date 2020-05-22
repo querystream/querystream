@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -130,7 +129,7 @@ public interface DoubleStream extends ExprStream<Double, Expression<Double>> {
     DoubleStream withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    DoubleStream withParams(Set<ParamBinding<?>> params);
+    DoubleStream withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     DoubleStream withLoadGraph(String name);

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -335,7 +334,7 @@ class FromStreamImpl<X, S extends From<?, X>> extends PathStreamImpl<X, S> imple
     }
 
     @Override
-    public FromStream<X, S> withParams(Set<ParamBinding<?>> params) {
+    public FromStream<X, S> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (FromStream<X, S>)super.withParams(params);
     }
 

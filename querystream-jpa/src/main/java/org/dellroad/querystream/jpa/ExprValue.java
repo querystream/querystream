@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -131,7 +130,7 @@ public interface ExprValue<X, S extends Expression<X>> extends SearchValue<X, S>
     ExprValue<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    ExprValue<X, S> withParams(Set<ParamBinding<?>> params);
+    ExprValue<X, S> withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     ExprValue<X, S> withLoadGraph(String name);

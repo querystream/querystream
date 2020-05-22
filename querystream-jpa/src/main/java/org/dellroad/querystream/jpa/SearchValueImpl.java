@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -105,7 +104,7 @@ class SearchValueImpl<X, S extends Selection<X>> extends SearchStreamImpl<X, S> 
     }
 
     @Override
-    public SearchValue<X, S> withParams(Set<ParamBinding<?>> params) {
+    public SearchValue<X, S> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (SearchValue<X, S>)super.withParams(params);
     }
 

@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -65,7 +64,7 @@ public interface RootValue<X> extends FromValue<X, Root<X>>, RootStream<X> {
     RootValue<X> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    RootValue<X> withParams(Set<ParamBinding<?>> params);
+    RootValue<X> withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     RootValue<X> withLoadGraph(String name);

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -295,7 +294,7 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
     }
 
     @Override
-    public ExprStream<X, S> withParams(Set<ParamBinding<?>> params) {
+    public ExprStream<X, S> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (ExprStream<X, S>)super.withParams(params);
     }
 

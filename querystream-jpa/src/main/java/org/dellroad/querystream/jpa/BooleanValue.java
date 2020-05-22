@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -63,7 +62,7 @@ public interface BooleanValue extends ExprValue<Boolean, Expression<Boolean>> {
     BooleanValue withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    BooleanValue withParams(Set<ParamBinding<?>> params);
+    BooleanValue withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     BooleanValue withLoadGraph(String name);

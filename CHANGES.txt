@@ -1,3 +1,7 @@
+Version Next
+
+    - Widened type of parameter to QueryStream.withParams()
+
 Version 1.1.9 Released May 20, 2020
 
     - Added QueryStream.Builder.substream(From)

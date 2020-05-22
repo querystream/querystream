@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -200,7 +199,7 @@ public interface ExprStream<X, S extends Expression<X>> extends SearchStream<X, 
     ExprStream<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    ExprStream<X, S> withParams(Set<ParamBinding<?>> params);
+    ExprStream<X, S> withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     ExprStream<X, S> withLoadGraph(String name);

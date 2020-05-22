@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -106,7 +105,7 @@ class RootValueImpl<X> extends RootStreamImpl<X> implements RootValue<X> {
     }
 
     @Override
-    public RootValue<X> withParams(Set<ParamBinding<?>> params) {
+    public RootValue<X> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (RootValue<X>)super.withParams(params);
     }
 

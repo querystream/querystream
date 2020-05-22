@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -233,7 +232,7 @@ class DoubleStreamImpl extends ExprStreamImpl<Double, Expression<Double>> implem
     }
 
     @Override
-    public DoubleStream withParams(Set<ParamBinding<?>> params) {
+    public DoubleStream withParams(Iterable<? extends ParamBinding<?>> params) {
         return (DoubleStream)super.withParams(params);
     }
 

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -136,7 +135,7 @@ public interface IntStream extends ExprStream<Integer, Expression<Integer>> {
     IntStream withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    IntStream withParams(Set<ParamBinding<?>> params);
+    IntStream withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     IntStream withLoadGraph(String name);

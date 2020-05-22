@@ -206,9 +206,12 @@ class QueryInfo {
     public QueryInfo withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType) {
         return this.withParams(Collections.singleton(new CalendarParamBinding(parameter, value, temporalType)));
     }
-    public QueryInfo withParams(Set<ParamBinding<?>> moreParams) {
-        if (moreParams == null)
+    public QueryInfo withParams(Iterable<? extends ParamBinding<?>> moreParams0) {
+        if (moreParams0 == null)
             throw new IllegalArgumentException("null params");
+        final HashSet<ParamBinding<?>> moreParams = new HashSet<>();
+        for (ParamBinding<?> param : moreParams0)
+            moreParams.add(param);
         if (moreParams.stream().map(ParamBinding::getParameter).collect(Collectors.toSet()).size() < moreParams.size())
             throw new IllegalArgumentException("duplicated parameter");
         final HashMap<Parameter<?>, ParamBinding<?>> newParams

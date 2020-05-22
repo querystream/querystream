@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -134,7 +133,7 @@ public interface LongStream extends ExprStream<Long, Expression<Long>> {
     LongStream withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    LongStream withParams(Set<ParamBinding<?>> params);
+    LongStream withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     LongStream withLoadGraph(String name);

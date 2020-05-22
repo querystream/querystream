@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -61,7 +60,7 @@ public interface IntValue extends ExprValue<Integer, Expression<Integer>>, IntSt
     IntValue withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    IntValue withParams(Set<ParamBinding<?>> params);
+    IntValue withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     IntValue withLoadGraph(String name);

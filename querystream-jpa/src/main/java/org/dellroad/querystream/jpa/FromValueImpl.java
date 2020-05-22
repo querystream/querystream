@@ -8,7 +8,6 @@ package org.dellroad.querystream.jpa;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -106,7 +105,7 @@ class FromValueImpl<X, S extends From<?, X>> extends FromStreamImpl<X, S> implem
     }
 
     @Override
-    public FromValue<X, S> withParams(Set<ParamBinding<?>> params) {
+    public FromValue<X, S> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (FromValue<X, S>)super.withParams(params);
     }
 

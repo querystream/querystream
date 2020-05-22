@@ -248,7 +248,7 @@ abstract class QueryStreamImpl<X,
     }
 
     @Override
-    public QueryStream<X, S, C, C2, Q> withParams(Set<ParamBinding<?>> params) {
+    public QueryStream<X, S, C, C2, Q> withParams(Iterable<? extends ParamBinding<?>> params) {
         return this.withQueryInfo(this.queryInfo.withParams(params));
     }
 

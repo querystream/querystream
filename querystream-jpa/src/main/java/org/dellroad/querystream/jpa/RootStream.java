@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -147,7 +146,7 @@ public interface RootStream<X> extends FromStream<X, Root<X>> {
     RootStream<X> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    RootStream<X> withParams(Set<ParamBinding<?>> params);
+    RootStream<X> withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     RootStream<X> withLoadGraph(String name);

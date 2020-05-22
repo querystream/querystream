@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -954,7 +953,7 @@ public interface SearchStream<X, S extends Selection<X>>
     SearchStream<X, S> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
     @Override
-    SearchStream<X, S> withParams(Set<ParamBinding<?>> params);
+    SearchStream<X, S> withParams(Iterable<? extends ParamBinding<?>> params);
 
     @Override
     SearchStream<X, S> withLoadGraph(String name);

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -265,7 +264,7 @@ class PathStreamImpl<X, S extends Path<X>> extends ExprStreamImpl<X, S> implemen
     }
 
     @Override
-    public PathStream<X, S> withParams(Set<ParamBinding<?>> params) {
+    public PathStream<X, S> withParams(Iterable<? extends ParamBinding<?>> params) {
         return (PathStream<X, S>)super.withParams(params);
     }
 
