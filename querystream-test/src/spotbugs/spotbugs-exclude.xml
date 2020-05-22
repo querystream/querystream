@@ -11,4 +11,12 @@
         <Class name="org.dellroad.querystream.jpa.test.Employee_"/>
         <Bug pattern="UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.querystream.jpa.test.Employee"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.querystream.jpa.test.Employee"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>

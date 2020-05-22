@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
@@ -362,6 +364,26 @@ public class QueryTest extends TestSupport {
           .filter(e -> qb.equal(e.get(Employee_.name), nameParam2))
           .withParam(nameParam2, "Fred")                                    // set parameter to "Fred" in outer query
           .toQuery();
+    }
+
+    @Test
+    public void testSubqueryWithParamBindings() throws Exception {
+        final Date minDate = new Date(1500000000L);
+        final Date maxDate = new Date(1400000000L);
+        final ParameterExpression<Date> minDateParam = this.qb.parameter(Date.class, "minDate");
+        final ParameterExpression<Date> maxDateParam = this.qb.parameter(Date.class, "maxDate");
+        final ParameterExpression<Date> extraParam = this.qb.parameter(Date.class, "extra");
+        final DateParamBinding minDateParamBinding = new DateParamBinding(minDateParam, minDate, TemporalType.TIMESTAMP);
+        final DateParamBinding maxDateParamBinding = new DateParamBinding(maxDateParam, maxDate, TemporalType.TIMESTAMP);
+        final DateParamBinding extraParamBinding = new DateParamBinding(extraParam, new Date(0), TemporalType.TIMESTAMP);
+        this.qb.stream(Employee.class)
+          .filter(e -> this.qb.substream(e)
+                        .flatMap(Employee_.directReports)
+                        .filter(e2 -> this.qb.between(e2.get(Employee_.startDate), minDateParam, maxDateParam))
+                        .exists())
+        //.withParams(Arrays.asList(minDateParamBinding, maxDateParamBinding, extraParamBinding))     // causes NPE in Hibernate
+          .withParams(Arrays.asList(minDateParamBinding, maxDateParamBinding))
+          .getResultStream();
     }
 
 // TestCase

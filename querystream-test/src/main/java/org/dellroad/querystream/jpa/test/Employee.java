@@ -5,18 +5,22 @@
 
 package org.dellroad.querystream.jpa.test;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Employee extends AbstractPersistent {
 
     private String name;
     private float salary;
+    private Date startDate;
     private Department department;
     private Employee manager;
     private Set<Employee> directReports = new HashSet<>();
@@ -33,6 +37,14 @@ public class Employee extends AbstractPersistent {
     }
     public void setSalary(float salary) {
         this.salary = salary;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getStartDate() {
+        return this.startDate;
+    }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     @ManyToOne
@@ -64,6 +76,7 @@ public class Employee extends AbstractPersistent {
         return this.getClass().getSimpleName()
           + "[name=" + (this.name != null ? "\"" + this.name + "\"" : null)
           + ",salary=" + this.salary
+          + ",startDate=" + this.startDate
           + ",department=" + this.department
           + ",manager=" + this.manager
           + ",directReports=" + this.directReports
