@@ -239,7 +239,7 @@ public interface QueryStream<X,
      *
      * @param params bindings to add
      * @return new stream with the specified parameter bindings added
-     * @throws IllegalArgumentException if {@code params} is null
+     * @throws IllegalArgumentException if {@code params} or any contained element is null
      * @throws IllegalArgumentException if {@code params} contains duplicate bindings for the same parameter
      * @see Query#setParameter(javax.persistence.Parameter, Object)
      */
@@ -378,23 +378,24 @@ public interface QueryStream<X,
     }
 
     /**
-     * Builder for {@link QueryStream} and related classes.
+     * Builder for {@link QueryStream}s, {@link DeleteStream}s, and {@link UpdateStream}s.
      *
      * <p>
-     * Instances are created via {@link QueryStream#newBuilder QueryStream.newBuilder()}.
+     * New instances of this class are created via {@link QueryStream#newBuilder QueryStream.newBuilder()}.
      *
      * <p>
      * For convenience, this class also implements {@link CriteriaBuilder}.
-     * The primary methods in this class (i.e., not inherited from {@link CriteriaBuilder}) are:
+     *
+     * <p>
+     * The primary stream creation methods are:
      * <ul>
      *  <li>{@link #stream stream()} - Create a {@link SearchStream} for search queries.</li>
      *  <li>{@link #deleteStream deleteStream()} - Create a {@link DeleteStream} for bulk delete queries.</li>
      *  <li>{@link #updateStream updateStream()} - Create a {@link UpdateStream} for bulk update queries.</li>
-     *  <li>{@link #getEntityManager} - Get the {@link EntityManager} associated with this instance.</li>
      * </ul>
      *
      * <p>
-     * In addition, the following methods create {@link SearchStream}s for use in correlated subqueries:
+     * The following methods create {@link SearchStream}s for use in correlated subqueries:
      * <ul>
      *  <li>{@link #substream(Root)} - Create a correlated subquery {@link SearchStream} from a {@link Root}.</li>
      *  <li>{@link #substream(Join)} - Create a correlated subquery {@link SearchStream} from a {@link Join}.</li>
@@ -404,11 +405,19 @@ public interface QueryStream<X,
      *  <li>{@link #substream(CollectionJoin)}
      *      - Create a correlated subquery {@link SearchStream} from a {@link CollectionJoin}.</li>
      *  <li>{@link #substream(From)}
-     *      - Create a correlated subquery {@link SearchStream} from a {@link From} when a more specific type is unknown.</li>
+     *      - Create a correlated subquery {@link SearchStream} from any {@link From} when a more specific type is unknown.</li>
      * </ul>
      *
      * <p>
-     * See {@link #substream(Root) substream()} for an example of using substreams.
+     * See {@link #substream(Root)} for an example of using substreams.
+     *
+     * <p>
+     * The following methods provide "convenience" access to objects that are not always readily available:
+     * <ul>
+     *  <li>{@link #currentQuery} - Access the current Criteria API query under construction.</li>
+     *  <li>{@link #bindParam bindParam()} - Register a parameter binding with the current {@link Query} under construction.</li>
+     *  <li>{@link #getEntityManager} - Get the {@link EntityManager} associated with this instance.</li>
+     * </ul>
      */
     final class Builder extends ForwardingCriteriaBuilder {
 
@@ -637,7 +646,7 @@ public interface QueryStream<X,
         }
 
         /**
-         * Access the current query under construction.
+         * Access the current Criteria API query under construction.
          *
          * <p>
          * This method provides a way to access the current {@link javax.persistence.criteria.CriteriaQuery},
@@ -655,7 +664,7 @@ public interface QueryStream<X,
          *       return qb.exists(subquery);
          *    })
          *    .map(Teacher_.name)
-         *    .getResultList();
+         *    .getResultList();         // note: the query is actually constructed here
          * </pre>
          *
          * <p>
@@ -687,14 +696,79 @@ public interface QueryStream<X,
          * The returned query object should not be modified.
          *
          * @return the current Criteria API query under construction
-         * @throws IllegalStateException if invoked outside of query construction
+         * @throws IllegalStateException if invoked outside of Criteria API query construction
          */
         public CommonAbstractCriteria currentQuery() {
             try {
                 return QueryStreamImpl.getCurrentQuery().getQuery();
             } catch (IllegalStateException e) {
-                throw new IllegalStateException("there is no query currently under construction");
+                throw new IllegalStateException("there is no Criteria API query currently under construction");
             }
+        }
+
+        /**
+         * Register a parameter binding with the current {@link Query} that is under construction.
+         *
+         * <p>
+         * This method addresses an inconvenience in the JPA Criteria API, which is that parameters are (a) used (i.e., within
+         * some Criteria API expression) and (b) bound (i.e., assigned a value) at two separate stages of query construction:
+         * parameters are used in the context of building a Criteria API {@link Predicate}, but the value of the parameter
+         * can only be bound once the overall {@link Query} has been constructed. Often these two steps are implemented
+         * at different places in the code.
+         *
+         * <p>
+         * This method allows the value of the parameter to be bound at the same time it is used. It simply remembers the
+         * parameter value until later when the {@link Query} is created and the value can then be actually assigned.
+         * However, this method only works for {@link Query}s created via QueryStream API query execution methods, e.g.,
+         * {@link QueryStream#toQuery}, {@link SearchStream#getResultList}, {@link DeleteStream#delete}, {@link SearchValue#value},
+         * etc.
+         *
+         * <p>
+         * This example shows how parameters would usually be handled:
+         *
+         * <pre>
+         *  // Create parameter and get parameterized value
+         *  Date startDateCutoff = ...;
+         *  Parameter&lt;Date&gt; startDateParam = qb.parameter(Date.class);
+         *
+         *  // Build Query
+         *  Query query = qb.stream(Employee.class)
+         *    .filter(e -&gt; qb.greaterThan(e.get(Employee_.startDate), startDateParam))   // parameter used here
+         *    .map(Employee_.name)
+         *    .toQuery();
+         *
+         *  // Bind parameter value
+         *  query.setParameter(paramRef.get(), startDateCutoff, TemporalType.DATE);      // parameter bound here
+         *
+         *  // Execute query
+         *  return query.getResultStream();
+         * </pre>
+         *
+         * This example, which is functionally equivalent to the above, shows how {@link #bindParam bindParam()} allows
+         * performing all of the parameter handling in one place:
+         *
+         * <pre>
+         *  return qb.stream(Employee.class)
+         *    .filter(e -&gt; {
+         *       Date startDateCutoff = ...;
+         *       Parameter&lt;Date&gt; startDateParam = qb.parameter(Date.class);
+         *       qb.bindParam(new DateParamBinding(startDateParam, startDateCutoff, TemporalType.DATE));
+         *       return qb.greaterThan(e.get(Employee_.startDate), param);
+         *    })
+         *    .map(Employee_.name)
+         *    .getResultStream();               // note: the Query is actually constructed here
+         * </pre>
+         *
+         * <p>
+         * If this method is invoked outside of the context of {@link Query} construction,
+         * an {@link IllegalStateException} is thrown.
+         *
+         * @param binding parameter binding
+         * @throws IllegalStateException if invoked outside of {@link QueryStream#toQuery} or other query execution method
+         * @throws IllegalArgumentException if {@code binding} is null
+         */
+        public void bindParam(ParamBinding<?> binding) {
+            QueryStreamImpl.bindParam(binding, true);
         }
     }
 }

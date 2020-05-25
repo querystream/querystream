@@ -50,8 +50,8 @@ abstract class QueryStreamImpl<X,
   Q extends Query,
   QT extends QueryType<X, C, C2, Q>> implements QueryStream<X, S, C, C2, Q> {
 
-    private static final ThreadLocal<QueryInfo> THREAD_QUERY_INFO = new ThreadLocal<>();
-    private static final ThreadLocal<CurrentQuery> THREAD_CURRENT_QUERY = new ThreadLocal<>();
+    private static final ThreadLocal<QueryInfo> THREAD_QUERY_INFO = new ThreadLocal<>();        // current Query info
+    private static final ThreadLocal<CurrentQuery> THREAD_CURRENT_QUERY = new ThreadLocal<>();  // current CriteriaQuery info
 
     private static final String LOAD_GRAPH_HINT = "javax.persistence.loadgraph";
     private static final String FETCH_GRAPH_HINT = "javax.persistence.fetchgraph";
@@ -364,12 +364,19 @@ abstract class QueryStreamImpl<X,
 // QueryInfo Merging
 
     // Merge the QueryInfo information from a subquery into the "global" QueryInfo we will use for the outermost query
-    static void mergeQueryInfo(QueryInfo innerQueryInfo) {
+    static void mergeQueryInfo(QueryInfo innerQueryInfo, boolean requireQuery) {
         if (innerQueryInfo == null)
             throw new IllegalArgumentException("null innerQueryInfo");
         final QueryInfo outerQueryInfo = THREAD_QUERY_INFO.get();
         if (outerQueryInfo != null)
             THREAD_QUERY_INFO.set(outerQueryInfo.withMergedInfo(innerQueryInfo));
+        else if (requireQuery)
+            throw new IllegalStateException("there is no Query currently under construction");
+    }
+
+    // Merge the given parameter binding into the "global" QueryInfo we will use for the outermost query
+    static void bindParam(ParamBinding<?> binding, boolean requireQuery) {
+        QueryStreamImpl.mergeQueryInfo(new QueryInfo().withParam(binding), requireQuery);
     }
 
 // CurrentQuery

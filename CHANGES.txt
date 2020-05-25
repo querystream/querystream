@@ -1,6 +1,7 @@
 Version Next
 
     - Widened type of parameter to QueryStream.withParams()
+    - Added QueryStream.Builder.bindParam()
     - Updated several dependencies
 
 Version 1.1.9 Released May 20, 2020

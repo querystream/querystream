@@ -49,7 +49,7 @@ class ExprStreamImpl<X, S extends Expression<X>> extends SearchStreamImpl<X, S> 
         final Subquery<X> subquery = outer.getQuery().subquery(this.queryType.getType());
         final Subquery<X> subquery2 = subquery.select(QueryStreamImpl.withCurrentQuery(builder, subquery,
           () -> this.configurer.configure(builder, subquery)));
-        QueryStreamImpl.mergeQueryInfo(this.queryInfo);         // propagage any parameters, etc., up to the outer query
+        QueryStreamImpl.mergeQueryInfo(this.queryInfo, false);  // propagage any parameters, etc., up to the outer query
         return subquery2;
     }
 

@@ -386,6 +386,37 @@ public class QueryTest extends TestSupport {
           .getResultStream();
     }
 
+    @Test
+    public void testBuilderBindParam() throws Exception {
+        this.qb.stream(Employee.class)
+          .filter(e -> {
+            final Date minDate = new Date(1500000000L);
+            final ParameterExpression<Date> minDateParam = this.qb.parameter(Date.class, "minDate");
+            final DateParamBinding minDateParamBinding = new DateParamBinding(minDateParam, minDate, TemporalType.TIMESTAMP);
+            qb.bindParam(minDateParamBinding);
+            return this.qb.greaterThan(e.get(Employee_.startDate), minDateParam);
+          })
+          .getResultStream();
+    }
+
+    @Test
+    public void testBuilderBindParam2() throws Exception {
+        try {
+            this.qb.stream(Employee.class)
+              .filter(e -> {
+                final Date minDate = new Date(1500000000L);
+                final ParameterExpression<Date> minDateParam = this.qb.parameter(Date.class, "minDate");
+                final DateParamBinding minDateParamBinding = new DateParamBinding(minDateParam, minDate, TemporalType.TIMESTAMP);
+                qb.bindParam(minDateParamBinding);
+                return this.qb.greaterThan(e.get(Employee_.startDate), minDateParam);
+              })
+              .toCriteriaQuery();
+            assert false : "expected exception";
+        } catch (IllegalStateException e) {
+            this.log.debug("got expected " + e);
+        }
+    }
+
 // TestCase
 
     public static class TestCase {
