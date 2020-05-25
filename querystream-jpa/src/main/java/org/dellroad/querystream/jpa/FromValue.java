@@ -39,8 +39,6 @@ public interface FromValue<X, S extends From<?, X>> extends PathValue<X, S>, Fro
     default <Y> FromValue<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        if (!attribute.isAssociation())
-            throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");

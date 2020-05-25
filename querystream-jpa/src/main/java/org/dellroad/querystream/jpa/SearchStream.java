@@ -769,8 +769,6 @@ public interface SearchStream<X, S extends Selection<X>>
     default <Y> FromStream<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        if (!attribute.isAssociation())
-            throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
@@ -788,8 +786,6 @@ public interface SearchStream<X, S extends Selection<X>>
     default <E> FromStream<E, CollectionJoin<X, E>> join(CollectionAttribute<? super X, E> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        if (!attribute.isAssociation())
-            throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
@@ -805,8 +801,6 @@ public interface SearchStream<X, S extends Selection<X>>
     default <E> FromStream<E, ListJoin<X, E>> join(ListAttribute<? super X, E> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        if (!attribute.isAssociation())
-            throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
@@ -822,8 +816,6 @@ public interface SearchStream<X, S extends Selection<X>>
     default <E> FromStream<E, SetJoin<X, E>> join(SetAttribute<? super X, E> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        if (!attribute.isAssociation())
-            throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
@@ -839,8 +831,6 @@ public interface SearchStream<X, S extends Selection<X>>
     default <K, V> FromStream<V, MapJoin<X, K, V>> join(MapAttribute<? super X, K, V> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
-        if (!attribute.isAssociation())
-            throw new IllegalArgumentException("attribute is not an association: " + attribute);
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
         QueryStreamImpl.checkOffsetLimit(this, "join()");

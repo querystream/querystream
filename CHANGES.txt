@@ -1,6 +1,7 @@
 Version Next
 
     - Widened type of parameter to QueryStream.withParams()
+    - Added workaround for Hibernate bug JPA-36
     - Added QueryStream.Builder.bindParam()
     - Updated several dependencies
 
