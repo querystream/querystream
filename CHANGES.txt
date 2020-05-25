@@ -1,4 +1,4 @@
-Version Next
+Version 1.2.0 Released May 25, 2020
 
     - Widened type of parameter to QueryStream.withParams()
     - Added workaround for Hibernate bug JPA-36
