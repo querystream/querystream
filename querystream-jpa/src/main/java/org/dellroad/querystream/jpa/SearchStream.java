@@ -544,6 +544,25 @@ public interface SearchStream<X, S extends Selection<X>>
      * Map this stream into a stream whose elements are the result of applying the given function.
      *
      * @param type new item type
+     * @param exprFunction function mapping this stream's {@link Selection} to an {@link Expression}
+     * @param <Z> mapped source type
+     * @param <Y> mapped target type
+     * @return mapped stream
+     */
+    default <Y> ExprStream<Y, Expression<Y>> mapToExpr(Class<Y> type, Function<? super S, ? extends Expression<Y>> exprFunction) {
+        if (type == null)
+            throw new IllegalArgumentException("null type");
+        if (exprFunction == null)
+            throw new IllegalArgumentException("null exprFunction");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToExpr()");
+        return new ExprStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
+          (builder, query) -> exprFunction.apply(this.configure(builder, query)), new QueryInfo());
+    }
+
+    /**
+     * Map this stream into a stream whose elements are the result of applying the given function.
+     *
+     * @param type new item type
      * @param pathFunction function mapping this stream's {@link Selection} to a {@link Path}
      * @param <Y> mapped expresssion type
      * @return mapped stream

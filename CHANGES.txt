@@ -1,3 +1,7 @@
+Version Next
+
+    - Added method SearchStream.mapToExpr()
+
 Version 1.2.0 Released May 25, 2020
 
     - Widened type of parameter to QueryStream.withParams()

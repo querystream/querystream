@@ -52,6 +52,11 @@ public interface ExprValue<X, S extends Expression<X>> extends SearchValue<X, S>
     }
 
     @Override
+    default <Y> ExprValue<Y, Expression<Y>> mapToExpr(Class<Y> type, Function<? super S, ? extends Expression<Y>> exprFunction) {
+        return ((ExprStreamImpl<Y, Expression<Y>>)ExprStream.super.mapToExpr(type, exprFunction)).toValue();
+    }
+
+    @Override
     default <Y> PathValue<Y, Path<Y>> mapToPath(Class<Y> type, Function<? super S, ? extends Path<Y>> pathFunction) {
         return ((PathStreamImpl<Y, Path<Y>>)ExprStream.super.mapToPath(type, pathFunction)).toValue();
     }
