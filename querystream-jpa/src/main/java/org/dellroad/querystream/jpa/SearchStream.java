@@ -544,7 +544,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Map this stream into a stream whose elements are the result of applying the given function.
      *
      * @param type new item type
-     * @param pathFunction function mapping this stream's {@link Expression} to a {@link Path}
+     * @param pathFunction function mapping this stream's {@link Selection} to a {@link Path}
      * @param <Y> mapped expresssion type
      * @return mapped stream
      */
@@ -562,7 +562,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Map this stream into a stream whose elements are the result of applying the given function.
      *
      * @param type new item type
-     * @param fromFunction function mapping this stream's {@link Expression} to a {@link From}
+     * @param fromFunction function mapping this stream's {@link Selection} to a {@link From}
      * @param <Z> mapped source type
      * @param <Y> mapped target type
      * @return mapped stream
