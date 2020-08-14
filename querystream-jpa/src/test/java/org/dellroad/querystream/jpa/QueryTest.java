@@ -23,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
@@ -189,6 +190,24 @@ public class QueryTest extends TestSupport {
         } catch (IllegalArgumentException e) {
             this.log.debug("got expected " + e);
         }
+    }
+
+    @Test
+    @Transactional
+    public void testNestedSubstreams() throws Exception {
+        this.qb.stream(Employee.class)
+          .filter(e -> this.qb.substream(e)
+            .flatMap(Employee_.directReports)
+            .filter(dr -> this.qb.gt(dr.get(Employee_.salary), 50000.0f))
+            .filter(mgr -> this.qb.substream(mgr)
+              .join(Employee_.directReports)
+              .filter(e2 -> this.qb.equal(e2.get(Employee_.name), "Fred"))
+              .exists())
+            .join(Employee_.manager, JoinType.LEFT)
+            .filter(mgr -> this.qb.and())
+            .exists())
+          .getResultStream()
+          .count();
     }
 
     @Test
