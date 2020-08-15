@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,6 +24,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
@@ -199,15 +201,48 @@ public class QueryTest extends TestSupport {
           .filter(e -> this.qb.substream(e)
             .flatMap(Employee_.directReports)
             .filter(dr -> this.qb.gt(dr.get(Employee_.salary), 50000.0f))
-            .filter(mgr -> this.qb.substream(mgr)
+            .filter(dr -> this.qb.substream(dr)
               .join(Employee_.directReports)
-              .filter(e2 -> this.qb.equal(e2.get(Employee_.name), "Fred"))
+              .filter(dr2 -> this.qb.equal(dr2.get(Employee_.name), "Fred"))
               .exists())
             .join(Employee_.manager, JoinType.LEFT)
             .filter(mgr -> this.qb.and())
             .exists())
           .getResultStream()
           .count();
+    }
+
+    @Test
+    @Transactional
+    public void testNestedSubstream2() throws Exception {
+        final Date minDate = new Date(1597500000000L);
+        final Date maxDate = new Date(1597600000000L);
+        final Date cutoff = new Date(1597700000000L);
+        final LocalTime minTime = LocalTime.parse("10:30");
+        final LocalTime maxTime = LocalTime.parse("16:30");
+        this.qb.stream(Employee.class)
+          .filter(e -> qb.substream(e)
+            .flatMap(Employee_.directReports)
+            .filter(dr -> qb.equal(dr.get(Employee_.seniority), Employee.Seniority.SENIOR))
+            .filter(dr -> qb.equal(dr.get(Employee_.name), "foobar"))
+            .filter(dr -> qb.greaterThanOrEqualTo(dr.get(Employee_.startDate), minDate))
+            .filter(dr -> qb.lessThan(dr.get(Employee_.startDate), maxDate))
+            .filter(dr -> qb.greaterThanOrEqualTo(this.timeFunction(dr.get(Employee_.startDate)), minTime.toString()))
+            .filter(dr -> qb.lessThanOrEqualTo(this.timeFunction(dr.get(Employee_.startDate)), maxTime.toString()))
+            .filter(dr -> qb.greaterThanOrEqualTo(dr.get(Employee_.startDate), cutoff))
+            .filter(dr -> this.qb.substream(dr)
+              .join(Employee_.directReports)
+              .filter(dr2 -> this.qb.equal(dr2.get(Employee_.name), "Fred"))
+              .exists())
+            .join(Employee_.manager, JoinType.LEFT)
+            .filter(mgr -> qb.and())
+            .exists())
+          .getResultStream()
+          .count();
+    }
+
+    protected Expression<String> timeFunction(Expression<?> expr) {
+        return this.qb.function("FORMATDATETIME", String.class, expr, this.qb.literal("HH:mm:ss"));
     }
 
     @Test

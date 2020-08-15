@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -20,6 +22,7 @@ public class Employee extends AbstractPersistent {
 
     private String name;
     private float salary;
+    private Seniority seniority;
     private Date startDate;
     private Department department;
     private Employee manager;
@@ -37,6 +40,14 @@ public class Employee extends AbstractPersistent {
     }
     public void setSalary(float salary) {
         this.salary = salary;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public Seniority getSeniority() {
+        return this.seniority;
+    }
+    public void setSeniority(Seniority seniority) {
+        this.seniority = seniority;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -81,5 +92,12 @@ public class Employee extends AbstractPersistent {
           + ",manager=" + this.manager
           + ",directReports=" + this.directReports
           + "]";
+    }
+
+// Seniority
+
+    public enum Seniority {
+        JUNIOR,
+        SENIOR;
     }
 }
