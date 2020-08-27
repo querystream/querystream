@@ -6,13 +6,18 @@
 package org.dellroad.querystream.jpa.test;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,6 +32,7 @@ public class Employee extends AbstractPersistent {
     private Department department;
     private Employee manager;
     private Set<Employee> directReports = new HashSet<>();
+    private Map<String, String> annotations = new HashMap<>();
 
     public String getName() {
         return this.name;
@@ -82,6 +88,16 @@ public class Employee extends AbstractPersistent {
         this.directReports = directReports;
     }
 
+    @ElementCollection
+    @MapKeyColumn(name = "name", length = 180)
+    @Column(name = "value", length = 65535, nullable = false)
+    public Map<String, String> getAnnotations() {
+        return this.annotations;
+    }
+    public void setAnnotations(Map<String, String> annotations) {
+        this.annotations = annotations;
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName()
@@ -91,6 +107,7 @@ public class Employee extends AbstractPersistent {
           + ",department=" + this.department
           + ",manager=" + this.manager
           + ",directReports=" + this.directReports
+          + ",annotations=" + this.annotations
           + "]";
     }
 

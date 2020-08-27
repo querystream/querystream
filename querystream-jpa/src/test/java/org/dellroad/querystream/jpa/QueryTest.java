@@ -241,6 +241,24 @@ public class QueryTest extends TestSupport {
           .count();
     }
 
+    // This one triggers HHH-14197
+    //@Test
+    @Transactional
+    public void testNestedSubstream3() throws Exception {
+        this.qb.stream(Employee.class)
+          .filter(e -> qb.substream(e)
+            .flatMap(Employee_.directReports)
+            .filter(dr -> this.qb.substream(dr)
+              .join(Employee_.annotations)
+              .filter(annotation -> qb.equal(annotation.key(), "foo"))
+              .filter(annotation -> qb.isTrue(
+                qb.function("REGEXP_LIKE", Boolean.class, qb.literal("foo.*bar"), annotation.value())))
+              .exists())
+            .exists())
+          .getResultStream()
+          .count();
+    }
+
     protected Expression<String> timeFunction(Expression<?> expr) {
         return this.qb.function("FORMATDATETIME", String.class, expr, this.qb.literal("HH:mm:ss"));
     }
