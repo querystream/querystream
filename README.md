@@ -106,6 +106,8 @@ Some queries are known to return a single value. The [SearchValue](http://querys
 
 Other similar methods are `min()`, `max()`, `sum()`, and `findFirst()`.
 
+Value queries can be converted to `Optional`s and have several related convenience methods like `orElse()`, `isPresent()`, etc.
+
 ## References
 
 [Ref](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/Ref.html) objects give you a way to refer to items in the stream pipeline at a later step, by `bind()`'ing the reference at an earlier step.
@@ -219,14 +221,19 @@ Use `skip()` and `limit()` to set the row offset and the maximum number of resul
 
 ## `CriteriaQuery` vs `TypedQuery` Operations
 
-Normally with JPA you first configure a `CriteriaQuery`, then use it to create a `TypedQuery`, and then do additional configuration on the `TypedQuery`. You must apply configuration to the appropriate object for that configuration.
+Normally with JPA you first configure a `CriteriaQuery`, then use it to create a `TypedQuery`.
+
+Both the `CriteriaQuery` and the `TypedQuery` have their own configuration.
 
 For example, `where()` is a `CriteriaQuery` method, but `setLockMode()` is a `TypedQuery` method.
 
-`QueryStream` pipelines allow you to configure both the `CriteriaQuery` and the `TypedQuery`, but you should be aware of these caveats:
+So at the end of the day, we must apply configuration to the appropriate object for that configuration.
+
+`QueryStream` pipelines allow you to configure both `CriteriaQuery` and `TypedQuery` information, but you should be aware of these caveats:
 
   * Any `TypedQuery` configuration must come at the end of the pipeline (after any subqueries or joins)
-  * If you invoke `QueryStream.toCriteriaQuery()`, the returned object does not retain any `TypedQuery` configuration (instead, invoke `QueryStream.toQuery()`).
+  * If you invoke `QueryStream.toCriteriaQuery()`, the returned object does not capture any `TypedQuery` configuration
+  * To capture the `TypedQuery` configuration as well, use `QueryStream.toQuery()`.
 
 The `QueryStream` methods that configure the `TypedQuery` are:
 
