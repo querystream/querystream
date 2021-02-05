@@ -167,7 +167,7 @@ To find all employees with salary greater than the average of their manager's di
 Hmmm, that's a lot of nesting. You could make the code clearer by building the subquery separately, and using a reference for the correlation:
 
 ```java
-    public DoubleValue getAvgCoworkerSalary(RootRef<Employee> employee) {
+    public DoubleValue avgCoworkerSalary(RootRef<Employee> employee) {
         return qb.stream(Employee.class)
           .filter(coworker -> qb.equal(coworker.get(Employee_.manager), employee.get().get(Employee_.manager)))
           .mapToDouble(Employee_.salary)
@@ -178,8 +178,7 @@ Hmmm, that's a lot of nesting. You could make the code clearer by building the s
         final RootRef<Employee> employee = new RootRef<>();
         return qb.stream(Employee.class)
           .bind(employee)
-          .filter(employee ->
-            qb.greaterThan(employee.get(Employee_.salary), getAvgCoworkerSalary(employee).asSubquery()))
+          .filter(e -> qb.greaterThan(e.get(Employee_.salary), this.avgCoworkerSalary(employee).asSubquery()))
           .getResultList();
     }
 ```
