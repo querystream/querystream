@@ -1,5 +1,6 @@
 Version Next
 
+    - Added missing bind() overrides to DeleteStream and UpdateStream
     - Added method SearchStream.mapToExpr()
 
 Version 1.2.0 Released May 25, 2020

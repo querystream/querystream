@@ -22,6 +22,7 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.UpdateType;
@@ -138,6 +139,12 @@ class UpdateStreamImpl<X>
     @Override
     public UpdateStream<X> bind(Ref<X, ? super Root<X>> ref) {
         return (UpdateStream<X>)super.bind(ref);
+    }
+
+    @Override
+    public <X2, S2 extends Selection<X2>> UpdateStream<X> bind(
+      Ref<X2, ? super S2> ref, Function<? super Root<X>, ? extends S2> refFunction) {
+        return (UpdateStream<X>)super.bind(ref, refFunction);
     }
 
     @Override

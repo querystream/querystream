@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.DeleteType;
@@ -45,6 +46,10 @@ public interface DeleteStream<X> extends QueryStream<X, Root<X>, CriteriaDelete<
 
     @Override
     DeleteStream<X> bind(Ref<X, ? super Root<X>> ref);
+
+    @Override
+    <X2, S2 extends Selection<X2>> DeleteStream<X> bind(Ref<X2, ? super S2> ref,
+      Function<? super Root<X>, ? extends S2> refFunction);
 
     @Override
     DeleteStream<X> peek(Consumer<? super Root<X>> peeker);
