@@ -56,7 +56,7 @@
         <hibernate.version>5.4.12.Final</hibernate.version>
         <javax.el.version>3.0.1-b11</javax.el.version>
         <javax.persistence.version>2.2</javax.persistence.version>
-        <log4j.version>1.2.17</log4j.version>
+        <log4j.version>2.14.1</log4j.version>
         <mysql.version>6.0.6</mysql.version>
         <slf4j.version>1.7.30</slf4j.version>
         <spotbugs.version>4.0.0</spotbugs.version>
@@ -105,18 +105,9 @@
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-                <optional>true</optional>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
                 <version>${log4j.version}</version>
-                <optional>true</optional>
-                <scope>runtime</scope>
             </dependency>
 
             <!-- JPA -->
