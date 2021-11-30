@@ -545,7 +545,6 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param type new item type
      * @param exprFunction function mapping this stream's {@link Selection} to an {@link Expression}
-     * @param <Z> mapped source type
      * @param <Y> mapped target type
      * @return mapped stream
      */

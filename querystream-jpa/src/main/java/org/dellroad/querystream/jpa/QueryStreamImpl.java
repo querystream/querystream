@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
  * @param <C2> final criteria API query type
  * @param <Q> JPA query type
  * @param <QT> corresponding {@link QueryType} subtype
- * @param <QS> subclass type
  */
 abstract class QueryStreamImpl<X,
   S extends Selection<X>,
