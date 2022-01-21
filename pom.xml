@@ -51,7 +51,7 @@
         <aspectj.version>1.9.5</aspectj.version>
         <dellroad-stuff.version>2.4.10</dellroad-stuff.version>
         <findbugs.version>3.0.2</findbugs.version>
-        <h2.version>2.0.206</h2.version>
+        <h2.version>2.1.210</h2.version>
         <hibernate.validator.version>6.2.0.Final</hibernate.validator.version>
         <!--
             Once ${hibernate.version} is updated to >= 6.0.0.Final, we can remove
