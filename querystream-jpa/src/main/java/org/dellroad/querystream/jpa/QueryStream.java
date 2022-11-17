@@ -26,7 +26,6 @@ import javax.persistence.criteria.From;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.MapJoin;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 import javax.persistence.criteria.SetJoin;
@@ -713,9 +712,9 @@ public interface QueryStream<X,
          * <p>
          * This method addresses an inconvenience in the JPA Criteria API, which is that parameters are (a) used (i.e., within
          * some Criteria API expression) and (b) bound (i.e., assigned a value) at two separate stages of query construction:
-         * parameters are used in the context of building a Criteria API {@link Predicate}, but the value of the parameter
-         * can only be bound once the overall {@link Query} has been constructed. Often these two steps are implemented
-         * at different places in the code.
+         * parameters are used in the context of building a Criteria API {@link javax.persistence.criteria.Predicate}, but the
+         * value of the parameter can only be bound once the overall {@link Query} has been constructed. Often these two steps
+         * are implemented at different places in the code.
          *
          * <p>
          * This method allows the value of the parameter to be bound at the same time it is used. It simply remembers the
