@@ -780,10 +780,31 @@ public interface SearchStream<X, S extends Selection<X>>
 
 // Singluar joins
 
+    /**
+     * Add a singular inner join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #join(SingularAttribute, JoinType) join(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
     default <Y> FromStream<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute) {
         return this.join(attribute, JoinType.INNER);
     }
 
+    /**
+     * Add a singular join to this stream using the specified join type.
+     *
+     * <p>
+     * Equivalent to {@link #join(SingularAttribute, JoinType, Function) join(attribute, JoinType.INNER, join -> null)}.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if either parameter is null
+     */
     default <Y> FromStream<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
@@ -797,10 +818,31 @@ public interface SearchStream<X, S extends Selection<X>>
 
 // Plural Joins
 
+    /**
+     * Add a collection inner join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #join(CollectionAttribute, JoinType) join(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
     default <E> FromStream<E, CollectionJoin<X, E>> join(CollectionAttribute<? super X, E> attribute) {
         return this.join(attribute, JoinType.INNER);
     }
 
+    /**
+     * Add a collection join to this stream using the specified join type.
+     *
+     * <p>
+     * Equivalent to {@link #join(CollectionAttribute, JoinType, Function) join(attribute, JoinType.INNER, join -> null)}.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if either parameter is null
+     */
     default <E> FromStream<E, CollectionJoin<X, E>> join(CollectionAttribute<? super X, E> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
@@ -812,10 +854,31 @@ public interface SearchStream<X, S extends Selection<X>>
           new QueryInfo());
     }
 
+    /**
+     * Add a list inner join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #join(ListAttribute, JoinType) join(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
     default <E> FromStream<E, ListJoin<X, E>> join(ListAttribute<? super X, E> attribute) {
         return this.join(attribute, JoinType.INNER);
     }
 
+    /**
+     * Add a list join to this stream using the specified join type.
+     *
+     * <p>
+     * Equivalent to {@link #join(ListAttribute, JoinType, Function) join(attribute, JoinType.INNER, join -> null)}.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if either parameter is null
+     */
     default <E> FromStream<E, ListJoin<X, E>> join(ListAttribute<? super X, E> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
@@ -827,10 +890,31 @@ public interface SearchStream<X, S extends Selection<X>>
           new QueryInfo());
     }
 
+    /**
+     * Add a set inner join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #join(SetAttribute, JoinType) join(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
     default <E> FromStream<E, SetJoin<X, E>> join(SetAttribute<? super X, E> attribute) {
         return this.join(attribute, JoinType.INNER);
     }
 
+    /**
+     * Add a set join to this stream using the specified join type.
+     *
+     * <p>
+     * Equivalent to {@link #join(SetAttribute, JoinType, Function) join(attribute, JoinType.INNER, join -> null)}.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if either parameter is null
+     */
     default <E> FromStream<E, SetJoin<X, E>> join(SetAttribute<? super X, E> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
@@ -842,10 +926,31 @@ public interface SearchStream<X, S extends Selection<X>>
           new QueryInfo());
     }
 
+    /**
+     * Add a map inner join to this stream.
+     *
+     * <p>
+     * Equivalent to {@link #join(MapAttribute, JoinType) join(attribute, JoinType.INNER)}.
+     *
+     * @param attribute associated property
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if {@code attribute} is null
+     */
     default <K, V> FromStream<V, MapJoin<X, K, V>> join(MapAttribute<? super X, K, V> attribute) {
         return this.join(attribute, JoinType.INNER);
     }
 
+    /**
+     * Add a map join to this stream using the specified join type.
+     *
+     * <p>
+     * Equivalent to {@link #join(MapAttribute, JoinType, Function) join(attribute, JoinType.INNER, join -> null)}.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if either parameter is null
+     */
     default <K, V> FromStream<V, MapJoin<X, K, V>> join(MapAttribute<? super X, K, V> attribute, JoinType joinType) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
@@ -860,7 +965,7 @@ public interface SearchStream<X, S extends Selection<X>>
 // Fetches
 
     /**
-     * Add a singular fetch join to this stream.
+     * Add a singular fetch inner join to this stream.
      *
      * <p>
      * Equivalent to {@link #fetch(SingularAttribute, JoinType) fetch(attribute, JoinType.INNER)}.
