@@ -1,6 +1,7 @@
-Version Next
+Version 1.2.1 Released November 17, 2022
 
     - Added missing bind() overrides to DeleteStream and UpdateStream
+    - Add join() variants that accept an ON condition.
     - Added method SearchStream.mapToExpr()
     - Updated log4j to version 2.14.1
 
