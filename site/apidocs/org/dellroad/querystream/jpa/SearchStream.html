@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":18,"i18":18,"i19":18,"i20":18,"i21":18,"i22":6,"i23":18,"i24":18,"i25":6,"i26":6,"i27":6,"i28":6,"i29":6,"i30":6,"i31":18,"i32":18,"i33":18,"i34":18,"i35":18,"i36":18,"i37":18,"i38":18,"i39":18,"i40":18,"i41":6,"i42":18,"i43":18,"i44":18,"i45":18,"i46":18,"i47":18,"i48":18,"i49":18,"i50":18,"i51":18,"i52":18,"i53":18,"i54":18,"i55":6,"i56":6,"i57":6,"i58":6,"i59":6,"i60":6,"i61":6,"i62":6,"i63":6,"i64":6,"i65":6,"i66":6,"i67":6,"i68":6,"i69":6,"i70":6,"i71":6,"i72":6,"i73":6,"i74":6,"i75":6,"i76":6,"i77":6,"i78":6,"i79":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":18,"i18":18,"i19":18,"i20":18,"i21":18,"i22":6,"i23":18,"i24":18,"i25":6,"i26":6,"i27":6,"i28":6,"i29":6,"i30":6,"i31":18,"i32":18,"i33":18,"i34":18,"i35":18,"i36":18,"i37":18,"i38":18,"i39":18,"i40":18,"i41":18,"i42":18,"i43":18,"i44":18,"i45":18,"i46":6,"i47":18,"i48":18,"i49":18,"i50":18,"i51":18,"i52":18,"i53":18,"i54":18,"i55":18,"i56":18,"i57":18,"i58":18,"i59":18,"i60":18,"i61":6,"i62":6,"i63":6,"i64":6,"i65":6,"i66":6,"i67":6,"i68":6,"i69":6,"i70":6,"i71":6,"i72":6,"i73":6,"i74":6,"i75":6,"i76":6,"i77":6,"i78":6,"i79":6,"i80":6,"i81":6,"i82":6,"i83":6,"i84":6,"i85":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -216,7 +216,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#fetch-javax.persistence.metamodel.SingularAttribute-">fetch</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute)</code>
-<div class="block">Add a singular fetch join to this stream.</div>
+<div class="block">Add a singular fetch inner join to this stream.</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
@@ -342,177 +342,244 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 </tr>
 <tr id="i31" class="rowColor">
 <td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</code>
+<div class="block">Add a collection inner join to this stream.</div>
+</td>
 </tr>
 <tr id="i32" class="altColor">
 <td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
-    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>&nbsp;</td>
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>
+<div class="block">Add a collection join to this stream using the specified join type.</div>
+</td>
 </tr>
 <tr id="i33" class="rowColor">
-<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</code>
+<div class="block">Add a collection join to this stream using the specified join type and ON condition.</div>
+</td>
 </tr>
 <tr id="i34" class="altColor">
 <td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
-    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</code>
+<div class="block">Add a list inner join to this stream.</div>
+</td>
 </tr>
 <tr id="i35" class="rowColor">
-<td class="colFirst"><code>default &lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>
+<div class="block">Add a list join to this stream using the specified join type.</div>
+</td>
 </tr>
 <tr id="i36" class="altColor">
-<td class="colFirst"><code>default &lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute,
-    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</code>
+<div class="block">Add a list join to this stream using the specified join type and ON condition.</div>
+</td>
 </tr>
 <tr id="i37" class="rowColor">
-<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute)</code>
+<div class="block">Add a map inner join to this stream.</div>
+</td>
 </tr>
 <tr id="i38" class="altColor">
-<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
-    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>
+<div class="block">Add a map join to this stream using the specified join type.</div>
+</td>
 </tr>
 <tr id="i39" class="rowColor">
-<td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</code>
+<div class="block">Add a map join to this stream using the specified join type and ON condition.</div>
+</td>
 </tr>
 <tr id="i40" class="altColor">
-<td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute,
-    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>&nbsp;</td>
+<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</code>
+<div class="block">Add a set inner join to this stream.</div>
+</td>
 </tr>
 <tr id="i41" class="rowColor">
+<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>
+<div class="block">Add a set join to this stream using the specified join type.</div>
+</td>
+</tr>
+<tr id="i42" class="altColor">
+<td class="colFirst"><code>default &lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</code>
+<div class="block">Add a set join to this stream using the specified join type and ON condition.</div>
+</td>
+</tr>
+<tr id="i43" class="rowColor">
+<td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute)</code>
+<div class="block">Add a singular inner join to this stream.</div>
+</td>
+</tr>
+<tr id="i44" class="altColor">
+<td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</code>
+<div class="block">Add a singular join to this stream using the specified join type.</div>
+</td>
+</tr>
+<tr id="i45" class="rowColor">
+<td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">join</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute,
+    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</code>
+<div class="block">Add a singular join to this stream using the specified join type and ON condition.</div>
+</td>
+</tr>
+<tr id="i46" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#limit-int-">limit</a></span>(int&nbsp;maxSize)</code>
 <div class="block">Return this stream truncated to the specified maximum length.</div>
 </td>
 </tr>
-<tr id="i42" class="altColor">
+<tr id="i47" class="rowColor">
 <td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;Y&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-java.lang.Class-java.util.function.Function-">map</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
    <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;Y&gt;&gt;&nbsp;exprFunction)</code>
 <div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i43" class="rowColor">
+<tr id="i48" class="altColor">
 <td class="colFirst"><code>default &lt;K,V,M extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;K,V&gt;&gt;<br><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;M,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;M&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.MapAttribute-">map</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute)</code>
 <div class="block">Map this stream to an associated map property.</div>
 </td>
 </tr>
-<tr id="i44" class="altColor">
+<tr id="i49" class="rowColor">
 <td class="colFirst"><code>default &lt;E,C extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;E&gt;&gt;<br><a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;C,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;C&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.PluralAttribute-">map</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/PluralAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">PluralAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,C,E&gt;&nbsp;attribute)</code>
 <div class="block">Map this stream to an associated collection property.</div>
 </td>
 </tr>
-<tr id="i45" class="rowColor">
+<tr id="i50" class="altColor">
 <td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;Y&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#map-javax.persistence.metamodel.SingularAttribute-">map</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute)</code>
 <div class="block">Map this stream to an associated property.</div>
 </td>
 </tr>
-<tr id="i46" class="altColor">
+<tr id="i51" class="rowColor">
 <td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToDouble-java.util.function.Function-">mapToDouble</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&gt;&nbsp;doubleExprFunction)</code>
 <div class="block">Map this stream into a stream of double values that are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i47" class="rowColor">
+<tr id="i52" class="altColor">
 <td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/DoubleStream.html" title="interface in org.dellroad.querystream.jpa">DoubleStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToDouble-javax.persistence.metamodel.SingularAttribute-">mapToDouble</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;attribute)</code>
 <div class="block">Map this stream to an associated floating point value.</div>
 </td>
 </tr>
-<tr id="i48" class="altColor">
+<tr id="i53" class="rowColor">
+<td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;Y&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToExpr-java.lang.Class-java.util.function.Function-">mapToExpr</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
+         <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;Y&gt;&gt;&nbsp;exprFunction)</code>
+<div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
+</td>
+</tr>
+<tr id="i54" class="altColor">
 <td class="colFirst"><code>default &lt;Z,Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;Z,Y&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToFrom-java.lang.Class-java.util.function.Function-">mapToFrom</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;Z,Y&gt;&gt;&nbsp;fromFunction)</code>
 <div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i49" class="rowColor">
+<tr id="i55" class="rowColor">
 <td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToInt-java.util.function.Function-">mapToInt</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&gt;&nbsp;intExprFunction)</code>
 <div class="block">Map this stream into a stream of integer values that are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i50" class="altColor">
+<tr id="i56" class="altColor">
 <td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/IntStream.html" title="interface in org.dellroad.querystream.jpa">IntStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToInt-javax.persistence.metamodel.SingularAttribute-">mapToInt</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;attribute)</code>
 <div class="block">Map this stream to an associated integer value.</div>
 </td>
 </tr>
-<tr id="i51" class="rowColor">
+<tr id="i57" class="rowColor">
 <td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToLong-java.util.function.Function-">mapToLong</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&gt;&nbsp;longExprFunction)</code>
 <div class="block">Map this stream into a stream of long values that are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i52" class="altColor">
+<tr id="i58" class="altColor">
 <td class="colFirst"><code>default <a href="../../../../org/dellroad/querystream/jpa/LongStream.html" title="interface in org.dellroad.querystream.jpa">LongStream</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToLong-javax.persistence.metamodel.SingularAttribute-">mapToLong</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;&nbsp;attribute)</code>
 <div class="block">Map this stream to an associated long value.</div>
 </td>
 </tr>
-<tr id="i53" class="rowColor">
+<tr id="i59" class="rowColor">
 <td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/PathStream.html" title="interface in org.dellroad.querystream.jpa">PathStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;Y&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToPath-java.lang.Class-java.util.function.Function-">mapToPath</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria">Path</a>&lt;Y&gt;&gt;&nbsp;pathFunction)</code>
 <div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i54" class="altColor">
+<tr id="i60" class="altColor">
 <td class="colFirst"><code>default &lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria">Selection</a>&lt;Y&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#mapToSelection-java.lang.Class-java.util.function.Function-">mapToSelection</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
               <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria">Selection</a>&lt;Y&gt;&gt;&nbsp;selectionFunction)</code>
 <div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
 </td>
 </tr>
-<tr id="i55" class="rowColor">
+<tr id="i61" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#noneMatch-java.util.function.Function-">noneMatch</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;predicateBuilder)</code>
 <div class="block">Execute this query and return true if no result are found for which the predicate returned by the given function is true.</div>
 </td>
 </tr>
-<tr id="i56" class="altColor">
+<tr id="i62" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#noneMatch-javax.persistence.metamodel.SingularAttribute-">noneMatch</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&nbsp;attribute)</code>
 <div class="block">Execute this query and return true if no results are found for which the given property is true.</div>
 </td>
 </tr>
-<tr id="i57" class="rowColor">
+<tr id="i63" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-java.util.function.Function-boolean-">orderBy</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;orderExprFunction,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.</div>
 </td>
 </tr>
-<tr id="i58" class="altColor">
+<tr id="i64" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.criteria.Order...-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>...&nbsp;orders)</code>
 <div class="block">Order results using the specified <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a>s.</div>
 </td>
 </tr>
-<tr id="i59" class="rowColor">
+<tr id="i65" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-org.dellroad.querystream.jpa.Ref-boolean-">orderBy</a></span>(<a href="../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;?,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;ref,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified expression reference.</div>
 </td>
 </tr>
-<tr id="i60" class="altColor">
+<tr id="i66" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute,
        boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified property.</div>
 </td>
 </tr>
-<tr id="i61" class="rowColor">
+<tr id="i67" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute1,
        boolean&nbsp;asc1,
@@ -521,7 +588,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Order results using the specified properties.</div>
 </td>
 </tr>
-<tr id="i62" class="altColor">
+<tr id="i68" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderBy-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-javax.persistence.metamodel.SingularAttribute-boolean-">orderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute1,
        boolean&nbsp;asc1,
@@ -532,89 +599,89 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Order results using the specified properties.</div>
 </td>
 </tr>
-<tr id="i63" class="rowColor">
+<tr id="i69" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#orderByMulti-java.util.function.Function-">orderByMulti</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>&gt;&gt;&nbsp;orderListFunction)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a> list produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a>.</div>
 </td>
 </tr>
-<tr id="i64" class="altColor">
+<tr id="i70" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#peek-java.util.function.Consumer-">peek</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html?is-external=true" title="class or interface in java.util.function">Consumer</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;&nbsp;peeker)</code>
 <div class="block">Peek at the items in this stream.</div>
 </td>
 </tr>
-<tr id="i65" class="rowColor">
+<tr id="i71" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#skip-int-">skip</a></span>(int&nbsp;num)</code>
 <div class="block">Return this stream with the specified number of initial elements skipped.</div>
 </td>
 </tr>
-<tr id="i66" class="altColor">
+<tr id="i72" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#thenOrderBy-java.util.function.Function-boolean-">thenOrderBy</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;orderExprFunction,
            boolean&nbsp;asc)</code>
 <div class="block">Order results using the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> produced by the given <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function"><code>Function</code></a> after existing sort.</div>
 </td>
 </tr>
-<tr id="i67" class="rowColor">
+<tr id="i73" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#thenOrderBy-javax.persistence.criteria.Order...-">thenOrderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria">Order</a>...&nbsp;orders)</code>
 <div class="block">Order results using the specified <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Order.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Order</code></a>s after existing sort.</div>
 </td>
 </tr>
-<tr id="i68" class="altColor">
+<tr id="i74" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#thenOrderBy-org.dellroad.querystream.jpa.Ref-boolean-">thenOrderBy</a></span>(<a href="../../../../org/dellroad/querystream/jpa/Ref.html" title="interface in org.dellroad.querystream.jpa">Ref</a>&lt;?,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;?&gt;&gt;&nbsp;ref,
            boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified expression reference after existing sort.</div>
 </td>
 </tr>
-<tr id="i69" class="rowColor">
+<tr id="i75" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#thenOrderBy-javax.persistence.metamodel.SingularAttribute-boolean-">thenOrderBy</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute,
            boolean&nbsp;asc)</code>
 <div class="block">Order results using the specified property after existing sort.</div>
 </td>
 </tr>
-<tr id="i70" class="altColor">
+<tr id="i76" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withFetchGraph-java.lang.String-">withFetchGraph</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
 <div class="block">Configure a fetch graph for this query.</div>
 </td>
 </tr>
-<tr id="i71" class="rowColor">
+<tr id="i77" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withFlushMode-javax.persistence.FlushModeType-">withFlushMode</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/FlushModeType.html?is-external=true" title="class or interface in javax.persistence">FlushModeType</a>&nbsp;flushMode)</code>
 <div class="block">Set the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/FlushModeType.html?is-external=true" title="class or interface in javax.persistence"><code>FlushModeType</code></a> associated with this query.</div>
 </td>
 </tr>
-<tr id="i72" class="altColor">
+<tr id="i78" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withHint-java.lang.String-java.lang.Object-">withHint</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
         <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</code>
 <div class="block">Associate a hint with this query.</div>
 </td>
 </tr>
-<tr id="i73" class="rowColor">
+<tr id="i79" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withHints-java.util.Map-">withHints</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;&nbsp;hints)</code>
 <div class="block">Associate hints with this query.</div>
 </td>
 </tr>
-<tr id="i74" class="altColor">
+<tr id="i80" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withLoadGraph-java.lang.String-">withLoadGraph</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
 <div class="block">Configure a load graph for this query.</div>
 </td>
 </tr>
-<tr id="i75" class="rowColor">
+<tr id="i81" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withLockMode-javax.persistence.LockModeType-">withLockMode</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/LockModeType.html?is-external=true" title="class or interface in javax.persistence">LockModeType</a>&nbsp;lockMode)</code>
 <div class="block">Set the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/LockModeType.html?is-external=true" title="class or interface in javax.persistence"><code>LockModeType</code></a> associated with this query.</div>
 </td>
 </tr>
-<tr id="i76" class="altColor">
+<tr id="i82" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withParam-javax.persistence.Parameter-java.util.Calendar-javax.persistence.TemporalType-">withParam</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Parameter.html?is-external=true" title="class or interface in javax.persistence">Parameter</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/util/Calendar.html?is-external=true" title="class or interface in java.util">Calendar</a>&gt;&nbsp;parameter,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Calendar.html?is-external=true" title="class or interface in java.util">Calendar</a>&nbsp;value,
@@ -622,7 +689,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Bind the value of a query parameter of type <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Calendar.html?is-external=true" title="class or interface in java.util"><code>Calendar</code></a>.</div>
 </td>
 </tr>
-<tr id="i77" class="rowColor">
+<tr id="i83" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withParam-javax.persistence.Parameter-java.util.Date-javax.persistence.TemporalType-">withParam</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Parameter.html?is-external=true" title="class or interface in javax.persistence">Parameter</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&gt;&nbsp;parameter,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;value,
@@ -630,14 +697,14 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <div class="block">Bind the value of a query parameter of type <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a>.</div>
 </td>
 </tr>
-<tr id="i78" class="altColor">
+<tr id="i84" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withParam-javax.persistence.Parameter-T-">withParam</a></span>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Parameter.html?is-external=true" title="class or interface in javax.persistence">Parameter</a>&lt;T&gt;&nbsp;parameter,
          T&nbsp;value)</code>
 <div class="block">Bind the value of a query parameter.</div>
 </td>
 </tr>
-<tr id="i79" class="rowColor">
+<tr id="i85" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#withParams-java.lang.Iterable-">withParams</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;? extends <a href="../../../../org/dellroad/querystream/jpa/ParamBinding.html" title="class in org.dellroad.querystream.jpa">ParamBinding</a>&lt;?&gt;&gt;&nbsp;params)</code>
 <div class="block">Associate parameter bindings with this query.</div>
@@ -1403,6 +1470,26 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 </dl>
 </li>
 </ul>
+<a name="mapToExpr-java.lang.Class-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>mapToExpr</h4>
+<pre>default&nbsp;&lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/ExprStream.html" title="interface in org.dellroad.querystream.jpa">ExprStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;Y&gt;&gt;&nbsp;mapToExpr(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;Y&gt;&nbsp;type,
+                                                  <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;Y&gt;&gt;&nbsp;exprFunction)</pre>
+<div class="block">Map this stream into a stream whose elements are the result of applying the given function.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>Y</code> - mapped target type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>type</code> - new item type</dd>
+<dd><code>exprFunction</code> - function mapping this stream's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Selection</code></a> to an <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>mapped stream</dd>
+</dl>
+</li>
+</ul>
 <a name="mapToPath-java.lang.Class-java.util.function.Function-">
 <!--   -->
 </a>
@@ -1417,7 +1504,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <dd><code>Y</code> - mapped expresssion type</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>type</code> - new item type</dd>
-<dd><code>pathFunction</code> - function mapping this stream's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> to a <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Path</code></a></dd>
+<dd><code>pathFunction</code> - function mapping this stream's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Selection</code></a> to a <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Path.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Path</code></a></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>mapped stream</dd>
 </dl>
@@ -1438,7 +1525,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <dd><code>Y</code> - mapped target type</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>type</code> - new item type</dd>
-<dd><code>fromFunction</code> - function mapping this stream's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Expression</code></a> to a <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>From</code></a></dd>
+<dd><code>fromFunction</code> - function mapping this stream's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Selection.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>Selection</code></a> to a <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>From</code></a></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>mapped stream</dd>
 </dl>
@@ -1664,6 +1751,20 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <li class="blockList">
 <h4>join</h4>
 <pre>default&nbsp;&lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute)</pre>
+<div class="block">Add a singular inner join to this stream.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-"><code>join(attribute, JoinType.INNER)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>Y</code> - associated property type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>attribute</code> is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-">
@@ -1674,6 +1775,45 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <h4>join</h4>
 <pre>default&nbsp;&lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute,
                                          <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</pre>
+<div class="block">Add a singular join to this stream using the specified join type.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-"><code>join(attribute, JoinType.INNER, join -> null)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>Y</code> - associated property type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
+</dl>
+</li>
+</ul>
+<a name="join-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>join</h4>
+<pre>default&nbsp;&lt;Y&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;Y,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/From.html?is-external=true" title="class or interface in javax.persistence.criteria">From</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;&nbsp;attribute,
+                                         <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+                                         <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Join.html?is-external=true" title="class or interface in javax.persistence.criteria">Join</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,Y&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</pre>
+<div class="block">Add a singular join to this stream using the specified join type and ON condition.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>Y</code> - associated property type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dd><code>on</code> - function returning a join ON condition, or returning null for none</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.CollectionAttribute-">
@@ -1683,6 +1823,20 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <li class="blockList">
 <h4>join</h4>
 <pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</pre>
+<div class="block">Add a collection inner join to this stream.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-"><code>join(attribute, JoinType.INNER)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - collection element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>attribute</code> is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-">
@@ -1693,6 +1847,45 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <h4>join</h4>
 <pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
                                                    <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</pre>
+<div class="block">Add a collection join to this stream using the specified join type.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-"><code>join(attribute, JoinType.INNER, join -> null)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - collection element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
+</dl>
+</li>
+</ul>
+<a name="join-javax.persistence.metamodel.CollectionAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>join</h4>
+<pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/CollectionAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">CollectionAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+                                                   <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+                                                   <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CollectionJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">CollectionJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</pre>
+<div class="block">Add a collection join to this stream using the specified join type and ON condition.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - collection element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dd><code>on</code> - function returning a join ON condition, or returning null for none</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.ListAttribute-">
@@ -1702,6 +1895,20 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <li class="blockList">
 <h4>join</h4>
 <pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</pre>
+<div class="block">Add a list inner join to this stream.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-"><code>join(attribute, JoinType.INNER)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - list element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>attribute</code> is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-">
@@ -1712,6 +1919,45 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <h4>join</h4>
 <pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
                                              <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</pre>
+<div class="block">Add a list join to this stream using the specified join type.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-"><code>join(attribute, JoinType.INNER, join -> null)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - list element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
+</dl>
+</li>
+</ul>
+<a name="join-javax.persistence.metamodel.ListAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>join</h4>
+<pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/ListAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">ListAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+                                             <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+                                             <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/ListJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">ListJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</pre>
+<div class="block">Add a list join to this stream using the specified join type and ON condition.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - list element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dd><code>on</code> - function returning a join ON condition, or returning null for none</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.SetAttribute-">
@@ -1721,6 +1967,20 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <li class="blockList">
 <h4>join</h4>
 <pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute)</pre>
+<div class="block">Add a set inner join to this stream.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-"><code>join(attribute, JoinType.INNER)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - set element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>attribute</code> is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-">
@@ -1731,6 +1991,45 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <h4>join</h4>
 <pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
                                             <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</pre>
+<div class="block">Add a set join to this stream using the specified join type.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-"><code>join(attribute, JoinType.INNER, join -> null)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - set element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
+</dl>
+</li>
+</ul>
+<a name="join-javax.persistence.metamodel.SetAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>join</h4>
+<pre>default&nbsp;&lt;E&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;E,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SetAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SetAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;&nbsp;attribute,
+                                            <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+                                            <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/SetJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">SetJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,E&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</pre>
+<div class="block">Add a set join to this stream using the specified join type and ON condition.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - set element type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dd><code>on</code> - function returning a join ON condition, or returning null for none</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.MapAttribute-">
@@ -1740,6 +2039,21 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <li class="blockList">
 <h4>join</h4>
 <pre>default&nbsp;&lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute)</pre>
+<div class="block">Add a map inner join to this stream.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-"><code>join(attribute, JoinType.INNER)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>K</code> - map key type</dd>
+<dd><code>V</code> - map value type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>attribute</code> is null</dd>
+</dl>
 </li>
 </ul>
 <a name="join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-">
@@ -1750,6 +2064,47 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <h4>join</h4>
 <pre>default&nbsp;&lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute,
                                                 <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType)</pre>
+<div class="block">Add a map join to this stream using the specified join type.
+
+ <p>
+ Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-"><code>join(attribute, JoinType.INNER, join -> null)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>K</code> - map key type</dd>
+<dd><code>V</code> - map value type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
+</dl>
+</li>
+</ul>
+<a name="join-javax.persistence.metamodel.MapAttribute-javax.persistence.criteria.JoinType-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>join</h4>
+<pre>default&nbsp;&lt;K,V&gt;&nbsp;<a href="../../../../org/dellroad/querystream/jpa/FromStream.html" title="interface in org.dellroad.querystream.jpa">FromStream</a>&lt;V,<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&gt;&nbsp;join(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/MapAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">MapAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;&nbsp;attribute,
+                                                <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/JoinType.html?is-external=true" title="class or interface in javax.persistence.criteria">JoinType</a>&nbsp;joinType,
+                                                <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/MapJoin.html?is-external=true" title="class or interface in javax.persistence.criteria">MapJoin</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,K,V&gt;,? extends <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/Expression.html?is-external=true" title="class or interface in javax.persistence.criteria">Expression</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&gt;&nbsp;on)</pre>
+<div class="block">Add a map join to this stream using the specified join type and ON condition.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>K</code> - map key type</dd>
+<dd><code>V</code> - map value type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>attribute</code> - associated property</dd>
+<dd><code>joinType</code> - type of join</dd>
+<dd><code>on</code> - function returning a join ON condition, or returning null for none</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new stream with specified join</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
+</dl>
 </li>
 </ul>
 <a name="fetch-javax.persistence.metamodel.SingularAttribute-">
@@ -1759,7 +2114,7 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <li class="blockList">
 <h4>fetch</h4>
 <pre><a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="interface in org.dellroad.querystream.jpa">SearchStream</a>&lt;<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,<a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">S</a>&gt;&nbsp;fetch(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/metamodel/SingularAttribute.html?is-external=true" title="class or interface in javax.persistence.metamodel">SingularAttribute</a>&lt;? super <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html" title="type parameter in SearchStream">X</a>,?&gt;&nbsp;attribute)</pre>
-<div class="block">Add a singular fetch join to this stream.
+<div class="block">Add a singular fetch inner join to this stream.
 
  <p>
  Equivalent to <a href="../../../../org/dellroad/querystream/jpa/SearchStream.html#fetch-javax.persistence.metamodel.SingularAttribute-javax.persistence.criteria.JoinType-"><code>fetch(attribute, JoinType.INNER)</code></a>.</div>
@@ -2326,6 +2681,6 @@ extends <a href="../../../../org/dellroad/querystream/jpa/QueryStream.html" titl
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2020. All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2022. All rights reserved.</small></p>
 </body>
 </html>
