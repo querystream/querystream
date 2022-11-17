@@ -24,6 +24,7 @@ import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.MapJoin;
@@ -806,13 +807,36 @@ public interface SearchStream<X, S extends Selection<X>>
      * @throws IllegalArgumentException if either parameter is null
      */
     default <Y> FromStream<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType) {
+        return this.join(attribute, joinType, join -> null);
+    }
+
+    /**
+     * Add a singular join to this stream using the specified join type and ON condition.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @param on function returning a join ON condition, or returning null for none
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    default <Y> FromStream<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType,
+      Function<? super Join<X, Y>, ? extends Expression<Boolean>> on) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        if (on == null)
+            throw new IllegalArgumentException("null on");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
-          (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
+          (builder, query) -> {
+            final From<?, X> from = (From<?, X>)this.configure(builder, query);             // cast must be valid...
+            final Join<X, Y> join = from.join(attribute, joinType);
+            final Expression<Boolean> onPredicate = on.apply(join);
+            if (onPredicate != null)
+                join.on(onPredicate);
+            return join;
+          },
           new QueryInfo());
     }
 
@@ -844,13 +868,36 @@ public interface SearchStream<X, S extends Selection<X>>
      * @throws IllegalArgumentException if either parameter is null
      */
     default <E> FromStream<E, CollectionJoin<X, E>> join(CollectionAttribute<? super X, E> attribute, JoinType joinType) {
+        return this.join(attribute, joinType, join -> null);
+    }
+
+    /**
+     * Add a collection join to this stream using the specified join type and ON condition.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @param on function returning a join ON condition, or returning null for none
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    default <E> FromStream<E, CollectionJoin<X, E>> join(CollectionAttribute<? super X, E> attribute, JoinType joinType,
+      Function<? super CollectionJoin<X, E>, ? extends Expression<Boolean>> on) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        if (on == null)
+            throw new IllegalArgumentException("null on");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
-          (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
+          (builder, query) -> {
+            final From<?, X> from = (From<?, X>)this.configure(builder, query);             // cast must be valid...
+            final CollectionJoin<X, E> join = from.join(attribute, joinType);
+            final Expression<Boolean> onPredicate = on.apply(join);
+            if (onPredicate != null)
+                join.on(onPredicate);
+            return join;
+          },
           new QueryInfo());
     }
 
@@ -880,13 +927,36 @@ public interface SearchStream<X, S extends Selection<X>>
      * @throws IllegalArgumentException if either parameter is null
      */
     default <E> FromStream<E, ListJoin<X, E>> join(ListAttribute<? super X, E> attribute, JoinType joinType) {
+        return this.join(attribute, joinType, join -> null);
+    }
+
+    /**
+     * Add a list join to this stream using the specified join type and ON condition.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @param on function returning a join ON condition, or returning null for none
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    default <E> FromStream<E, ListJoin<X, E>> join(ListAttribute<? super X, E> attribute, JoinType joinType,
+      Function<? super ListJoin<X, E>, ? extends Expression<Boolean>> on) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        if (on == null)
+            throw new IllegalArgumentException("null on");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
-          (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
+          (builder, query) -> {
+            final From<?, X> from = (From<?, X>)this.configure(builder, query);             // cast must be valid...
+            final ListJoin<X, E> join = from.join(attribute, joinType);
+            final Expression<Boolean> onPredicate = on.apply(join);
+            if (onPredicate != null)
+                join.on(onPredicate);
+            return join;
+          },
           new QueryInfo());
     }
 
@@ -916,13 +986,36 @@ public interface SearchStream<X, S extends Selection<X>>
      * @throws IllegalArgumentException if either parameter is null
      */
     default <E> FromStream<E, SetJoin<X, E>> join(SetAttribute<? super X, E> attribute, JoinType joinType) {
+        return this.join(attribute, joinType, join -> null);
+    }
+
+    /**
+     * Add a set join to this stream using the specified join type and ON condition.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @param on function returning a join ON condition, or returning null for none
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    default <E> FromStream<E, SetJoin<X, E>> join(SetAttribute<? super X, E> attribute, JoinType joinType,
+      Function<? super SetJoin<X, E>, ? extends Expression<Boolean>> on) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        if (on == null)
+            throw new IllegalArgumentException("null on");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
-          (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
+          (builder, query) -> {
+            final From<?, X> from = (From<?, X>)this.configure(builder, query);             // cast must be valid...
+            final SetJoin<X, E> join = from.join(attribute, joinType);
+            final Expression<Boolean> onPredicate = on.apply(join);
+            if (onPredicate != null)
+                join.on(onPredicate);
+            return join;
+          },
           new QueryInfo());
     }
 
@@ -952,13 +1045,36 @@ public interface SearchStream<X, S extends Selection<X>>
      * @throws IllegalArgumentException if either parameter is null
      */
     default <K, V> FromStream<V, MapJoin<X, K, V>> join(MapAttribute<? super X, K, V> attribute, JoinType joinType) {
+        return this.join(attribute, joinType, join -> null);
+    }
+
+    /**
+     * Add a map join to this stream using the specified join type and ON condition.
+     *
+     * @param attribute associated property
+     * @param joinType type of join
+     * @param on function returning a join ON condition, or returning null for none
+     * @return a new stream with specified join
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    default <K, V> FromStream<V, MapJoin<X, K, V>> join(MapAttribute<? super X, K, V> attribute, JoinType joinType,
+      Function<? super MapJoin<X, K, V>, ? extends Expression<Boolean>> on) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        if (on == null)
+            throw new IllegalArgumentException("null on");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromStreamImpl<>(this.getEntityManager(), new SearchType<>(attribute.getElementType().getJavaType()),
-          (builder, query) -> ((From<?, X>)this.configure(builder, query)).join(attribute, joinType),   // cast must be valid...
+          (builder, query) -> {
+            final From<?, X> from = (From<?, X>)this.configure(builder, query);             // cast must be valid...
+            final MapJoin<X, K, V> join = from.join(attribute, joinType);
+            final Expression<Boolean> onPredicate = on.apply(join);
+            if (onPredicate != null)
+                join.on(onPredicate);
+            return join;
+          },
           new QueryInfo());
     }
 

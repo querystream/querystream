@@ -67,7 +67,7 @@
         <javax.persistence.version>2.2</javax.persistence.version>
         <log4j.version>2.17.1</log4j.version>
         <mysql.version>6.0.6</mysql.version>
-        <slf4j.version>1.7.30</slf4j.version>
+        <slf4j.version>1.7.35</slf4j.version>
         <spotbugs.version>4.0.0</spotbugs.version>
         <spring.version>5.3.20</spring.version>
         <testng.version>7.1.0</testng.version>

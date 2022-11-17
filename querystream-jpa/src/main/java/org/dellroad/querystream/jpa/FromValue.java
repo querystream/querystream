@@ -17,6 +17,7 @@ import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Selection;
 import javax.persistence.metamodel.SingularAttribute;
@@ -37,13 +38,28 @@ public interface FromValue<X, S extends From<?, X>> extends PathValue<X, S>, Fro
 
     @Override
     default <Y> FromValue<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType) {
+        return this.join(attribute, joinType, join -> null);
+    }
+
+    @Override
+    default <Y> FromValue<Y, From<X, Y>> join(SingularAttribute<? super X, Y> attribute, JoinType joinType,
+      Function<? super Join<X, Y>, ? extends Expression<Boolean>> on) {
         if (attribute == null)
             throw new IllegalArgumentException("null attribute");
         if (joinType == null)
             throw new IllegalArgumentException("null joinType");
+        if (on == null)
+            throw new IllegalArgumentException("null on");
         QueryStreamImpl.checkOffsetLimit(this, "join()");
         return new FromValueImpl<>(this.getEntityManager(), new SearchType<>(attribute.getJavaType()),
-           (builder, query) -> this.configure(builder, query).join(attribute, joinType), QueryInfo.of(this));
+           (builder, query) -> {
+            final Join<X, Y> join = this.configure(builder, query).join(attribute, joinType);
+            final Expression<Boolean> onPredicate = on.apply(join);
+            if (onPredicate != null)
+                join.on(onPredicate);
+            return join;
+          },
+          QueryInfo.of(this));
     }
 
 // Narrowing overrides (QueryStream)
