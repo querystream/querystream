@@ -788,6 +788,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Equivalent to {@link #join(SingularAttribute, JoinType) join(attribute, JoinType.INNER)}.
      *
      * @param attribute associated property
+     * @param <Y> associated property type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if {@code attribute} is null
      */
@@ -803,6 +804,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @param joinType type of join
+     * @param <Y> associated property type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if either parameter is null
      */
@@ -816,6 +818,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @param attribute associated property
      * @param joinType type of join
      * @param on function returning a join ON condition, or returning null for none
+     * @param <Y> associated property type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if any parameter is null
      */
@@ -849,6 +852,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Equivalent to {@link #join(CollectionAttribute, JoinType) join(attribute, JoinType.INNER)}.
      *
      * @param attribute associated property
+     * @param <E> collection element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if {@code attribute} is null
      */
@@ -864,6 +868,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @param joinType type of join
+     * @param <E> collection element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if either parameter is null
      */
@@ -877,6 +882,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @param attribute associated property
      * @param joinType type of join
      * @param on function returning a join ON condition, or returning null for none
+     * @param <E> collection element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if any parameter is null
      */
@@ -908,6 +914,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Equivalent to {@link #join(ListAttribute, JoinType) join(attribute, JoinType.INNER)}.
      *
      * @param attribute associated property
+     * @param <E> list element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if {@code attribute} is null
      */
@@ -923,6 +930,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @param joinType type of join
+     * @param <E> list element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if either parameter is null
      */
@@ -936,6 +944,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @param attribute associated property
      * @param joinType type of join
      * @param on function returning a join ON condition, or returning null for none
+     * @param <E> list element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if any parameter is null
      */
@@ -967,6 +976,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Equivalent to {@link #join(SetAttribute, JoinType) join(attribute, JoinType.INNER)}.
      *
      * @param attribute associated property
+     * @param <E> set element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if {@code attribute} is null
      */
@@ -982,6 +992,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @param joinType type of join
+     * @param <E> set element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if either parameter is null
      */
@@ -995,6 +1006,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * @param attribute associated property
      * @param joinType type of join
      * @param on function returning a join ON condition, or returning null for none
+     * @param <E> set element type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if any parameter is null
      */
@@ -1026,6 +1038,8 @@ public interface SearchStream<X, S extends Selection<X>>
      * Equivalent to {@link #join(MapAttribute, JoinType) join(attribute, JoinType.INNER)}.
      *
      * @param attribute associated property
+     * @param <K> map key type
+     * @param <V> map value type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if {@code attribute} is null
      */
@@ -1041,6 +1055,8 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * @param attribute associated property
      * @param joinType type of join
+     * @param <K> map key type
+     * @param <V> map value type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if either parameter is null
      */
@@ -1054,6 +1070,8 @@ public interface SearchStream<X, S extends Selection<X>>
      * @param attribute associated property
      * @param joinType type of join
      * @param on function returning a join ON condition, or returning null for none
+     * @param <K> map key type
+     * @param <V> map value type
      * @return a new stream with specified join
      * @throws IllegalArgumentException if any parameter is null
      */
