@@ -174,6 +174,18 @@ public class QueryTest extends TestSupport {
             .count(),
           "select count(generatedAlias0) from Employee as generatedAlias0"),
 
+        // Do a join with an ON clause
+        // JPQL Ref: https://stackoverflow.com/questions/12394038/hql-with-clause-in-jpql
+        new TestCase(() -> {
+            return this.qb.stream(Employee.class)
+                .join(Employee_.directReports,
+                    JoinType.LEFT,
+                    join -> this.qb.gt(join.get(Employee_.salary), 50000));
+          },
+          "select generatedAlias0 from Employee as generatedAlias1"
+            + " left join generatedAlias1.directReports as generatedAlias0"
+            + " with generatedAlias0.salary>50000.0F"),
+
         };
 
         // Done
