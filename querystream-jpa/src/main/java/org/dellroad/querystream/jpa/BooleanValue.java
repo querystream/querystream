@@ -13,6 +13,7 @@ import java.util.function.Function;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.NoResultException;
 import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
@@ -28,6 +29,22 @@ public interface BooleanValue extends ExprValue<Boolean, Expression<Boolean>> {
      * @return inverse value
      */
     BooleanValue not();
+
+    /**
+     * Build and evaluate a JPA query based on this instance and return the single non-NULL result.
+     *
+     * <p>
+     * This variant of {@link #value} is useful when it is known that NULL won't be returned.
+     *
+     * @return result of executed query
+     * @throws NoResultException if the query returns NULL
+     */
+    default boolean booleanValue() {
+        final Boolean value = this.value();
+        if (value == null)
+            throw new NoResultException("NULL value returned from query");
+        return (boolean)value;
+    }
 
 // Narrowing overrides (QueryStream)
 

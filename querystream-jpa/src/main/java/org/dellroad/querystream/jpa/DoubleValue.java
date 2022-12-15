@@ -13,6 +13,7 @@ import java.util.function.Function;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.NoResultException;
 import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
@@ -22,6 +23,22 @@ import javax.persistence.criteria.Selection;
  * A double {@link ExprValue}.
  */
 public interface DoubleValue extends ExprValue<Double, Expression<Double>>, DoubleStream {
+
+    /**
+     * Build and evaluate a JPA query based on this instance and return the single non-NULL result.
+     *
+     * <p>
+     * This variant of {@link #value} is useful when it is known that NULL won't be returned.
+     *
+     * @return result of executed query
+     * @throws NoResultException if the query returns NULL
+     */
+    default double doubleValue() {
+        final Double value = this.value();
+        if (value == null)
+            throw new NoResultException("NULL value returned from query");
+        return (double)value;
+    }
 
 // Narrowing overrides (QueryStream)
 
