@@ -597,6 +597,24 @@ public interface SearchStream<X, S extends Selection<X>>
     }
 
     /**
+     * Map this stream into a stream whose elements are the result of applying the given function.
+     *
+     * @param type new item type
+     * @param rootFunction function mapping this stream's {@link Selection} to a {@link Root}
+     * @param <Y> mapped target type
+     * @return mapped stream
+     */
+    default <Y> RootStream<Y> mapToRoot(Class<Y> type, Function<? super S, ? extends Root<Y>> rootFunction) {
+        if (type == null)
+            throw new IllegalArgumentException("null type");
+        if (rootFunction == null)
+            throw new IllegalArgumentException("null rootFunction");
+        QueryStreamImpl.checkOffsetLimit(this, "mapToRoot()");
+        return new RootStreamImpl<>(this.getEntityManager(), new SearchType<Y>(type),
+          (builder, query) -> rootFunction.apply(this.configure(builder, query)), new QueryInfo());
+    }
+
+    /**
      * Map this stream to an associated floating point value.
      *
      * @param attribute associated numerically-valued property
