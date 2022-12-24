@@ -186,6 +186,19 @@ public class QueryTest extends TestSupport {
             + " left join generatedAlias1.directReports as generatedAlias0"
             + " with generatedAlias0.salary>50000.0F"),
 
+        // Test mapToRef()
+        new TestCase(() -> {
+            final RootRef<Employee> managerRef = new RootRef<>();
+            return this.qb.stream(Employee.class)
+              .bind(managerRef)
+              .flatMap(Employee_.directReports)
+              .mapToRef(Employee.class, managerRef)
+              .groupBy(managerRef);
+          },
+          "select generatedAlias0 from Employee as generatedAlias0"
+            + " inner join generatedAlias0.directReports as generatedAlias1"
+            + " group by generatedAlias0"),
+
         };
 
         // Done

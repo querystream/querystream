@@ -2,6 +2,7 @@ Version Next
 
     - Added methods LongValue.longValue(), IntValue.intValue(), etc.
     - Added SearchStream.mapToRoot().
+    - Added SearchStream.mapToRef().
 
 Version 1.2.1 Released November 17, 2022
 

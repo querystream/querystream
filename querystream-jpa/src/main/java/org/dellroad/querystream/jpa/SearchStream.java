@@ -615,6 +615,51 @@ public interface SearchStream<X, S extends Selection<X>>
     }
 
     /**
+     * Map this stream to a stream whose elements are bound to the supplied root reference.
+     *
+     * @param ref previously bound root reference
+     * @param <Y> selection type
+     * @return mapped stream
+     */
+    default <Y> RootStream<Y> mapToRef(Class<Y> type, RootRef<Y> ref) {
+        return this.mapToRoot(type, selection -> ref.get());
+    }
+
+    /**
+     * Map this stream to a stream whose elements are bound to the supplied from reference.
+     *
+     * @param ref previously bound from reference
+     * @param <Y> mapped target type
+     * @return mapped stream
+     */
+    @SuppressWarnings("unchecked")
+    default <Y> FromStream<Y, From<?, Y>>  mapToRef(Class<Y> type, FromRef<Y> ref) {
+        return (FromStream<Y, From<?, Y>>)this.mapToFrom(type, selection -> ref.get());
+    }
+
+    /**
+     * Map this stream to a stream whose elements are bound to the supplied path reference.
+     *
+     * @param ref previously bound path reference
+     * @param <Y> mapped target type
+     * @return mapped stream
+     */
+    default <Y> PathStream<Y, Path<Y>>  mapToRef(Class<Y> type, PathRef<Y> ref) {
+        return this.mapToPath(type, selection -> ref.get());
+    }
+
+    /**
+     * Map this stream to a stream whose elements are bound to the supplied expression reference.
+     *
+     * @param ref previously bound expression reference
+     * @param <Y> mapped target type
+     * @return mapped stream
+     */
+    default <Y> ExprStream<Y, Expression<Y>> mapToRef(Class<Y> type, ExprRef<Y> ref) {
+        return this.mapToExpr(type, selection -> ref.get());
+    }
+
+    /**
      * Map this stream to an associated floating point value.
      *
      * @param attribute associated numerically-valued property
