@@ -96,8 +96,10 @@ public class ParamBinding<T> {
     static String describeParameter(Parameter<?> parameter) {
         String result = "parameter \"" + parameter.getName() + "\"";
         try {
-            result += " of type " + parameter.getParameterType().getSimpleName();
-        } catch (IllegalStateException | NullPointerException e) {
+            final Class<?> ptype = parameter.getParameterType();
+            if (ptype != null)
+                result += " of type " + ptype.getSimpleName();
+        } catch (IllegalStateException e) {
             // ignore
         }
         return result;

@@ -138,11 +138,9 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
         } catch (NoResultException e) {
             return Optional.empty();
         }
-        try {
-            return Optional.of(value);
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("null values cannot be represented in Optional", e);
-        }
+        if (value == null)
+            throw new IllegalArgumentException("null values cannot be represented in Optional");
+        return Optional.of(value);
     }
 
 // Narrowing overrides (SearchStream)
