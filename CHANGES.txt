@@ -1,3 +1,8 @@
+Version Next
+
+    - Support build on JDK 11+ while still targeting JDK 8
+    - Update dependencies
+
 Version 1.2.2 Released March 14, 2023
 
     - Added methods LongValue.longValue(), IntValue.intValue(), etc.

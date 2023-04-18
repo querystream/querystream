@@ -13,6 +13,9 @@
     <artifactId>querystream-test</artifactId>
     <name>Test model classes for QueryStream</name>
     <description>Test model classes for QueryStream</description>
+    <properties>
+        <automatic.module.name>org.dellroad.querystream.jpa.test</automatic.module.name>
+    </properties>
     <distributionManagement>
         <site>
             <id>${project.artifactId}-site</id>
@@ -31,12 +34,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-reload4j</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -46,7 +53,7 @@
             <plugin>
                 <groupId>de.jpdigital</groupId>
                 <artifactId>hibernate52-ddl-maven-plugin</artifactId>
-                <version>2.1.0</version>
+                <version>${hibernate52.ddl.maven.plugin.version}</version>
                 <configuration>
                     <dialects>
                         <param>h2</param>
@@ -64,6 +71,13 @@
                         <phase>process-classes</phase>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                         <artifactId>jaxb-api</artifactId>
+                        <version>${jaxb.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

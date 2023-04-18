@@ -1,1 +1,7 @@
-<FindBugsFilter/>
+<FindBugsFilter>
+    <Match>
+        <Class name="org.dellroad.querystream.jpa.QueryStream$Builder"/>
+        <Method name="getEntityManager"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+</FindBugsFilter>

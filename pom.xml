@@ -42,17 +42,15 @@
     <properties>
 
         <!-- Basic stuff -->
-        <compiler.source>1.8</compiler.source>
-        <compiler.target>1.8</compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
 
         <!-- Dependency versions -->
-        <aspectj.version>1.9.5</aspectj.version>
-        <dellroad-stuff.version>2.4.10</dellroad-stuff.version>
+        <aspectj.version>1.9.9.1</aspectj.version>
+        <dellroad-stuff.version>2.5.9</dellroad-stuff.version>
         <findbugs.version>3.0.2</findbugs.version>
         <h2.version>2.1.210</h2.version>
-        <hibernate.validator.version>6.2.0.Final</hibernate.validator.version>
+        <hibernate.validator.version>6.2.3.Final</hibernate.validator.version>
         <!--
             Once ${hibernate.version} is updated to >= 6.0.0.Final, we can remove
             the ";MODE=LEGACY" parameter from the "dataSource" bean in
@@ -63,16 +61,35 @@
                 https://github.com/h2database/h2database/issues/3325
         -->
         <hibernate.version>5.6.3.Final</hibernate.version>
+        <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
         <javax.el.version>3.0.1-b11</javax.el.version>
         <javax.persistence.version>2.2</javax.persistence.version>
-        <log4j.version>2.17.1</log4j.version>
+        <jaxb.version>2.3.0</jaxb.version>
+        <log4j.version>2.19.0</log4j.version>
         <mysql.version>6.0.6</mysql.version>
         <slf4j.version>1.7.35</slf4j.version>
         <spotbugs.version>4.0.0</spotbugs.version>
         <spring.version>5.3.27</spring.version>
-        <testng.version>7.1.0</testng.version>
+        <testng.version>7.7.0</testng.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
 
+        <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
+        <hibernate52.ddl.maven.plugin.version>2.1.0</hibernate52.ddl.maven.plugin.version>
+        <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
+        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
+        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+        <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
+        <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
+        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.wagon.scm.extension.version>3.3.4</maven.wagon.scm.extension.version>
+        <properties.maven.plugin.version>1.0.0</properties.maven.plugin.version>
+        <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
+
+        <!-- Module -->
+        <automatic.module.name>org.dellroad.querystream</automatic.module.name>
     </properties>
 
     <dependencies>
@@ -114,9 +131,9 @@
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j.version}</version>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-reload4j</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <!-- JPA -->
@@ -138,6 +155,12 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>javax.activation-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -148,6 +171,18 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-jpamodelgen</artifactId>
                 <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${javax.annotation-api.version}</version>
+            </dependency>
+
+            <!-- JAXB -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                 <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
             </dependency>
 
             <!-- H2 database -->
@@ -260,7 +295,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0.0</version>
+                <version>${properties.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -282,7 +317,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
+                <version>${maven.enforcer.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-java</id>
@@ -291,9 +326,19 @@
                         </goals>
                         <configuration>
                             <rules>
+
+                                <!-- Enforce Java version -->
                                 <requireJavaVersion>
-                                    <version>1.8.0</version>
+                                    <version>[11,)</version>
                                 </requireJavaVersion>
+
+                                <!-- Check for dependency conflicts -->
+                                <!-- <dependencyConvergence/> -->
+                                <banDuplicatePomDependencyVersions/>
+
+                                <!-- Other rules -->
+                                <reactorModuleConvergence/>
+                                <!-- <requireUpperBoundDeps/> -->
                             </rules>
                         </configuration>
                     </execution>
@@ -304,12 +349,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>${maven.jar.plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <Implementation-Build>${project.version}</Implementation-Build>
+                            <Implementation-Artifact-Id>${project.artifactId}</Implementation-Artifact-Id>
+                            <Build-Number>${project.version}</Build-Number>
+                            <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
@@ -318,13 +369,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>${compiler.source}</source>
-                    <target>${compiler.target}</target>
+                    <source>8</source>
+                    <target>8</target>
+                    <release>8</release>
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
-                        <arg>-Xlint:all,-processing</arg>
+                        <arg>-Xlint:all,-processing,-path</arg>
                         <arg>-Werror</arg>
                     </compilerArgs>
                 </configuration>
@@ -334,7 +386,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>${maven.source.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -349,14 +401,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>${maven.javadoc.plugin.version}</version>
                 <configuration>
+                    <source>8</source>
                     <notimestamp>true</notimestamp>
+                    <doclint>-reference</doclint>
                     <additionalparam>-Xdoclint:-reference</additionalparam>
                     <links>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
                         <link>https://www.slf4j.org/apidocs/</link>
-                        <link>https://docs.oracle.com/javaee/7/api/</link>
                     </links>
                 </configuration>
                 <executions>
@@ -373,7 +427,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <systemPropertyVariables>
                         <deleteTempDirs>true</deleteTempDirs>
@@ -395,7 +449,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
+                <version>${maven.checkstyle.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-verify</id>
@@ -405,7 +459,9 @@
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
                             <linkXRef>false</linkXRef>
-                            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            <sourceDirectories>
+                                <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            </sourceDirectories>
                         </configuration>
                         <goals>
                             <goal>check</goal>
@@ -419,7 +475,9 @@
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
                             <linkXRef>false</linkXRef>
-                            <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
+                            <sourceDirectories>
+                                <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
+                            </sourceDirectories>
                         </configuration>
                         <goals>
                             <goal>check</goal>
@@ -432,7 +490,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.0-RC6</version>
+                <version>${spotbugs.maven.plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Default</threshold>
@@ -456,14 +514,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.9</version>
+                <version>${maven.project.info.reports.plugin.version}</version>
             </plugin>
         </plugins>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-scm</artifactId>
-                <version>2.10</version>
+                <version>${maven.wagon.scm.extension.version}</version>
             </extension>
         </extensions>
     </build>
@@ -474,15 +532,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>${maven.javadoc.plugin.version}</version>
                 <inherited>false</inherited>
                 <configuration>
+                    <source>8</source>
                     <notimestamp>true</notimestamp>
+                    <doclint>-reference</doclint>
                     <aggregate>true</aggregate>
                     <links>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
                         <link>https://www.slf4j.org/apidocs/</link>
-                        <link>https://docs.oracle.com/javaee/7/api/</link>
                     </links>
                 </configuration>
                 <reportSets>
@@ -507,7 +567,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>${maven.gpg.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

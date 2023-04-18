@@ -19,4 +19,12 @@
         <Class name="org.dellroad.querystream.jpa.test.Employee"/>
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.querystream.jpa.test.Department"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.querystream.jpa.test.Department"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>
