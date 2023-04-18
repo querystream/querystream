@@ -391,7 +391,7 @@ public interface SearchStream<X, S extends Selection<X>>
     SearchValue<X, S> findFirst();
 
     /**
-     * Find the only instance in the stream.
+     * Find the only instance in the stream or null.
      *
      * <p>
      * Invoke this method only when you know that the result stream contains at most one value, e.g., when searching
@@ -412,7 +412,7 @@ public interface SearchStream<X, S extends Selection<X>>
      *    .orElseThrow(NoSuchUserException::new);
      * </pre>
      *
-     * @return single-valued stream containg the only instance in this stream (or {@code NULL} if this stream is empty)
+     * @return a single value, either the only instance in this stream or null if this stream is empty
      */
     SearchValue<X, S> findSingle();
 

@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Parameter;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.Expression;
@@ -32,6 +33,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      *
      * @return result of executed query
      * @throws NoResultException if there is no result
+     * @throws NonUniqueResultException if there is more than one result
      */
     default X value() {
         return this.toQuery().getSingleResult();
@@ -43,6 +45,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      *
      * @param defaultValue value to return if there is no match
      * @return result of executed query, or {@code defaultValue} if not found
+     * @throws NonUniqueResultException if there is more than one result
      */
     default X orElse(X defaultValue) {
         try {
@@ -60,6 +63,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      * @param <T> exception type
      * @return result of executed query
      * @throws T if there is no result
+     * @throws NonUniqueResultException if there is more than one result
      */
     default <T extends Throwable> X orElseThrow(Supplier<? extends T> supplier) throws T {
         if (supplier == null)
@@ -77,6 +81,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      *
      * @param supplier creator of exception
      * @return result of executed query
+     * @throws NonUniqueResultException if there is more than one result
      * @throws IllegalArgumentException if {@code supplier} is null
      */
     default X orElseGet(Supplier<? extends X> supplier) {
@@ -94,6 +99,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      *
      * @param consumer receives value returned by query, if any
      * @throws IllegalArgumentException if {@code consumer} is null
+     * @throws NonUniqueResultException if there is more than one result
      */
     default void ifPresent(Consumer<? super X> consumer) {
         if (consumer == null)
@@ -111,6 +117,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      * Build and evaluate a JPA query based on this instance and return true if a result is returned, otherwise false.
      *
      * @return true if executed query returns a result, false otherwise
+     * @throws NonUniqueResultException if there is more than one result
      */
     default boolean isPresent() {
         try {
@@ -129,6 +136,7 @@ public interface SearchValue<X, S extends Selection<X>> extends SearchStream<X, 
      * if the query returns a null value, an exception is thrown.
      *
      * @return the optional result of the executed query
+     * @throws NonUniqueResultException if there is more than one result
      * @throws IllegalArgumentException if this query returns a null value
      */
     default Optional<X> toOptional() {
