@@ -406,7 +406,6 @@
                     <source>8</source>
                     <notimestamp>true</notimestamp>
                     <doclint>-reference</doclint>
-                    <additionalparam>-Xdoclint:-reference</additionalparam>
                     <links>
                         <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
@@ -495,8 +494,6 @@
                     <effort>Max</effort>
                     <threshold>Default</threshold>
                     <xmlOutput>true</xmlOutput>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                     <excludeFilterFile>src/spotbugs/spotbugs-exclude.xml</excludeFilterFile>
                     <failOnError>true</failOnError>
                 </configuration>
