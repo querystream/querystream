@@ -511,6 +511,7 @@ public interface QueryStream<X,
          * @throws IllegalArgumentException if {@code join} is null
          * @see #substream(Root)
          */
+        // https://github.com/jakartaee/persistence/issues/190
         @SuppressWarnings("unchecked")
         public <X, Y> FromStream<Y, ? extends From<X, Y>> substream(From<X, Y> from) {
             if (from == null)

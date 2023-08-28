@@ -33,6 +33,7 @@ public interface FromStream<X, S extends From<?, X>> extends PathStream<X, S> {
 // Narrowing overrides (PathStream)
 
     // can't do this because there's no method CriteriaBuilder.treat(From, Class)
+    // https://github.com/jakartaee/persistence/issues/190
     //@Override
     //<Y extends X> FromStream<Y, ? extends From<?, Y>> cast(Class<Y> type);
 
