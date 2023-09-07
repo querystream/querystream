@@ -1,4 +1,4 @@
-Version Next
+Version 1.2.3 Released September 3, 2023
 
     - Support build on JDK 11+ while still targeting JDK 8
     - Update dependencies
