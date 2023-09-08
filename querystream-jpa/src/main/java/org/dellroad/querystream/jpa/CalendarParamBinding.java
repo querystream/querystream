@@ -5,16 +5,16 @@
 
 package org.dellroad.querystream.jpa;
 
-import java.util.Calendar;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
 
-import javax.persistence.Parameter;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
+import java.util.Calendar;
 
 /**
  * Represents the binding of a {@link Calendar} value to a {@link Parameter}.
  *
- * @see Query#setParameter(javax.persistence.Parameter, Calendar, TemporalType)
+ * @see Query#setParameter(Parameter, Calendar, TemporalType)
  */
 public class CalendarParamBinding extends TemporalParamBinding<Calendar> {
 

@@ -5,9 +5,9 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.criteria.CommonAbstractCriteria;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Selection;
+import jakarta.persistence.criteria.CommonAbstractCriteria;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Selection;
 
 /**
  * Configures a critiera query of some kind.

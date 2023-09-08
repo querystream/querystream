@@ -5,15 +5,15 @@
 
 package org.dellroad.querystream.jpa;
 
-import java.util.Objects;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.Query;
 
-import javax.persistence.Parameter;
-import javax.persistence.Query;
+import java.util.Objects;
 
 /**
  * Represents the binding of a value to a {@link Parameter}.
  *
- * @see Query#setParameter(javax.persistence.Parameter, Object)
+ * @see Query#setParameter(Parameter, Object)
  */
 public class ParamBinding<T> {
 

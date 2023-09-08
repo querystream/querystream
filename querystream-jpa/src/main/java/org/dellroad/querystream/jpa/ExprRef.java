@@ -5,7 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Expression;
 
 /**
  * A {@link Ref} that's known to be an {@link Expression}.

@@ -5,7 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.Root;
 
 /**
  * A {@link Ref} that's known to be a {@link Root}.

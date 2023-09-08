@@ -7,8 +7,8 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="test">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>org.dellroad.querystream.jpa.test.Employee</class>
-        <class>org.dellroad.querystream.jpa.test.Department</class>
+        <class>org.dellroad.querystream.test.jpa.Employee</class>
+        <class>org.dellroad.querystream.test.jpa.Department</class>
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
         <validation-mode>AUTO</validation-mode>
         <properties>

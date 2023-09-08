@@ -8,7 +8,7 @@
     <groupId>org.dellroad</groupId>
     <artifactId>querystream</artifactId>
     <name>QueryStream</name>
-    <version>1.2.3</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
     <description>Build JPA Criteria queries using a Stream-like API</description>
     <url>https://github.com/archiecobbs/querystream</url>
@@ -42,43 +42,32 @@
     <properties>
 
         <!-- Basic stuff -->
+        <java.version>17</java.version>
+        <java.target.version>11</java.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
 
         <!-- Dependency versions -->
         <aspectj.version>1.9.9.1</aspectj.version>
-        <dellroad-stuff.version>2.5.9</dellroad-stuff.version>
-        <findbugs.version>3.0.2</findbugs.version>
+        <dellroad-stuff.version>2.5.10</dellroad-stuff.version>
         <h2.version>2.2.220</h2.version>
-        <hibernate.validator.version>6.2.3.Final</hibernate.validator.version>
-        <!--
-            Once ${hibernate.version} is updated to >= 6.0.0.Final, we can remove
-            the ";MODE=LEGACY" parameter from the "dataSource" bean in
-            querystream-jpa/src/test/resources/org/dellroad/querystream/jpa/queryTest.xml
-
-            Refs:
-                https://hibernate.atlassian.net/browse/HHH-14985
-                https://github.com/h2database/h2database/issues/3325
-        -->
-        <hibernate.version>5.6.3.Final</hibernate.version>
-        <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
-        <javax.el.version>3.0.1-b11</javax.el.version>
-        <javax.persistence.version>2.2</javax.persistence.version>
-        <jaxb.version>2.3.0</jaxb.version>
-        <log4j.version>2.19.0</log4j.version>
+        <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+        <hibernate.version>6.2.7.Final</hibernate.version>
         <mysql.version>6.0.6</mysql.version>
-        <slf4j.version>1.7.35</slf4j.version>
-        <spotbugs.version>4.0.0</spotbugs.version>
-        <spring.version>5.3.27</spring.version>
-        <testng.version>7.7.0</testng.version>
-        <validation-api.version>2.0.1.Final</validation-api.version>
+        <persistence-api.version>3.1.0</persistence-api.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <spring.version>6.0.11</spring.version>
+        <testng.version>7.8.0</testng.version>
+        <validation-api.version>3.0.2</validation-api.version>
 
+        <!-- Maven plugin versionss -->
         <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
-        <hibernate52.ddl.maven.plugin.version>2.1.0</hibernate52.ddl.maven.plugin.version>
+        <extra.enforcer.rules.version>1.5.1</extra.enforcer.rules.version>
+        <hibernate-jpa-schemagen.maven-plugin.version>6.2.1</hibernate-jpa-schemagen.maven-plugin.version>
         <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
-        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
-        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
-        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.enforcer.plugin.version>3.4.0</maven.enforcer.plugin.version>
+        <maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
         <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
@@ -94,22 +83,10 @@
 
     <dependencies>
 
-        <!-- FindBugs annotations - not needed at runtime -->
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Standard test dependencies -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.dellroad</groupId>
-            <artifactId>dellroad-stuff-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -132,15 +109,8 @@
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-reload4j</artifactId>
+                <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
-            </dependency>
-
-            <!-- JPA -->
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>javax.persistence-api</artifactId>
-                <version>${javax.persistence.version}</version>
             </dependency>
 
             <!-- AspectJ -->
@@ -150,39 +120,18 @@
                 <version>${aspectj.version}</version>
             </dependency>
 
-            <!-- Hibernate -->
+            <!-- JPA -->
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>javax.activation-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-hikaricp</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-jpamodelgen</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${javax.annotation-api.version}</version>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>${persistence-api.version}</version>
             </dependency>
 
-            <!-- JAXB -->
+            <!-- Hibernate -->
             <dependency>
-                <groupId>javax.xml.bind</groupId>
-                 <artifactId>jaxb-api</artifactId>
-                <version>${jaxb.version}</version>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
 
             <!-- H2 database -->
@@ -194,20 +143,14 @@
 
             <!-- Validation -->
             <dependency>
-                <groupId>javax.validation</groupId>
+                <groupId>jakarta.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate.validator.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>${javax.el.version}</version>
+                <version>${hibernate-validator.version}</version>
                 <optional>true</optional>
             </dependency>
 
@@ -241,13 +184,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-
-            <!-- FindBugs annotations -->
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>${findbugs.version}</version>
             </dependency>
 
             <!-- TestNG -->
@@ -318,6 +254,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven.enforcer.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>${extra.enforcer.rules.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>enforce-java</id>
@@ -329,7 +272,7 @@
 
                                 <!-- Enforce Java version -->
                                 <requireJavaVersion>
-                                    <version>[11,)</version>
+                                    <version>[${java.version},]</version>
                                 </requireJavaVersion>
 
                                 <!-- Check for dependency conflicts -->
@@ -339,6 +282,11 @@
                                 <!-- Other rules -->
                                 <reactorModuleConvergence/>
                                 <!-- <requireUpperBoundDeps/> -->
+
+                                <enforceBytecodeVersion>
+                                    <maxJdkVersion>${java.target.version}</maxJdkVersion>
+                                    <ignoredScopes>test</ignoredScopes>
+                                </enforceBytecodeVersion>
                             </rules>
                         </configuration>
                     </execution>
@@ -371,14 +319,14 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <release>8</release>
-                    <showWarnings>true</showWarnings>
-                    <compilerArgs>
-                        <arg>-Xlint:all,-processing,-path</arg>
-                        <arg>-Werror</arg>
-                    </compilerArgs>
+                    <release>${java.target.version}</release>
+                    <annotationProcessorPaths>
+                         <annotationProcessorPath>
+                             <groupId>org.hibernate</groupId>
+                             <artifactId>hibernate-jpamodelgen</artifactId>
+                             <version>${hibernate.version}</version>
+                         </annotationProcessorPath>
+                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
@@ -403,14 +351,9 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
                 <configuration>
-                    <source>8</source>
+                    <source>${java.target.version}</source>
+                    <doclint>-missing</doclint>
                     <notimestamp>true</notimestamp>
-                    <doclint>-reference</doclint>
-                    <links>
-                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
-                        <link>https://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
-                        <link>https://www.slf4j.org/apidocs/</link>
-                    </links>
                 </configuration>
                 <executions>
                     <execution>

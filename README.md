@@ -2,14 +2,14 @@
 
 QueryStream allows you to perform JPA queries using a `Stream`-like API.
 
-Just like a Java 8 `Stream`, a `QueryStream` is built up in a pipeline, using methods like `map()`, `flatMap()`, `filter()`, etc.
+Just like a Java `Stream`, a `QueryStream` is built up in a pipeline, using methods like `map()`, `flatMap()`, `filter()`, etc.
 
-Each step in a `QueryStream` pipeline modifies the construction of an internal [JPA Criteria query](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/package-summary.html).
+Each step in a `QueryStream` pipeline modifies the construction of an internal [JPA Criteria query](https://jakarta.ee/specifications/platform/10/apidocs/jakarta/persistence/criteria/package-summary.html).
 
 When you're ready to execute the pipeline:
 
-  1. Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html); or
-  1. Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/TypedQuery.html); or
+  1. Invoke `QueryStream.toCriteriaQuery()` to extract the [CriteriaQuery](https://jakarta.ee/specifications/platform/10/apidocs/jakarta/persistence/criteria/CriteriaQuery.html); or
+  1. Invoke `QueryStream.toQuery()` to do #1 and also create a [TypedQuery](https://jakarta.ee/specifications/platform/10/apidocs/jakarta/persistence/TypedQuery.html); or
   1. Invoke `QueryStream.getResultList()` or `QueryStream.getResultStream()` to do #1 and #2 execute the query
 
 ## Example
@@ -85,9 +85,9 @@ Bulk deletes and updates are also supported.
 
 The [QueryStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/QueryStream.html) interface has three subinterfaces for searches, bulk deletes, and bulk updates; these are [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream), [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream), and [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream).
 
- * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream.html) builds an internal [CriteriaQuery](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaQuery.html) instance
- * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream.html) builds an internal [CriteriaDelete](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaDelete.html) instance
- * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream.html) builds an internal [CriteriaUpdate](https://docs.oracle.com/javaee/7/api/?javax/persistence/criteria/CriteriaUpdate.html) instance
+ * A [SearchStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/SearchStream.html) builds an internal [CriteriaQuery](https://jakarta.ee/specifications/platform/10/apidocs/jakarta/persistence/criteria/CriteriaQuery.html) instance
+ * A [DeleteStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/DeleteStream.html) builds an internal [CriteriaDelete](https://jakarta.ee/specifications/platform/10/apidocs/jakarta/persistence/criteria/CriteriaDelete.html) instance
+ * An [UpdateStream](http://querystream.github.io/querystream/site/apidocs/index.html?org/dellroad/querystream/jpa/UpdateStream.html) builds an internal [CriteriaUpdate](https://jakarta.ee/specifications/platform/10/apidocs/jakarta/persistence/criteria/CriteriaUpdate.html) instance
 
 ## Single Values
 

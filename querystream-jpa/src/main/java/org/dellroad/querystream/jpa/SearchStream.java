@@ -5,6 +5,34 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.AbstractQuery;
+import jakarta.persistence.criteria.CollectionJoin;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.From;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.ListJoin;
+import jakarta.persistence.criteria.MapJoin;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
+import jakarta.persistence.criteria.SetJoin;
+import jakarta.persistence.metamodel.CollectionAttribute;
+import jakarta.persistence.metamodel.ListAttribute;
+import jakarta.persistence.metamodel.MapAttribute;
+import jakarta.persistence.metamodel.PluralAttribute;
+import jakarta.persistence.metamodel.SetAttribute;
+import jakarta.persistence.metamodel.SingularAttribute;
+
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -13,32 +41,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
-
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Parameter;
-import javax.persistence.TemporalType;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.AbstractQuery;
-import javax.persistence.criteria.CollectionJoin;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.From;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.ListJoin;
-import javax.persistence.criteria.MapJoin;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
-import javax.persistence.criteria.SetJoin;
-import javax.persistence.metamodel.CollectionAttribute;
-import javax.persistence.metamodel.ListAttribute;
-import javax.persistence.metamodel.MapAttribute;
-import javax.persistence.metamodel.PluralAttribute;
-import javax.persistence.metamodel.SetAttribute;
-import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.SearchType;
 
@@ -397,7 +399,7 @@ public interface SearchStream<X, S extends Selection<X>>
      * Invoke this method only when you know that the result stream contains at most one value, e.g., when searching
      * for an object by its value in a field with a unique constraint. If the stream actually contains multiple values,
      * then invoking any of the "single value" {@link SearchValue} methods such as {@link SearchValue#value value()} or
-     * {@link SearchValue#toOptional toOptional()} will generate a {@link javax.persistence.NonUniqueResultException}.
+     * {@link SearchValue#toOptional toOptional()} will generate a {@link NonUniqueResultException}.
      *
      * <p>
      * Using this method is preferable to using {@link #findFirst} or {@link #findAny} for the same purpose, because it
@@ -751,9 +753,9 @@ public interface SearchStream<X, S extends Selection<X>>
      *
      * <p>
      * This method provides support for multiple selection using
-     * {@link javax.persistence.criteria.CriteriaBuilder#array CriteriaBuilder.array()},
-     * {@link javax.persistence.criteria.CriteriaBuilder#construct CriteriaBuilder.construct()}, or
-     * {@link javax.persistence.criteria.CriteriaBuilder#tuple CriteriaBuilder.tuple()}.
+     * {@link CriteriaBuilder#array CriteriaBuilder.array()},
+     * {@link CriteriaBuilder#construct CriteriaBuilder.construct()}, or
+     * {@link CriteriaBuilder#tuple CriteriaBuilder.tuple()}.
      * For normal single selection, typically you would use {@link SearchStream#map SearchStream.map()} instead of this method.
      *
      * @param type selection type

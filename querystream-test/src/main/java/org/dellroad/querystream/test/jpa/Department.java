@@ -3,13 +3,13 @@
  * Copyright (C) 2018 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.querystream.jpa.test;
+package org.dellroad.querystream.test.jpa;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Department extends AbstractPersistent {

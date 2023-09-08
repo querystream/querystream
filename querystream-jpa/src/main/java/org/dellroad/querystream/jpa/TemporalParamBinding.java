@@ -5,8 +5,8 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.Parameter;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.TemporalType;
 
 abstract class TemporalParamBinding<T> extends ParamBinding<T> {
 

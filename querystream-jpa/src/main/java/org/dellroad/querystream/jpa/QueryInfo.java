@@ -5,6 +5,13 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.criteria.CriteriaQuery;
+
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -16,15 +23,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Parameter;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-
 /**
- * Captures the information applied to the {@link javax.persistence.Query} instead of the
- * {@link javax.persistence.criteria.CriteriaQuery}.
+ * Captures the information applied to the {@link Query} instead of the {@link CriteriaQuery}.
  *
  * <p>
  * Instances are more or less immutable.

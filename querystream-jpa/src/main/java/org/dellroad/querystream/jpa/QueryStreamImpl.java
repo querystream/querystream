@@ -5,6 +5,20 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.criteria.CommonAbstractCriteria;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Selection;
+import jakarta.persistence.metamodel.SingularAttribute;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -13,20 +27,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Parameter;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.CommonAbstractCriteria;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Selection;
-import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.QueryType;
 import org.slf4j.Logger;
@@ -52,8 +52,8 @@ abstract class QueryStreamImpl<X,
     private static final ThreadLocal<QueryInfo> THREAD_QUERY_INFO = new ThreadLocal<>();        // current Query info
     private static final ThreadLocal<CurrentQuery> THREAD_CURRENT_QUERY = new ThreadLocal<>();  // current CriteriaQuery info
 
-    private static final String LOAD_GRAPH_HINT = "javax.persistence.loadgraph";
-    private static final String FETCH_GRAPH_HINT = "javax.persistence.fetchgraph";
+    private static final String LOAD_GRAPH_HINT = "jakarta.persistence.loadgraph";
+    private static final String FETCH_GRAPH_HINT = "jakarta.persistence.fetchgraph";
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 

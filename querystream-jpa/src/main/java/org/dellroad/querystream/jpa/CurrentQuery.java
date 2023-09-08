@@ -5,9 +5,9 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.criteria.CommonAbstractCriteria;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Subquery;
+import jakarta.persistence.criteria.CommonAbstractCriteria;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Subquery;
 
 /**
  * Holds the current Criteria API query object under construction while a stream is being realized by

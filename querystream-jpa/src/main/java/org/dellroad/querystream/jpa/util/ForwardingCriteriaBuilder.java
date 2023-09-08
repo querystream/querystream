@@ -5,29 +5,32 @@
 
 package org.dellroad.querystream.jpa.util;
 
+import jakarta.persistence.Tuple;
+import jakarta.persistence.criteria.CollectionJoin;
+import jakarta.persistence.criteria.CompoundSelection;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.ListJoin;
+import jakarta.persistence.criteria.MapJoin;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.ParameterExpression;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
+import jakarta.persistence.criteria.SetJoin;
+import jakarta.persistence.criteria.Subquery;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-import javax.persistence.Tuple;
-import javax.persistence.criteria.CollectionJoin;
-import javax.persistence.criteria.CompoundSelection;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.ListJoin;
-import javax.persistence.criteria.MapJoin;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
-import javax.persistence.criteria.SetJoin;
-import javax.persistence.criteria.Subquery;
 
 /**
  * {@link CriteriaBuilder} that forwards all methods to a delegate {@linkplain #getCriteriaBuilder provided} by the subclass.
@@ -1000,6 +1003,76 @@ public abstract class ForwardingCriteriaBuilder implements CriteriaBuilder {
         this.nullCheck("type", type);
         return this.getCriteriaBuilder().treat(root, type);
     }
+
+// JAVAEE 10
+
+    @Override
+    public Expression<LocalDate> localDate() {
+        return this.getCriteriaBuilder().localDate();
+    }
+
+    @Override
+    public Expression<LocalDateTime> localDateTime() {
+        return this.getCriteriaBuilder().localDateTime();
+    }
+
+    @Override
+    public Expression<LocalTime> localTime() {
+        return this.getCriteriaBuilder().localTime();
+    }
+
+    @Override
+    public <N extends Number> Expression<N> round(Expression<N> x, Integer n) {
+        this.nullCheck("x", x);
+        this.nullCheck("n", n);
+        return this.getCriteriaBuilder().round(x, n);
+    }
+
+    @Override
+    public Expression<Integer> sign(Expression<? extends Number> x) {
+        this.nullCheck("x", x);
+        return this.getCriteriaBuilder().sign(x);
+    }
+
+    @Override
+    public <N extends Number> Expression<N> floor(Expression<N> x) {
+        this.nullCheck("x", x);
+        return this.getCriteriaBuilder().floor(x);
+    }
+
+    @Override
+    public <N extends Number> Expression<N> ceiling(Expression<N> x) {
+        this.nullCheck("x", x);
+        return this.getCriteriaBuilder().ceiling(x);
+    }
+
+    @Override
+    public Expression<Double> exp(Expression<? extends Number> x) {
+        this.nullCheck("x", x);
+        return this.getCriteriaBuilder().exp(x);
+    }
+
+    @Override
+    public Expression<Double> ln(Expression<? extends Number> x) {
+        this.nullCheck("x", x);
+        return this.getCriteriaBuilder().ln(x);
+    }
+
+    @Override
+    public Expression<Double> power(Expression<? extends Number> x, Expression<? extends Number> y) {
+        this.nullCheck("x", x);
+        this.nullCheck("y", y);
+        return this.getCriteriaBuilder().power(x, y);
+    }
+
+    @Override
+    public Expression<Double> power(Expression<? extends Number> x, Number y) {
+        this.nullCheck("x", x);
+        this.nullCheck("y", y);
+        return this.getCriteriaBuilder().power(x, y);
+    }
+
+// Internal Methods
 
     private void nullCheck(String name, Object value) {
         if (value == null)

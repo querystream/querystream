@@ -5,6 +5,16 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Selection;
+import jakarta.persistence.metamodel.SingularAttribute;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -12,16 +22,6 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.Parameter;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Selection;
-import javax.persistence.metamodel.SingularAttribute;
 
 /**
  * A {@link SearchStream} that is guaranteed to return at most a single result.

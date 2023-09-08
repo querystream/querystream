@@ -8,13 +8,13 @@
     <parent>
         <groupId>org.dellroad</groupId>
         <artifactId>querystream</artifactId>
-        <version>1.2.3</version>
+        <version>2.0.0</version>
     </parent>
     <artifactId>querystream-test</artifactId>
     <name>Test model classes for QueryStream</name>
     <description>Test model classes for QueryStream</description>
     <properties>
-        <automatic.module.name>org.dellroad.querystream.jpa.test</automatic.module.name>
+        <automatic.module.name>org.dellroad.querystream.test</automatic.module.name>
     </properties>
     <distributionManagement>
         <site>
@@ -24,18 +24,8 @@
     </distributionManagement>
     <dependencies>
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -43,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-reload4j</artifactId>
+            <artifactId>slf4j-simple</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -51,33 +41,24 @@
 
             <!-- Generate DDL for test model classes -->
             <plugin>
-                <groupId>de.jpdigital</groupId>
-                <artifactId>hibernate52-ddl-maven-plugin</artifactId>
-                <version>${hibernate52.ddl.maven.plugin.version}</version>
-                <configuration>
-                    <dialects>
-                        <param>h2</param>
-                    </dialects>
-                    <packages>
-                        <param>org.dellroad.querystream.jpa.model</param>
-                    </packages>
-                    <outputDirectory>${project.build.outputDirectory}/META-INF/${project.artifactId}</outputDirectory>
-                </configuration>
+                <groupId>org.dellroad</groupId>
+                <artifactId>hibernate-jpa-schemagen</artifactId>
+                <version>${hibernate-jpa-schemagen.maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>schema_verify</id>
+                        <configuration>
+                            <drop>true</drop>
+                            <jpaUnit>test</jpaUnit>
+                            <removePersistenceXml>true</removePersistenceXml>
+                            <outputFile>${project.build.outputDirectory}/META-INF/${project.artifactId}/h2.sql</outputFile>
+                            <verifyFile>${project.basedir}/src/schema/expected.sql</verifyFile>
+                        </configuration>
                         <goals>
-                            <goal>gen-ddl</goal>
+                            <goal>export-jpa-schema</goal>
                         </goals>
-                        <phase>process-classes</phase>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                         <artifactId>jaxb-api</artifactId>
-                        <version>${jaxb.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -5,7 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.criteria.Path;
+import jakarta.persistence.criteria.Path;
 
 /**
  * A {@link Ref} that's known to be a {@link Path}.

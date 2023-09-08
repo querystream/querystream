@@ -5,7 +5,7 @@
 
 package org.dellroad.querystream.jpa;
 
-import javax.persistence.criteria.Selection;
+import jakarta.persistence.criteria.Selection;
 
 class AbstractRef<X, S extends Selection<X>> implements Ref<X, S> {
 

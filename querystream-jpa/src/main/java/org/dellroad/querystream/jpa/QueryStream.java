@@ -5,31 +5,36 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.criteria.CollectionJoin;
+import jakarta.persistence.criteria.CommonAbstractCriteria;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.From;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.ListJoin;
+import jakarta.persistence.criteria.MapJoin;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
+import jakarta.persistence.criteria.SetJoin;
+import jakarta.persistence.criteria.Subquery;
+import jakarta.persistence.metamodel.SingularAttribute;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Parameter;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.CollectionJoin;
-import javax.persistence.criteria.CommonAbstractCriteria;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.From;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.ListJoin;
-import javax.persistence.criteria.MapJoin;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
-import javax.persistence.criteria.SetJoin;
-import javax.persistence.metamodel.SingularAttribute;
 
 import org.dellroad.querystream.jpa.querytype.QueryType;
 import org.dellroad.querystream.jpa.querytype.SearchType;
@@ -73,7 +78,7 @@ public interface QueryStream<X,
      *
      * <p>
      * Note that due to limitations of the JPA Criteria API, the returned query object lacks information that is configured
-     * on the {@link Query} object and not the {@link javax.persistence.criteria.CriteriaQuery} object, including
+     * on the {@link Query} object and not the {@link CriteriaQuery} object, including
      * {@linkplain #getLockMode lock mode}, {@linkplain #withHint hints}, {@linkplain #withParam parameters},
      * row {@linkplain #getFirstResult offset} and {@linkplain #getMaxResults limit}, etc.
      *
@@ -182,7 +187,7 @@ public interface QueryStream<X,
      *
      * @return configured parameter bindings, if any, otherwise an empty set
      * @return immutable set of parameter bindings
-     * @see Query#setParameter(javax.persistence.Parameter, Object)
+     * @see Query#setParameter(Parameter, Object)
      */
     Set<ParamBinding<?>> getParams();
 
@@ -197,7 +202,7 @@ public interface QueryStream<X,
      * @param <T> parameter value type
      * @return new stream with the specified parameter value set
      * @throws IllegalArgumentException if {@code parameter} is null
-     * @see Query#setParameter(javax.persistence.Parameter, Object)
+     * @see Query#setParameter(Parameter, Object)
      */
     <T> QueryStream<X, S, C, C2, Q> withParam(Parameter<T> parameter, T value);
 
@@ -212,7 +217,7 @@ public interface QueryStream<X,
      * @param temporalType temporal type for {@code value}
      * @return new stream with the specified parameter value set
      * @throws IllegalArgumentException if {@code parameter} or {@code temporalType} is null
-     * @see Query#setParameter(javax.persistence.Parameter, Date, TemporalType)
+     * @see Query#setParameter(Parameter, Date, TemporalType)
      */
     QueryStream<X, S, C, C2, Q> withParam(Parameter<Date> parameter, Date value, TemporalType temporalType);
 
@@ -227,7 +232,7 @@ public interface QueryStream<X,
      * @param temporalType temporal type for {@code value}
      * @return new stream with the specified parameter value set
      * @throws IllegalArgumentException if {@code parameter} or {@code temporalType} is null
-     * @see Query#setParameter(javax.persistence.Parameter, Calendar, TemporalType)
+     * @see Query#setParameter(Parameter, Calendar, TemporalType)
      */
     QueryStream<X, S, C, C2, Q> withParam(Parameter<Calendar> parameter, Calendar value, TemporalType temporalType);
 
@@ -241,7 +246,7 @@ public interface QueryStream<X,
      * @return new stream with the specified parameter bindings added
      * @throws IllegalArgumentException if {@code params} or any contained element is null
      * @throws IllegalArgumentException if {@code params} contains duplicate bindings for the same parameter
-     * @see Query#setParameter(javax.persistence.Parameter, Object)
+     * @see Query#setParameter(Parameter, Object)
      */
     QueryStream<X, S, C, C2, Q> withParams(Iterable<? extends ParamBinding<?>> params);
 
@@ -249,7 +254,7 @@ public interface QueryStream<X,
      * Configure a load graph for this query.
      *
      * <p>
-     * Equivalent to {@link #withHint withHint}{@code ("javax.persistence.loadgraph", name)}.
+     * Equivalent to {@link #withHint withHint}{@code ("jakarta.persistence.loadgraph", name)}.
      *
      * @param name name of load graph
      * @return new stream with the specified load graph configured
@@ -261,7 +266,7 @@ public interface QueryStream<X,
      * Configure a fetch graph for this query.
      *
      * <p>
-     * Equivalent to {@link #withHint withHint}{@code ("javax.persistence.fetchgraph", name)}.
+     * Equivalent to {@link #withHint withHint}{@code ("jakarta.persistence.fetchgraph", name)}.
      *
      * @param name name of fetch graph
      * @return new stream with the specified fetch graph configured
@@ -650,13 +655,12 @@ public interface QueryStream<X,
          * Access the current Criteria API query under construction.
          *
          * <p>
-         * This method provides a way to access the current {@link javax.persistence.criteria.CriteriaQuery},
-         * {@link javax.persistence.criteria.CriteriaUpdate}, {@link javax.persistence.criteria.CriteriaDelete},
-         * or {@link javax.persistence.criteria.Subquery} currently being constructed.
+         * This method provides a way to access the current {@link CriteriaQuery}, {@link CriteriaUpdate}, {@link CriteriaDelete},
+         * or {@link Subquery} currently being constructed.
          *
          * <p>
          * This is useful (for example) when implementing a {@link #filter(Function)} function using the traditional
-         * JPA Criteria API and you need to create a {@link javax.persistence.criteria.Subquery}:
+         * JPA Criteria API and you need to create a {@link Subquery}:
          * <pre>
          *  List&lt;String&gt; names = qb.stream(Teacher.class)
          *    .filter(teacher -&gt; {
@@ -713,9 +717,9 @@ public interface QueryStream<X,
          * <p>
          * This method addresses an inconvenience in the JPA Criteria API, which is that parameters are (a) used (i.e., within
          * some Criteria API expression) and (b) bound (i.e., assigned a value) at two separate stages of query construction:
-         * parameters are used in the context of building a Criteria API {@link javax.persistence.criteria.Predicate}, but the
-         * value of the parameter can only be bound once the overall {@link Query} has been constructed. Often these two steps
-         * are implemented at different places in the code.
+         * parameters are used in the context of building a Criteria API {@link Predicate}, but the value of the parameter
+         * can only be bound once the overall {@link Query} has been constructed. Often these two steps are implemented
+         * at different places in the code.
          *
          * <p>
          * This method allows the value of the parameter to be bound at the same time it is used. It simply remembers the

@@ -5,8 +5,17 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.ParameterExpression;
+import jakarta.persistence.criteria.Root;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,24 +25,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
-
-import org.dellroad.querystream.jpa.test.Employee;
-import org.dellroad.querystream.jpa.test.Employee_;
-import org.dellroad.stuff.test.TestSupport;
+import org.dellroad.querystream.test.io.CapturePrintStream;
+import org.dellroad.querystream.test.jpa.Employee;
+import org.dellroad.querystream.test.jpa.Employee_;
 import org.hibernate.Session;
-import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
@@ -45,9 +47,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class QueryTest extends TestSupport {
+public class QueryTest {
+
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ClassPathXmlApplicationContext context;
+    private Random random = new Random();
 
     @Value("classpath:META-INF/querystream-test/h2.sql")
     private Resource initialDDL;
@@ -59,22 +64,41 @@ public class QueryTest extends TestSupport {
 // Tests
 
     @Test(dataProvider = "testQueries")
-    @Transactional
     public void testQueries(TestCase testCase) throws Exception {
 
-        // Get generated SQL query
-        String actual = this.toSQL(testCase.getStream().toQuery());
+        // Execute query, while capturing Hibernate's logging
+        final byte[] capture;
+        final PrintStream originalOut = System.out;
+        try (CapturePrintStream captureOut = CapturePrintStream.of(originalOut)) {
+            captureOut.startCapture();
+            System.setOut(captureOut);
+            this.runQuery(testCase);
+            System.out.flush();
+            capture = captureOut.stopCapture();
+        } finally {
+            System.setOut(originalOut);
+        }
 
-        // Normalize
-        actual = actual.trim().replaceAll("\\s+", " ");
-        final String expected = testCase.getSQL().trim().replaceAll("\\s+", " ");
-        this.log.info("SQL: " + new BasicFormatterImpl().format(actual));
+        // Grab and massage Hibernate SQL output and expected output
+        final String actual = new String(capture);
+        final String actualNormalized = actual.replaceAll("^Hibernate:", "").replaceAll("(?s)\\s+", " ").trim();
+        final String expected = testCase.getSQL();
+        final String expectedNormalized = expected.replaceAll("(?s)\\s+", " ").trim();
+
+        //this.log.info("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+        //this.log.info("EXPECTED SQL:");
+        //this.log.info(expected);
+        //this.log.info("ACTUAL SQL:");
+        //this.log.info(actual);
+        //this.log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 
         // Compare generated SQL to expected
-        Assert.assertEquals(actual, expected);
+        Assert.assertEquals(actualNormalized, expectedNormalized);
+    }
 
-        // Execute query
-        final QueryStream<?, ?, ?, ?, ?> stream = testCase.getStream();
+    @Transactional
+    public void runQuery(TestCase testCase) throws Exception {
+        final QueryStream<?, ?, ?, ?, ?> stream = testCase.getQueryStream();
         if (stream instanceof SearchStream)
             ((SearchStream<?, ?>)stream).getResultList().size();
         else if (stream instanceof UpdateStream)
@@ -91,18 +115,47 @@ public class QueryTest extends TestSupport {
 
         // Find all employees
         new TestCase(() -> this.qb.stream(Employee.class),
-          "select generatedAlias0 from Employee as generatedAlias0"),
+            ""
++ "         select"
++ "             e1_0.id,"
++ "             e1_0.department_id,"
++ "             e1_0.manager_id,"
++ "             e1_0.name,"
++ "             e1_0.salary,"
++ "             e1_0.seniority,"
++ "             e1_0.startDate "
++ "         from"
++ "             Employee e1_0"
+        ),
 
         // Find all employees with salary > 50k
         new TestCase(() -> this.qb.stream(Employee.class)
           .filter(e -> this.qb.gt(e.get(Employee_.salary), 50000.0f)),
-          "select generatedAlias0 from Employee as generatedAlias0 where generatedAlias0.salary>50000.0F"),
+            ""
++ "         select"
++ "             e1_0.id,"
++ "             e1_0.department_id,"
++ "             e1_0.manager_id,"
++ "             e1_0.name,"
++ "             e1_0.salary,"
++ "             e1_0.seniority,"
++ "             e1_0.startDate"
++ "         from"
++ "             Employee e1_0"
++ "         where"
++ "             e1_0.salary>?"
+        ),
 
         // Find average salary of all employess
         new TestCase(() -> this.qb.stream(Employee.class)
           .mapToDouble(Employee_.salary)
           .average(),
-          "select avg(generatedAlias0.salary) from Employee as generatedAlias0"),
+            ""
++ "         select"
++ "             avg(cast(e1_0.salary as float(53))) "
++ "         from"
++ "             Employee e1_0"
+        ),
 
         // Find all employess with salary greater than the average for their department
         new TestCase(() -> this.qb.stream(Employee.class)
@@ -113,10 +166,29 @@ public class QueryTest extends TestSupport {
               .mapToDouble(Employee_.salary)
               .average()
               .asSubquery())),
-          "select generatedAlias0 from Employee as generatedAlias0"
-            + " where generatedAlias0.salary>( "
-            + "select avg(generatedAlias1.salary) from Employee as generatedAlias1"
-            + " where generatedAlias1.department=generatedAlias0.department )"),
+            ""
++ "         select"
++ "             e1_0.id,"
++ "             e1_0.department_id,"
++ "             e1_0.manager_id,"
++ "             e1_0.name,"
++ "             e1_0.salary,"
++ "             e1_0.seniority,"
++ "             e1_0.startDate "
++ "         from"
++ "             Employee e1_0 "
++ "         where"
++ "             e1_0.salary>("
++ "                 select"
++ "                     avg(cast(e2_0.salary as float(53))) "
++ "                 from"
++ "                     Employee e2_0,"
++ "                     Department d3_0 "
++ "                 where"
++ "                     d3_0.id=e1_0.department_id "
++ "                     and e2_0.department_id=e1_0.department_id"
++ "             )"
+        ),
 
         // Find all employees whose manager has a direct report named "fred" using subquery
         new TestCase(() -> {
@@ -127,11 +199,30 @@ public class QueryTest extends TestSupport {
                                     .filter(report -> this.qb.equal(report.get(Employee_.name), "fred"))
                                     .exists());
           },
-          "select generatedAlias0 from Employee as generatedAlias0"
-            + " where exists ( "
-            + "select generatedAlias1 from Employee as generatedAlias2"
-            + " inner join generatedAlias2.directReports as generatedAlias1"
-            + " where ( generatedAlias2=generatedAlias0.manager ) and ( generatedAlias1.name=:param0 ) )"),
+            ""
++ "         select"
++ "             e1_0.id,"
++ "             e1_0.department_id,"
++ "             e1_0.manager_id,"
++ "             e1_0.name,"
++ "             e1_0.salary,"
++ "             e1_0.seniority,"
++ "             e1_0.startDate "
++ "         from"
++ "             Employee e1_0 "
++ "         where"
++ "             exists(select"
++ "                 d2_0.id "
++ "             from"
++ "                 Employee e2_0 "
++ "             join"
++ "                 Employee d2_0 "
++ "                     on e2_0.id=d2_0.manager_id,Employee m2_0 "
++ "             where"
++ "                 m2_0.id=e1_0.manager_id "
++ "                 and e2_0.id=e1_0.manager_id "
++ "                 and d2_0.name=?)"
+        ),
 
         // Find all employees whose manager has a direct report named "fred" using substream()
         new TestCase(() -> {
@@ -142,11 +233,29 @@ public class QueryTest extends TestSupport {
                                     .filter(report -> this.qb.equal(report.get(Employee_.name), "fred"))
                                     .exists());
           },
-          "select generatedAlias0 from Employee as generatedAlias0"
-           + " where exists ( "
-           + "select generatedAlias1 from generatedAlias0.manager as generatedAlias2"
-           + " inner join generatedAlias2.directReports as generatedAlias1"
-           + " where generatedAlias1.name=:param0 )"),
+            ""
++ "         select"
++ "             e1_0.id,"
++ "             e1_0.department_id,"
++ "             e1_0.manager_id,"
++ "             e1_0.name,"
++ "             e1_0.salary,"
++ "             e1_0.seniority,"
++ "             e1_0.startDate "
++ "         from"
++ "             Employee e1_0 "
++ "         where"
++ "             exists(select"
++ "                 d2_0.id "
++ "             from"
++ "                 Employee m2_0 "
++ "             join"
++ "                 Employee d2_0 "
++ "                     on m2_0.id=d2_0.manager_id "
++ "             where"
++ "                 d2_0.name=? "
++ "                 and m2_0.id=e1_0.manager_id)"
+        ),
 
         // Find all managers paired with the average salary of their direct reports
         // where the average salary is at least 50k, sorted by average salary descending
@@ -164,15 +273,44 @@ public class QueryTest extends TestSupport {
               .mapToSelection(Object[].class, e -> this.qb.array(managerRef.get(), avgSalaryRef.get()))
               .orderBy(avgSalaryRef, false);
           },
-          "select generatedAlias0, avg(generatedAlias1.salary) from Employee as generatedAlias0"
-            + " inner join generatedAlias0.directReports as generatedAlias1"
-            + " group by generatedAlias0 having avg(generatedAlias1.salary)>50000.0D"
-            + " order by avg(generatedAlias1.salary) desc"),
+            ""
++ "         select"
++ "             e1_0.id c0,"
++ "             e1_0.department_id c1,"
++ "             e1_0.manager_id c2,"
++ "             e1_0.name c3,"
++ "             e1_0.salary c4,"
++ "             e1_0.seniority c5,"
++ "             e1_0.startDate c6,"
++ "             avg(cast(d1_0.salary as float(53))) c7 "
++ "         from"
++ "             Employee e1_0 "
++ "         join"
++ "             Employee d1_0 "
++ "                 on e1_0.id=d1_0.manager_id "
++ "         group by"
++ "             c0,"
++ "             c1,"
++ "             c2,"
++ "             c3,"
++ "             c4,"
++ "             c5,"
++ "             c6 "
++ "         having"
++ "             avg(cast(d1_0.salary as float(53)))>? "
++ "         order by"
++ "             8 desc"
+            ),
 
         // Count employees
         new TestCase(() -> this.qb.stream(Employee.class)
             .count(),
-          "select count(generatedAlias0) from Employee as generatedAlias0"),
+            ""
++ "         select"
++ "             count(e1_0.id) "
++ "         from"
++ "             Employee e1_0"
+            ),
 
         // Do a join with an ON clause
         // JPQL Ref: https://stackoverflow.com/questions/12394038/hql-with-clause-in-jpql
@@ -182,9 +320,28 @@ public class QueryTest extends TestSupport {
                     JoinType.LEFT,
                     join -> this.qb.gt(join.get(Employee_.salary), 50000));
           },
-          "select generatedAlias0 from Employee as generatedAlias1"
-            + " left join generatedAlias1.directReports as generatedAlias0"
-            + " with generatedAlias0.salary>50000.0F"),
+            ""
++ "         select"
++ "             d1_0.id,"
++ "             d1_0.department_id,"
++ "             e1_0.id,"
++ "             e1_0.department_id,"
++ "             e1_0.manager_id,"
++ "             e1_0.name,"
++ "             e1_0.salary,"
++ "             e1_0.seniority,"
++ "             e1_0.startDate,"
++ "             d1_0.name,"
++ "             d1_0.salary,"
++ "             d1_0.seniority,"
++ "             d1_0.startDate "
++ "         from"
++ "             Employee e1_0 "
++ "         left join"
++ "             Employee d1_0 "
++ "                 on e1_0.id=d1_0.manager_id "
++ "                 and d1_0.salary>?"
+            ),
 
         // Test mapToRef()
         new TestCase(() -> {
@@ -195,9 +352,29 @@ public class QueryTest extends TestSupport {
               .mapToRef(Employee.class, managerRef)
               .groupBy(managerRef);
           },
-          "select generatedAlias0 from Employee as generatedAlias0"
-            + " inner join generatedAlias0.directReports as generatedAlias1"
-            + " group by generatedAlias0"),
+            ""
++ "         select"
++ "             e1_0.id c0,"
++ "             e1_0.department_id c1,"
++ "             e1_0.manager_id c2,"
++ "             e1_0.name c3,"
++ "             e1_0.salary c4,"
++ "             e1_0.seniority c5,"
++ "             e1_0.startDate c6 "
++ "         from"
++ "             Employee e1_0 "
++ "         join"
++ "             Employee d1_0 "
++ "                 on e1_0.id=d1_0.manager_id "
++ "         group by"
++ "             c0,"
++ "             c1,"
++ "             c2,"
++ "             c3,"
++ "             c4,"
++ "             c5,"
++ "             c6"
+        )
 
         };
 
@@ -450,8 +627,8 @@ public class QueryTest extends TestSupport {
 
     @Test
     public void testSubquerySameParam2() throws Exception {
-        final ParameterExpression<String> nameParam1 = this.qb.parameter(String.class, "name");
-        final ParameterExpression<String> nameParam2 = this.qb.parameter(String.class, "name");
+        final ParameterExpression<String> nameParam1 = this.qb.parameter(String.class, "name1");
+        final ParameterExpression<String> nameParam2 = this.qb.parameter(String.class, "name2");
         this.qb.stream(Employee.class)
           .filter(e -> qb.substream(e)
                         .flatMap(Employee_.directReports)
@@ -526,19 +703,13 @@ public class QueryTest extends TestSupport {
             this.sql = sql;
         }
 
-        public QueryStream<?, ?, ?, ?, ?> getStream() {
+        public QueryStream<?, ?, ?, ?, ?> getQueryStream() {
             return this.query.get();
         }
 
         public String getSQL() {
             return this.sql;
         }
-    }
-
-// SQL decoder
-
-    public String toSQL(Query query) {
-        return new BasicFormatterImpl().format(query.unwrap(org.hibernate.query.Query.class).getQueryString());
     }
 
 // Test Lifecycle

@@ -4,6 +4,6 @@
  */
 
 /**
- * Test model classes.
+ * I/O classes.
  */
-package org.dellroad.querystream.jpa.test;
+package org.dellroad.querystream.test.io;

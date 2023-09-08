@@ -5,16 +5,16 @@
 
 package org.dellroad.querystream.jpa;
 
-import java.util.Date;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
 
-import javax.persistence.Parameter;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
+import java.util.Date;
 
 /**
  * Represents the binding of a {@link Date} value to a {@link Parameter}.
  *
- * @see Query#setParameter(javax.persistence.Parameter, Date, TemporalType)
+ * @see Query#setParameter(Parameter, Date, TemporalType)
  */
 public class DateParamBinding extends TemporalParamBinding<Date> {
 

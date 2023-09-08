@@ -5,25 +5,26 @@
 
 package org.dellroad.querystream.jpa;
 
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Parameter;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
+import jakarta.persistence.metamodel.PluralAttribute;
+import jakarta.persistence.metamodel.SingularAttribute;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Parameter;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
-import javax.persistence.metamodel.PluralAttribute;
-import javax.persistence.metamodel.SingularAttribute;
 
 /**
  * {@link SearchStream} containing items representable as {@link Path}s.
@@ -36,7 +37,7 @@ public interface PathStream<X, S extends Path<X>> extends ExprStream<X, S> {
      * @param type new, narrower item type
      * @param <Y> narrower type
      * @return recast stream
-     * @see javax.persistence.criteria.CriteriaBuilder#treat(Path, Class) CriteriaBuilder.treat()
+     * @see CriteriaBuilder#treat(Path, Class) CriteriaBuilder.treat()
      */
     <Y extends X> PathStream<Y, ? extends Path<Y>> cast(Class<Y> type);
 
