@@ -480,7 +480,7 @@
                     <doclint>-reference</doclint>
                     <aggregate>true</aggregate>
                     <links>
-                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>https://jakarta.ee/specifications/platform/10/apidocs/</link>
                         <link>https://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
                         <link>https://www.slf4j.org/apidocs/</link>
                     </links>
