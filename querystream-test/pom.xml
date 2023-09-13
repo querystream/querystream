@@ -48,11 +48,10 @@
                     <execution>
                         <id>schema_verify</id>
                         <configuration>
-                            <drop>true</drop>
-                            <jpaUnit>test</jpaUnit>
-                            <removePersistenceXml>true</removePersistenceXml>
+                            <dialect>org.hibernate.dialect.H2Dialect</dialect>
                             <outputFile>${project.build.outputDirectory}/META-INF/${project.artifactId}/h2.sql</outputFile>
                             <verifyFile>${project.basedir}/src/schema/expected.sql</verifyFile>
+                            <drop>true</drop>
                         </configuration>
                         <goals>
                             <goal>export-jpa-schema</goal>

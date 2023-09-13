@@ -63,7 +63,7 @@
         <!-- Maven plugin versionss -->
         <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
         <extra.enforcer.rules.version>1.5.1</extra.enforcer.rules.version>
-        <hibernate-jpa-schemagen.maven-plugin.version>6.2.1</hibernate-jpa-schemagen.maven-plugin.version>
+        <hibernate-jpa-schemagen.maven-plugin.version>6.2.2</hibernate-jpa-schemagen.maven-plugin.version>
         <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.enforcer.plugin.version>3.4.0</maven.enforcer.plugin.version>
