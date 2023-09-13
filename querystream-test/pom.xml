@@ -61,7 +61,6 @@
                             <dialect>org.hibernate.dialect.H2Dialect</dialect>
                             <outputFile>${project.build.outputDirectory}/META-INF/${project.artifactId}/h2.sql</outputFile>
                             <verifyFile>${project.basedir}/src/schema/expected.sql</verifyFile>
-                            <removePersistenceXml>false</removePersistenceXml>
                             <drop>true</drop>
                         </configuration>
                         <goals>
