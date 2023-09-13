@@ -42,12 +42,14 @@
     <properties>
 
         <!-- Basic stuff -->
+        <java.version>11</java.version>
+        <java.target.version>8</java.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
 
         <!-- Dependency versions -->
         <aspectj.version>1.9.9.1</aspectj.version>
-        <dellroad-stuff.version>2.5.9</dellroad-stuff.version>
+        <dellroad-stuff.version>2.5.10</dellroad-stuff.version>
         <findbugs.version>3.0.2</findbugs.version>
         <h2.version>2.2.220</h2.version>
         <hibernate.validator.version>6.2.3.Final</hibernate.validator.version>
@@ -73,12 +75,14 @@
         <testng.version>7.7.0</testng.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
 
+        <!-- Maven plugin versionss -->
         <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
-        <hibernate52.ddl.maven.plugin.version>2.1.0</hibernate52.ddl.maven.plugin.version>
+        <extra.enforcer.rules.version>1.5.1</extra.enforcer.rules.version>
+        <hibernate-jpa-schemagen.maven-plugin.version>5.6.2</hibernate-jpa-schemagen.maven-plugin.version>
         <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
-        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
-        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
-        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.enforcer.plugin.version>3.4.0</maven.enforcer.plugin.version>
+        <maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
         <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
@@ -318,6 +322,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven.enforcer.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>${extra.enforcer.rules.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>enforce-java</id>
@@ -329,7 +340,7 @@
 
                                 <!-- Enforce Java version -->
                                 <requireJavaVersion>
-                                    <version>[11,)</version>
+                                    <version>[${java.version},]</version>
                                 </requireJavaVersion>
 
                                 <!-- Check for dependency conflicts -->
@@ -339,6 +350,11 @@
                                 <!-- Other rules -->
                                 <reactorModuleConvergence/>
                                 <!-- <requireUpperBoundDeps/> -->
+
+                                <enforceBytecodeVersion>
+                                    <maxJdkVersion>${java.target.version}</maxJdkVersion>
+                                    <ignoredScopes>test</ignoredScopes>
+                                </enforceBytecodeVersion>
                             </rules>
                         </configuration>
                     </execution>
@@ -371,9 +387,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <release>8</release>
+                    <release>${java.target.version}</release>
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>-Xlint:all,-processing,-path</arg>
@@ -403,7 +417,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
                 <configuration>
-                    <source>8</source>
+                    <source>${java.target.version}</source>
                     <notimestamp>true</notimestamp>
                     <doclint>-reference</doclint>
                     <links>

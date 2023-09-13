@@ -51,33 +51,24 @@
 
             <!-- Generate DDL for test model classes -->
             <plugin>
-                <groupId>de.jpdigital</groupId>
-                <artifactId>hibernate52-ddl-maven-plugin</artifactId>
-                <version>${hibernate52.ddl.maven.plugin.version}</version>
-                <configuration>
-                    <dialects>
-                        <param>h2</param>
-                    </dialects>
-                    <packages>
-                        <param>org.dellroad.querystream.jpa.model</param>
-                    </packages>
-                    <outputDirectory>${project.build.outputDirectory}/META-INF/${project.artifactId}</outputDirectory>
-                </configuration>
+                <groupId>org.dellroad</groupId>
+                <artifactId>hibernate-jpa-schemagen</artifactId>
+                <version>${hibernate-jpa-schemagen.maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>schema_verify</id>
+                        <configuration>
+                            <dialect>org.hibernate.dialect.H2Dialect</dialect>
+                            <outputFile>${project.build.outputDirectory}/META-INF/${project.artifactId}/h2.sql</outputFile>
+                            <verifyFile>${project.basedir}/src/schema/expected.sql</verifyFile>
+                            <removePersistenceXml>false</removePersistenceXml>
+                            <drop>true</drop>
+                        </configuration>
                         <goals>
-                            <goal>gen-ddl</goal>
+                            <goal>export-jpa-schema</goal>
                         </goals>
-                        <phase>process-classes</phase>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                         <artifactId>jaxb-api</artifactId>
-                        <version>${jaxb.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
