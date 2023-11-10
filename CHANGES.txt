@@ -1,4 +1,4 @@
-Version 2.0.0
+Version 2.0.0 Released November 10, 2023
 
     - Update to Java 17, Jakarta EE 9, Spring 6.x, etc.
     - Utilize dellroad-dependencies for dependencies
