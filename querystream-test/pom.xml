@@ -43,7 +43,6 @@
             <plugin>
                 <groupId>org.dellroad</groupId>
                 <artifactId>hibernate-jpa-schemagen</artifactId>
-                <version>${hibernate-jpa-schemagen.maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>schema_verify</id>

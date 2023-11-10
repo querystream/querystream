@@ -1,6 +1,7 @@
 Version 2.0.0
 
-    - Update to Java EE 10 (javax.persistence -> jakarta.persistence, etc.)
+    - Update to Java 17, Jakarta EE 9, Spring 6.x, etc.
+    - Utilize dellroad-dependencies for dependencies
 
 Version 1.2.3 Released September 3, 2023
 
