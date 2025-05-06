@@ -54,6 +54,9 @@
         <!-- Dependency versions -->
         <testng.version>7.8.0</testng.version>
 
+        <!-- Plugin versions -->
+        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+
         <!-- Module -->
         <automatic.module.name>org.dellroad.querystream</automatic.module.name>
     </properties>
@@ -94,14 +97,6 @@
 
     <distributionManagement>
         <downloadUrl>https://github.com/archiecobbs/querystream</downloadUrl>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
         <site>
             <id>${project.artifactId}-site</id>
             <url>file://${project.basedir}/site/</url>
@@ -329,6 +324,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+
+            <!-- Deployment -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
             </plugin>
         </plugins>
         <extensions>
